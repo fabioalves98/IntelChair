@@ -1,0 +1,10 @@
+site_name: PEIDocs
+nav:
+    - Home: index.md
+    - Personas: personas.md
+    - Manual: manual.md
+    - Specification: spec.md
+    - Tests: test.md
+    - Developer: dev.md
+    - Team: team.md
+theme: readthedocs
