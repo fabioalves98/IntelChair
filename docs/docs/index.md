@@ -1,4 +1,4 @@
-# Welcome to PEIDocs
+# Welcome to Assistant Chair
 
 For full documentation visit [mkdocs.org](https://mkdocs.org).
 

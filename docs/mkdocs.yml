@@ -1,10 +1,12 @@
-site_name: PEIDocs
+site_name: Assistant Chair
 nav:
     - Home: index.md
-    - Personas: personas.md
+    - Client: client.md
+    - Vision: vision.md
     - Manual: manual.md
     - Specification: spec.md
-    - Tests: test.md
+    - Architecture: arch.md
+    - Requirements: requirements.md
     - Developer: dev.md
     - Team: team.md
 theme: readthedocs

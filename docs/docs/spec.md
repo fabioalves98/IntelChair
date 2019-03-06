@@ -1,11 +1,3 @@
 # Specification
 
-Han
-
-# Architecture
-
-Bob o construtor
-
-# Techical Cenas
-
-Ja vai
+aimed to provide a high level system specification - use cases, processes, features 

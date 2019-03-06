@@ -1,13 +1,3 @@
-# About
+# Team
 
-Equipe de 6 ursos que só querem putas e vinho verde
-
-![Team](img/team.jpg)
-
-# Logbook
-
-Aquela cena que vamos inventar na última semana
-
-# Timeline
-
-Aquela cena que é suposto dar diferente mas magicamente vai ficar igual para todos
+for project and team management containing weekly assessment of project evolution and project members efforts / contributions (e.g.. time m features, … )

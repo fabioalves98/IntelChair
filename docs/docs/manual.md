@@ -1,3 +1,3 @@
 # Manual
 
-PDF com o Manuel
+the manual of the system
