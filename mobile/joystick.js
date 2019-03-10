@@ -42,15 +42,21 @@ ros.on('connection', function() {
 console.log('Connected to websocket server.');
 });
 
-var pub = new ROSLIB.Topic({
-    ros : ros,
-    name : '/joystick',
-    messageType : 'std_msgs/String'
+// var pub = new ROSLIB.Topic({
+//     ros : ros,
+//     name : '/joystick',
+//     messageType : 'std_msgs/String'
+// });
+
+var pub_geometry = new ROSLIB.Topic({
+	ros: ros,
+	name: '/joystick',
+	messageType: 'geometry_msgs/Point'
 });
 
 setInterval(function(){
-	if (touch == true)
-	{
+	// if (touch == true)
+	// {
 		console.log('\n');
 		console.log('X : ' + joystick.deltaX());
 		console.log('Y : ' + joystick.deltaY());
@@ -58,9 +64,11 @@ setInterval(function(){
 
 		var coord = "X: " + joystick.deltaX() + " | Y: " + joystick.deltaY();
 
-		var twist = new ROSLIB.Message({
-    		data : coord,
-  		});
-  		pub.publish(twist);
-	}
+		var point = new ROSLIB.Message({
+			x: joystick.deltaX(),
+			y: joystick.deltaY(),
+			z: 0
+		  });
+		pub_geometry.publish(point);
+	// }
 }, 300);

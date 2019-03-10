@@ -1,1 +1,1 @@
-VirtualJoyStick lybrary -> https://github.com/jeromeetienne/virtualjoystick.js
+VirtualJoyStick library -> https://github.com/jeromeetienne/virtualjoystick.js
