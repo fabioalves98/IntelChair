@@ -8,7 +8,7 @@
   
   
   <link rel="shortcut icon" href="../img/favicon.ico">
-  <title>Dev - IntelChair</title>
+  <title>Client - IntelChair</title>
   <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
 
   <link rel="stylesheet" href="../css/theme.css" type="text/css" />
@@ -17,9 +17,9 @@
   
   <script>
     // Current page data
-    var mkdocs_page_name = "Dev";
-    var mkdocs_page_input_path = "dev.md";
-    var mkdocs_page_url = "/dev/";
+    var mkdocs_page_name = "Client";
+    var mkdocs_page_input_path = "client.md";
+    var mkdocs_page_url = "/client/";
   </script>
   
   <script src="../js/jquery-2.1.1.min.js"></script>
@@ -57,20 +57,34 @@
     <a class="" href="../about/">About</a>
 	    </li>
           
-            <li class="toctree-l1">
-		
-    <a class="" href="../client/">Client</a>
-	    </li>
-          
             <li class="toctree-l1 current">
 		
-    <a class="current" href="./">Dev</a>
+    <a class="current" href="./">Client</a>
     <ul class="subnav">
             
-    <li class="toctree-l2"><a href="#developer">Developer</a></li>
+    <li class="toctree-l2"><a href="#intelchair">IntelChair</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#context">Context</a></li>
+        
+            <li><a class="toctree-l3" href="#problem">Problem</a></li>
+        
+            <li><a class="toctree-l3" href="#features">Features</a></li>
+        
+            <li><a class="toctree-l3" href="#architecture">Architecture</a></li>
+        
+            <li><a class="toctree-l3" href="#risks-and-issues">Risks and Issues</a></li>
+        
+        </ul>
     
 
     </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../dev/">Dev</a>
 	    </li>
           
             <li class="toctree-l1">
@@ -115,7 +129,7 @@
     
       
     
-    <li>Dev</li>
+    <li>Client</li>
     <li class="wy-breadcrumbs-aside">
       
     </li>
@@ -125,8 +139,32 @@
           <div role="main">
             <div class="section">
               
-                <h1 id="developer">Developer</h1>
-<p>Cenas para nós e para os outros como nós</p>
+                <h1 id="intelchair">IntelChair</h1>
+<p><img src="/img/wchair.jpg" align="left" width="200">
+</br></br></br></br></br></br></br></br></p>
+<h2 id="context">Context</h2>
+<p><strong>IntelChair</strong> is not your typical eletric wheelchair. This chair was designed by our <a href="../about/">team</a> to help not only people with reduced mobility, but also regular people who need an extra "hand" at work or are too lazy. However, our focus will be with those who are disabled in order to provide them a better way of transportation.</p>
+<hr />
+<h2 id="problem">Problem</h2>
+<p>What has driven us to develop this product? Manual wheelchairs depende directly on its user and its mobility. Most of the times, the user is not strong enough to push himself so requires the help of another person. Also, in some specific cases, it can be very hard to the helper to drive those chairs.</p>
+<hr />
+<h2 id="features">Features</h2>
+<ul>
+<li>Manual control: a joystick emulation is available in the web app</li>
+<li>Voice control: the user can speak to the web app</li>
+<li>Predefined locations: the user can add default locations to the map</li>
+<li>Travel from point A to B: the chair can go from a predefined location to another by itself</li>
+</ul>
+<hr />
+<h2 id="architecture">Architecture</h2>
+<p><img alt="arch" src="../img/arch.png" /></p>
+<hr />
+<h2 id="risks-and-issues">Risks and Issues</h2>
+<ul>
+<li>Hit something or someone that appears right in front of the chair</li>
+<li>Fail of one motor which causes the chair to sharply turn</li>
+<li>The laptop runs out of battery</li>
+</ul>
               
             </div>
           </div>
@@ -134,10 +172,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../manual/" class="btn btn-neutral float-right" title="Manual">Next <span class="icon icon-circle-arrow-right"></span></a>
+        <a href="../dev/" class="btn btn-neutral float-right" title="Dev">Next <span class="icon icon-circle-arrow-right"></span></a>
       
       
-        <a href="../client/" class="btn btn-neutral" title="Client"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../about/" class="btn btn-neutral" title="About"><span class="icon icon-circle-arrow-left"></span> Previous</a>
       
     </div>
   
@@ -163,10 +201,10 @@
     <span class="rst-current-version" data-toggle="rst-current-version">
       
       
-        <span><a href="../client/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+        <span><a href="../about/" style="color: #fcfcfc;">&laquo; Previous</a></span>
       
       
-        <span style="margin-left: 15px"><a href="../manual/" style="color: #fcfcfc">Next &raquo;</a></span>
+        <span style="margin-left: 15px"><a href="../dev/" style="color: #fcfcfc">Next &raquo;</a></span>
       
     </span>
 </div>

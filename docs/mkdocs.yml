@@ -1,4 +1,4 @@
-site_name: PEIDocs
+site_name: UberChair
 nav:
     - Home: index.md
     - Personas: personas.md
@@ -6,5 +6,6 @@ nav:
     - Specification: spec.md
     - Tests: test.md
     - Developer: dev.md
-    - Team: team.md
+    - About: about.md
+    - Client: client.md
 theme: readthedocs
