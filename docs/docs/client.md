@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # UberChair
 
 <img src="/img/wchair.jpg" align="left" width="200">
@@ -27,3 +28,8 @@ What has driven us to develop this product? Manual wheelchairs depend directly o
 * Fail of one motor which causes the chair to sharply turn
 * The laptop runs out of battery
 
+=======
+# Client
+
+aimed at someone wanting to understand the project context, objectives, high level planning among other information 
+>>>>>>> c222f9702601fbd19df55f23df202a1719be93d9

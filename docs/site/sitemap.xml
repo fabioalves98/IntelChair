@@ -3,56 +3,101 @@
 
     
     <url>
+<<<<<<< HEAD
      <loc>/</loc>
      <lastmod>2019-03-09</lastmod>
+=======
+     <loc>None</loc>
+     <lastmod>2019-03-06</lastmod>
+>>>>>>> c222f9702601fbd19df55f23df202a1719be93d9
      <changefreq>daily</changefreq>
     </url>
     
 
     
     <url>
+<<<<<<< HEAD
      <loc>/about/</loc>
      <lastmod>2019-03-09</lastmod>
+=======
+     <loc>None</loc>
+     <lastmod>2019-03-06</lastmod>
+>>>>>>> c222f9702601fbd19df55f23df202a1719be93d9
      <changefreq>daily</changefreq>
     </url>
     
 
     
     <url>
+<<<<<<< HEAD
      <loc>/client/</loc>
      <lastmod>2019-03-09</lastmod>
+=======
+     <loc>None</loc>
+     <lastmod>2019-03-06</lastmod>
+>>>>>>> c222f9702601fbd19df55f23df202a1719be93d9
      <changefreq>daily</changefreq>
     </url>
     
 
     
     <url>
+<<<<<<< HEAD
      <loc>/dev/</loc>
      <lastmod>2019-03-09</lastmod>
+=======
+     <loc>None</loc>
+     <lastmod>2019-03-06</lastmod>
+>>>>>>> c222f9702601fbd19df55f23df202a1719be93d9
      <changefreq>daily</changefreq>
     </url>
     
 
     
     <url>
+<<<<<<< HEAD
      <loc>/manual/</loc>
      <lastmod>2019-03-09</lastmod>
+=======
+     <loc>None</loc>
+     <lastmod>2019-03-06</lastmod>
+>>>>>>> c222f9702601fbd19df55f23df202a1719be93d9
      <changefreq>daily</changefreq>
     </url>
     
 
     
     <url>
+<<<<<<< HEAD
      <loc>/personas/</loc>
      <lastmod>2019-03-09</lastmod>
+=======
+     <loc>None</loc>
+     <lastmod>2019-03-06</lastmod>
+>>>>>>> c222f9702601fbd19df55f23df202a1719be93d9
      <changefreq>daily</changefreq>
     </url>
     
 
     
     <url>
+<<<<<<< HEAD
      <loc>/spec/</loc>
      <lastmod>2019-03-09</lastmod>
+=======
+     <loc>None</loc>
+     <lastmod>2019-03-06</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>None</loc>
+     <lastmod>2019-03-06</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    <url>
+     <loc>None</loc>
+     <lastmod>2019-03-06</lastmod>
+>>>>>>> c222f9702601fbd19df55f23df202a1719be93d9
      <changefreq>daily</changefreq>
     </url>
     
