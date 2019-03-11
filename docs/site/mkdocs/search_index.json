@@ -2,23 +2,28 @@
     "docs": [
         {
             "location": "/",
-            "text": "IntelChair",
+            "text": "UberChair\n\n\nWelcome to Assistant Chair",
             "title": "Home"
         },
         {
-            "location": "/#intelchair",
+            "location": "/#uberchair",
             "text": "",
-            "title": "IntelChair"
+            "title": "UberChair"
+        },
+        {
+            "location": "/#welcome-to-assistant-chair",
+            "text": "",
+            "title": "Welcome to Assistant Chair"
         },
         {
             "location": "/about/",
-            "text": "About\n\n\n\n\nLogbook\n\n\n\n\nTimeline",
+            "text": "Team\n\n\nWe are a group of Computers and Telematics Engineering students at Universidade of Aveiro.\n\n\n\n\n\n\n\n\n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 \n \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\n\n\n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 \n \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\n\n\n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\n\n\n\n\n\n\n\n\n\n\nAndr\u00e9 Neves\n\n\nDiogo Marques\n\n\nF\u00e1bio Alves\n\n\n\n\n\n\nandre.neves98@ua.pt\n\n\nd.marques@ua.pt\n\n\nfabioalves98@ua.pt\n\n\n\n\n\n\n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 \n \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\n\n\n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 \n \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\n\n\n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\n\n\n\n\n\n\nMarcelo Fraga\n\n\nMarco Silva\n\n\nMiguel Dinis\n\n\n\n\n\n\nfraga16@ua.pt\n\n\nmasilva@ua.pt\n\n\nmiguelfodinis@ua.pt\n\n\n\n\n\n\n\n\n\n\n\n\n\nLogbook\n\n\n\n\nTimeline",
             "title": "About"
         },
         {
-            "location": "/about/#about",
-            "text": "",
-            "title": "About"
+            "location": "/about/#team",
+            "text": "We are a group of Computers and Telematics Engineering students at Universidade of Aveiro.     \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0   \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0  \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0   \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0  \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0      Andr\u00e9 Neves  Diogo Marques  F\u00e1bio Alves    andre.neves98@ua.pt  d.marques@ua.pt  fabioalves98@ua.pt    \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0   \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0  \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0   \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0  \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0    Marcelo Fraga  Marco Silva  Miguel Dinis    fraga16@ua.pt  masilva@ua.pt  miguelfodinis@ua.pt",
+            "title": "Team"
         },
         {
             "location": "/about/#logbook",
@@ -32,22 +37,22 @@
         },
         {
             "location": "/client/",
-            "text": "IntelChair\n\n\n\n\n\n\nContext\n\n\nIntelChair\n is not your typical eletric wheelchair. This chair was designed by our \nteam\n to help not only people with reduced mobility, but also regular people who need an extra \"hand\" at work or are too lazy. However, our focus will be with those who are disabled in order to provide them a better way of transportation.\n\n\n\n\nProblem\n\n\nWhat has driven us to develop this product? Manual wheelchairs depende directly on its user and its mobility. Most of the times, the user is not strong enough to push himself so requires the help of another person. Also, in some specific cases, it can be very hard to the helper to drive those chairs.\n\n\n\n\nFeatures\n\n\n\n\nManual control: a joystick emulation is available in the web app\n\n\nVoice control: the user can speak to the web app\n\n\nPredefined locations: the user can add default locations to the map\n\n\nTravel from point A to B: the chair can go from a predefined location to another by itself\n\n\n\n\n\n\nArchitecture\n\n\n\n\n\n\nRisks and Issues\n\n\n\n\nHit something or someone that appears right in front of the chair\n\n\nFail of one motor which causes the chair to sharply turn\n\n\nThe laptop runs out of battery",
+            "text": "UberChair\n\n\n\n\n\n\nContext\n\n\nUberChair\n is not your typical eletric wheelchair. This chair was designed by our \nteam\n to help not only people with reduced mobility, but also regular people who need an extra \"hand\" at work or are too lazy. However, our focus will be with those who are disabled in order to provide them a better way of transportation.\n\n\n\n\nProblem\n\n\nWhat has driven us to develop this product? Manual wheelchairs depend directly on its user and its mobility. Most of the times, the user is not strong enough to push himself so requires the help of another person. Also, in some specific cases, it can be very hard to the helper to drive those chairs.\n\n\n\n\nFeatures\n\n\n\n\nManual control: a joystick emulation is available in the web app\n\n\nVoice control: the user can speak to the web app\n\n\nPredefined locations: the user can add default locations to the map\n\n\nTravel from point A to B: the chair can go from a predefined location to another by itself\n\n\n\n\n\n\nArchitecture\n\n\n\n\n\n\nRisks and Issues\n\n\n\n\nHit something or someone that appears right in front of the chair\n\n\nFail of one motor which causes the chair to sharply turn\n\n\nThe laptop runs out of battery",
             "title": "Client"
         },
         {
-            "location": "/client/#intelchair",
+            "location": "/client/#uberchair",
             "text": "",
-            "title": "IntelChair"
+            "title": "UberChair"
         },
         {
             "location": "/client/#context",
-            "text": "IntelChair  is not your typical eletric wheelchair. This chair was designed by our  team  to help not only people with reduced mobility, but also regular people who need an extra \"hand\" at work or are too lazy. However, our focus will be with those who are disabled in order to provide them a better way of transportation.",
+            "text": "UberChair  is not your typical eletric wheelchair. This chair was designed by our  team  to help not only people with reduced mobility, but also regular people who need an extra \"hand\" at work or are too lazy. However, our focus will be with those who are disabled in order to provide them a better way of transportation.",
             "title": "Context"
         },
         {
             "location": "/client/#problem",
-            "text": "What has driven us to develop this product? Manual wheelchairs depende directly on its user and its mobility. Most of the times, the user is not strong enough to push himself so requires the help of another person. Also, in some specific cases, it can be very hard to the helper to drive those chairs.",
+            "text": "What has driven us to develop this product? Manual wheelchairs depend directly on its user and its mobility. Most of the times, the user is not strong enough to push himself so requires the help of another person. Also, in some specific cases, it can be very hard to the helper to drive those chairs.",
             "title": "Problem"
         },
         {
@@ -67,22 +72,22 @@
         },
         {
             "location": "/dev/",
-            "text": "Developer\n\n\nCenas para n\u00f3s e para os outros como n\u00f3s",
+            "text": "Developer\n\n\naimed at supporting someone to developer and/or deploy the system. It must also comprise details namely on requirements, data model, architecture.",
             "title": "Dev"
         },
         {
             "location": "/dev/#developer",
-            "text": "Cenas para n\u00f3s e para os outros como n\u00f3s",
+            "text": "aimed at supporting someone to developer and/or deploy the system. It must also comprise details namely on requirements, data model, architecture.",
             "title": "Developer"
         },
         {
             "location": "/manual/",
-            "text": "Manual\n\n\nPDF com o Manuel",
+            "text": "Manual\n\n\nthe manual of the system",
             "title": "Manual"
         },
         {
             "location": "/manual/#manual",
-            "text": "PDF com o Manuel",
+            "text": "the manual of the system",
             "title": "Manual"
         },
         {
@@ -117,7 +122,7 @@
         },
         {
             "location": "/spec/",
-            "text": "Specification\n\n\n\n\nArchitecture\n\n\n\n\nTechical Cenas",
+            "text": "Specification\n\n\n\n\nArchitecture\n\n\n\n\nTechical Cenas\n\n\n---\n\n\naimed to provide a high level system specification - use cases, processes, features \n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nc222f9702601fbd19df55f23df202a1719be93d9",
             "title": "Spec"
         },
         {
@@ -134,6 +139,21 @@
             "location": "/spec/#techical-cenas",
             "text": "",
             "title": "Techical Cenas"
+        },
+        {
+            "location": "/spec/#-",
+            "text": "aimed to provide a high level system specification - use cases, processes, features          c222f9702601fbd19df55f23df202a1719be93d9",
+            "title": "---"
+        },
+        {
+            "location": "/team/",
+            "text": "Team\n\n\nfor project and team management containing weekly assessment of project evolution and project members efforts / contributions (e.g.. time m features, \u2026 )",
+            "title": "Team"
+        },
+        {
+            "location": "/team/#team",
+            "text": "for project and team management containing weekly assessment of project evolution and project members efforts / contributions (e.g.. time m features, \u2026 )",
+            "title": "Team"
         },
         {
             "location": "/test/",

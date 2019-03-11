@@ -17,6 +17,7 @@ A 32 year old man, with leg paralysis who spends most of his time working as a r
 **Rogério**<br>
 **Investigator**<br>
 Rogério is a 43 year old investigator at University of Aveiro and spends most of his time working in IRIS Lab. On a daily basis he sits on different desks and working stations, be them soldering, printing or the coffee station. He also moves things around the laboratory depending on what he is working at the moment. More often than Rogério would desire, he also needs to leave the laboratory to get components from other locations.
+
 ---
 # Scenarios
 ### #1 - Ramalho moves from place A to place B (manually or predefined locations)

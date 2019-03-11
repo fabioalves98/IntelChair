@@ -1,17 +1,10 @@
-<<<<<<< HEAD
 site_name: UberChair
-=======
-site_name: Assistant Chair
->>>>>>> c222f9702601fbd19df55f23df202a1719be93d9
 nav:
     - Home: index.md
     - Client: client.md
-    - Vision: vision.md
     - Manual: manual.md
     - Specification: spec.md
-    - Architecture: arch.md
-    - Requirements: requirements.md
     - Developer: dev.md
+    - Personas: personas.md
     - About: about.md
-    - Client: client.md
 theme: readthedocs
