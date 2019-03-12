@@ -4,7 +4,7 @@
 </br></br></br></br></br></br></br></br>
 
 ## Context
-**UberChair** is not your typical eletric wheelchair. This chair was designed by our [team](/about.md) to help not only people with reduced mobility, but also regular people who need an extra "hand" at work or are too lazy. However, our focus will be with those who are disabled in order to provide them a better way of transportation.
+**UberChair** is not your typical eletric wheelchair. This chair was designed by our to help not only people with reduced mobility, but also regular people who need an extra "hand" at work or are too lazy. However, our focus will be with those who are disabled in order to provide them a better way of transportation.
 
 ---
 ## Problem
@@ -14,12 +14,13 @@ What has driven us to develop this product? Manual wheelchairs depend directly o
 ## Features
 * Manual control: a joystick emulation is available in the web app
 * Voice control: the user can speak to the web app
-* Predefined locations: the user can add default locations to the map
+* Autonomous room mapping done by the chair
 * Travel from point A to B: the chair can go from a predefined location to another by itself
+* Predefined locations: the user can add default locations to the map
 
 ---
-## Architecture
-![arch](img/arch.png)
+## How it works
+![arch](img/client_architecture.png)
 
 ---
 ## Risks and Issues

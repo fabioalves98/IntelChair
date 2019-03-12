@@ -1,0 +1,149 @@
+{
+    "docs": [
+        {
+            "location": "/",
+            "text": "IntelChair",
+            "title": "Home"
+        },
+        {
+            "location": "/#intelchair",
+            "text": "",
+            "title": "IntelChair"
+        },
+        {
+            "location": "/arch/",
+            "text": "Architecture",
+            "title": "Arch"
+        },
+        {
+            "location": "/arch/#architecture",
+            "text": "",
+            "title": "Architecture"
+        },
+        {
+            "location": "/client/",
+            "text": "UberChair\n\n\n\n\n\n\nContext\n\n\nUberChair\n is not your typical eletric wheelchair. This chair was designed by our to help not only people with reduced mobility, but also regular people who need an extra \"hand\" at work or are too lazy. However, our focus will be with those who are disabled in order to provide them a better way of transportation.\n\n\n\n\nProblem\n\n\nWhat has driven us to develop this product? Manual wheelchairs depend directly on its user and its mobility. Most of the times, the user is not strong enough to push himself so requires the help of another person. Also, in some specific cases, it can be very hard to the helper to drive those chairs.\n\n\n\n\nFeatures\n\n\n\n\nManual control: a joystick emulation is available in the web app\n\n\nVoice control: the user can speak to the web app\n\n\nPredefined locations: the user can add default locations to the map\n\n\nTravel from point A to B: the chair can go from a predefined location to another by itself\n\n\n\n\n\n\nArchitecture\n\n\n\n\n\n\nRisks and Issues\n\n\n\n\nHit something or someone that appears right in front of the chair\n\n\nFail of one motor which causes the chair to sharply turn\n\n\nThe laptop runs out of battery",
+            "title": "Client"
+        },
+        {
+            "location": "/client/#uberchair",
+            "text": "",
+            "title": "UberChair"
+        },
+        {
+            "location": "/client/#context",
+            "text": "UberChair  is not your typical eletric wheelchair. This chair was designed by our to help not only people with reduced mobility, but also regular people who need an extra \"hand\" at work or are too lazy. However, our focus will be with those who are disabled in order to provide them a better way of transportation.",
+            "title": "Context"
+        },
+        {
+            "location": "/client/#problem",
+            "text": "What has driven us to develop this product? Manual wheelchairs depend directly on its user and its mobility. Most of the times, the user is not strong enough to push himself so requires the help of another person. Also, in some specific cases, it can be very hard to the helper to drive those chairs.",
+            "title": "Problem"
+        },
+        {
+            "location": "/client/#features",
+            "text": "Manual control: a joystick emulation is available in the web app  Voice control: the user can speak to the web app  Predefined locations: the user can add default locations to the map  Travel from point A to B: the chair can go from a predefined location to another by itself",
+            "title": "Features"
+        },
+        {
+            "location": "/client/#architecture",
+            "text": "",
+            "title": "Architecture"
+        },
+        {
+            "location": "/client/#risks-and-issues",
+            "text": "Hit something or someone that appears right in front of the chair  Fail of one motor which causes the chair to sharply turn  The laptop runs out of battery",
+            "title": "Risks and Issues"
+        },
+        {
+            "location": "/dev/",
+            "text": "Developer",
+            "title": "Dev"
+        },
+        {
+            "location": "/dev/#developer",
+            "text": "",
+            "title": "Developer"
+        },
+        {
+            "location": "/manual/",
+            "text": "Manual\n\n\nthe manual of the system",
+            "title": "Manual"
+        },
+        {
+            "location": "/manual/#manual",
+            "text": "the manual of the system",
+            "title": "Manual"
+        },
+        {
+            "location": "/requirements/",
+            "text": "Tests\n\n\nThe chair should be able to:\n\n\n\n\nPerform a course by controlling the chair using the joystick emulation\n\n\nRecognize and respond to voice commands\n\n\nTravel from point A to B smoothly without hitting anything\n\n\nSaving multiple predefined locations added by the user and travel between them",
+            "title": "Requirements"
+        },
+        {
+            "location": "/requirements/#tests",
+            "text": "The chair should be able to:   Perform a course by controlling the chair using the joystick emulation  Recognize and respond to voice commands  Travel from point A to B smoothly without hitting anything  Saving multiple predefined locations added by the user and travel between them",
+            "title": "Tests"
+        },
+        {
+            "location": "/spec/",
+            "text": "Specification",
+            "title": "Spec"
+        },
+        {
+            "location": "/spec/#specification",
+            "text": "",
+            "title": "Specification"
+        },
+        {
+            "location": "/team/",
+            "text": "Team\n\n\nWe are a group of Computers and Telematics Engineering students at Universidade of Aveiro.\n\n\n\n\n\n\n\n\n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 \n \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\n\n\n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 \n \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\n\n\n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\n\n\n\n\n\n\n\n\n\n\nAndr\u00e9 Neves\n\n\nDiogo Marques\n\n\nF\u00e1bio Alves\n\n\n\n\n\n\nandre.neves98@ua.pt\n\n\nd.marques@ua.pt\n\n\nfabioalves98@ua.pt\n\n\n\n\n\n\n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 \n \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\n\n\n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 \n \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\n\n\n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\n\u00a0\u00a0\u00a0\u00a0\u00a0\u00a0\n\n\n\n\n\n\nMarcelo Fraga\n\n\nMarco Silva\n\n\nMiguel Dinis\n\n\n\n\n\n\nfraga16@ua.pt\n\n\nmasilva@ua.pt\n\n\nmiguelfodinis@ua.pt\n\n\n\n\n\n\n\n\n\n\n\n\n\nLogbook\n\n\n\n\nTimeline",
+            "title": "Team"
+        },
+        {
+            "location": "/team/#team",
+            "text": "We are a group of Computers and Telematics Engineering students at Universidade of Aveiro.     \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0   \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0  \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0   \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0  \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0      Andr\u00e9 Neves  Diogo Marques  F\u00e1bio Alves    andre.neves98@ua.pt  d.marques@ua.pt  fabioalves98@ua.pt    \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0   \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0  \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0   \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0  \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0 \u00a0\u00a0\u00a0\u00a0\u00a0\u00a0    Marcelo Fraga  Marco Silva  Miguel Dinis    fraga16@ua.pt  masilva@ua.pt  miguelfodinis@ua.pt",
+            "title": "Team"
+        },
+        {
+            "location": "/team/#logbook",
+            "text": "",
+            "title": "Logbook"
+        },
+        {
+            "location": "/team/#timeline",
+            "text": "",
+            "title": "Timeline"
+        },
+        {
+            "location": "/vision/",
+            "text": "Personas\n\n\n\n\n\n\nRamalho\n\n\nResearcher\n\nA 32 year old man, with leg paralysis who spends most of his time working as a researcher in a software engineering office using his non-assisted wheelchair. Moving his chair by hand all day can get tiring, and because his hands are occupied while he is moving from point A to B he is completely unproductive.\n\n\n\n\n\n\n\n\nRog\u00e9rio\n\n\nInvestigator\n\nRog\u00e9rio is a 43 year old investigator at University of Aveiro and spends most of his time working in IRIS Lab. On a daily basis he sits on different desks and working stations, be them soldering, printing or the coffee station. He also moves things around the laboratory depending on what he is working at the moment. More often than Rog\u00e9rio would desire, he also needs to leave the laboratory to get components from other locations.\n\n\n\n\nScenarios\n\n\n#1 - Ramalho moves from place A to place B (manually or predefined locations)\n\n\nRamalho goes to work very early in the morning and leaves late afternoon. Sometimes he needs to move from places in order to get something that he needs. Ramalho decides to go to the vending machine which is quite far from his desk, but he had a full and tiring day. Given his location and the machine's location, he is able to travel to his destination of choice without getting tired.\n\n\n#2 - Chair goes from point A to point B transporting items\n\n\nRog\u00e9rio as told before, is an investigator from IRIS Lab. His work often demands extra equipment and components which are located at other buildings. Because this task is very demanding for Rog\u00e9rio, he can send the chair to get the components for him. This requires him to input the location and the chair does all the work.\n\n\n#3 - Chair follows human while transporting items\n\n\nIn many situations we struggle to transport items, mainly because they are too many or heavy. The solution to this is, most of the times, carry one by one, but that can become an exhausting task. The chair can carry those items and follow its user around wherever he/she goes.",
+            "title": "Vision"
+        },
+        {
+            "location": "/vision/#personas",
+            "text": "Ramalho  Researcher \nA 32 year old man, with leg paralysis who spends most of his time working as a researcher in a software engineering office using his non-assisted wheelchair. Moving his chair by hand all day can get tiring, and because his hands are occupied while he is moving from point A to B he is completely unproductive.     Rog\u00e9rio  Investigator \nRog\u00e9rio is a 43 year old investigator at University of Aveiro and spends most of his time working in IRIS Lab. On a daily basis he sits on different desks and working stations, be them soldering, printing or the coffee station. He also moves things around the laboratory depending on what he is working at the moment. More often than Rog\u00e9rio would desire, he also needs to leave the laboratory to get components from other locations.",
+            "title": "Personas"
+        },
+        {
+            "location": "/vision/#scenarios",
+            "text": "",
+            "title": "Scenarios"
+        },
+        {
+            "location": "/vision/#1-ramalho-moves-from-place-a-to-place-b-manually-or-predefined-locations",
+            "text": "Ramalho goes to work very early in the morning and leaves late afternoon. Sometimes he needs to move from places in order to get something that he needs. Ramalho decides to go to the vending machine which is quite far from his desk, but he had a full and tiring day. Given his location and the machine's location, he is able to travel to his destination of choice without getting tired.",
+            "title": "#1 - Ramalho moves from place A to place B (manually or predefined locations)"
+        },
+        {
+            "location": "/vision/#2-chair-goes-from-point-a-to-point-b-transporting-items",
+            "text": "Rog\u00e9rio as told before, is an investigator from IRIS Lab. His work often demands extra equipment and components which are located at other buildings. Because this task is very demanding for Rog\u00e9rio, he can send the chair to get the components for him. This requires him to input the location and the chair does all the work.",
+            "title": "#2 - Chair goes from point A to point B transporting items"
+        },
+        {
+            "location": "/vision/#3-chair-follows-human-while-transporting-items",
+            "text": "In many situations we struggle to transport items, mainly because they are too many or heavy. The solution to this is, most of the times, carry one by one, but that can become an exhausting task. The chair can carry those items and follow its user around wherever he/she goes.",
+            "title": "#3 - Chair follows human while transporting items"
+        }
+    ]
+}

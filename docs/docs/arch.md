@@ -1,3 +1,3 @@
 # Architecture
 
-![arch](img/arch.png)
+![arch](img/architecture.png)
