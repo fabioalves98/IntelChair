@@ -4,7 +4,6 @@ nav:
     - Client: client.md
     - Vision: vision.md
     - Manual: manual.md
-    - Specification: spec.md
     - Architecture: arch.md
     - Requirements: requirements.md
     - Developer: dev.md
