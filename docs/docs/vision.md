@@ -1,18 +1,15 @@
 # Personas
 
 
-<img src="/img/ramalho.png" align="left" width="300">
-
-</br></br></br></br></br></br></br></br>
+![ram](img/ramalho.png){: style="width:300px"}
 
 **Ramalho**<br>
 **Researcher**<br>
 A 32 year old man, with leg paralysis who spends most of his time working as a researcher in a software engineering office using his non-assisted wheelchair. Moving his chair by hand all day can get tiring, and because his hands are occupied while he is moving from point A to B he is completely unproductive.
 
+---
 
-</br></br>
-<img src="/img/rogerio.jpg" align="left" width="300">
-</br></br></br></br></br></br></br>
+![ram](img/rogerio.jpg){: style="width:300px"}
 
 **Rogério**<br>
 **Teacher**<br>
