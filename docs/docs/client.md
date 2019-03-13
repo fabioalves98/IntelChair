@@ -1,26 +1,22 @@
-# UberChair
-
-<img src="/img/wchair.jpg" align="left" width="200">
-</br></br></br></br></br></br></br></br>
-
 ## Context
-**UberChair** is not your typical eletric wheelchair. This chair was designed by our to help not only people with reduced mobility, but also regular people who need an extra "hand" at work or are too lazy. However, our focus will be with those who are disabled in order to provide them a better way of transportation.
+In many working envoriments, a person may need to do short travels between locations a lot of times during the day. While doing so, it wastes time, focus and energy. That same time could be used more efficiently if there was something that could take care of the mobility of the person for her. If there was a way for the person to travel between those short locations, but still remain focused on her work, be it on a computer or smartphone, it would increase that person's producticity by a large margin.
 
 ---
-## Problem
-What has driven us to develop this product? Manual wheelchairs depend directly on its user and its mobility. Most of the times, the user is not strong enough to push himself so requires the help of another person. Also, in some specific cases, it can be very hard to the helper to drive those chairs.
+## Objectives
+In that sense comes the IntelChair, a motorized wheelchair packed with sensors and a computer, that takes care of transporting people from location to location, without it's user ever need to pay atention to the course of the deslocation. It does so by learning it's environment, presenting the user with a top-down view of said enviroment and letting him choose where he wants to go. The interaction between the chair and the user is done through an application on his smartphone.
+
+---
+## How it works
+![arch](img/client_architecture.png)
 
 ---
 ## Features
 * Manual control: a joystick emulation is available in the web app
 * Voice control: the user can speak to the web app
 * Autonomous room mapping done by the chair
+* Call the chair to the user’s location
 * Travel from point A to B: the chair can go from a predefined location to another by itself
 * Predefined locations: the user can add default locations to the map
-
----
-## How it works
-![arch](img/client_architecture.png)
 
 ---
 ## Risks and Issues
