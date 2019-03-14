@@ -137,8 +137,8 @@ int main(int argc, char **argv){
     buildMoveFrame(initial);
 
     ros::NodeHandle n;
-    ros::Timer response_timer = n.createTimer(ros::Duration(RESPONSE_DELAY), receiveFrame);
-    ros::Timer send_timer = n.createTimer(ros::Duration(SEND_DELAY), sendFrame);
+    //ros::Timer response_timer = n.createTimer(ros::Duration(RESPONSE_DELAY), receiveFrame);
+    //ros::Timer send_timer = n.createTimer(ros::Duration(SEND_DELAY), sendFrame);
 
 
     ROS_INFO("Subscribing to joystick topic... ");
