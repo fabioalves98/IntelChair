@@ -2,6 +2,14 @@ var xCenter = window.innerWidth/2;
 var yCenter = window.innerHeight/2;
 console.log(xCenter + '  ' + yCenter);
 
+// Has to be a subscriber listening for the speed
+var currentSpeed = 1;
+
+
+setSpeed(currentSpeed);
+console.log(currentSpeed);
+
+
 var joystick = new VirtualJoystick({
 		mouseSupport: true,
 		stationaryBase: true,
@@ -68,3 +76,43 @@ setInterval(function(){
 		pub_geometry.publish(point);
 	}
 }, 300);
+
+
+function connect(){
+	console.log("Sending connection msg");
+	publish_info("/connection", "std_msgs/String", {data: "connect"});
+}
+
+function velocityUp(){
+	
+	if(currentSpeed < 5){
+		currentSpeed++;
+		setSpeed(currentSpeed);
+		publish_info("/max_speed", "std_msgs/String", {data: "+"});
+	}
+	
+}
+
+function velocityDown(){
+	if(currentSpeed > 1){
+		currentSpeed--;
+		setSpeed(currentSpeed);
+		publish_info("/max_speed", "std_msgs/String", {data: "-"});
+	}
+}
+
+function setSpeed(currentSpeed){
+	document.getElementById("speed-label").innerHTML = currentSpeed;
+}
+
+
+function publish_info(topic, msg_type, data){
+	var publisher = new ROSLIB.Topic({
+		ros: ros,
+		name: topic,
+		messageType: msg_type
+		
+	});
+
+	publisher.publish(data);
+}
