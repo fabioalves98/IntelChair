@@ -6,7 +6,7 @@ nav:
     - Manual: manual.md
     - Architecture: arch.md
     - Requirements: requirements.md
-    - Developer: dev.md
+    - Deliverables: deliv.md
     - Team: team.md
 theme: readthedocs
 

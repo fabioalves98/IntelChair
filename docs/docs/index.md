@@ -10,7 +10,7 @@ With this project we don't have a particular target audience. Anyone can use our
 
 The IntelChair will be used in conjunction with a mobile application with which the user can control all of its functions. For more information visit the [manual](manual.md) page.
 
-# How does it works technically?
+# How does it work technically?
 
 All the information about architecture can be consulted in the [specification](arch.md) page.
 

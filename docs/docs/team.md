@@ -12,10 +12,9 @@ We are a group of Computers and Telematics Engineering students at Universidade 
 <!-- ![Team](img/team.jpg) -->
 
 ---
-# Logbook
-
----
 
 # Timeline
+
+<iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT0iav4tlPus3D-tpo2saHtSogIDbF25aZ12TKd37tQIlFm1MOytTkqAVkci_s6U1tpZd2NkQHGLGDW/pubhtml?gid=0&single=true" width="100%" height="350"></iframe>
 
 ---

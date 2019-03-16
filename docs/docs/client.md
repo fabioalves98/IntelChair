@@ -11,17 +11,21 @@ In that sense comes the IntelChair, a motorized wheelchair packed with sensors a
 
 ---
 ## Features
-* Manual control: a joystick emulation is available in the web app
-* Voice control: the user can speak to the web app
+* Manual control of the chair through a joystick in the web application
+* Voice control. The user can speak to the web app and control the chair
 * Autonomous room mapping done by the chair
 * Call the chair to the user’s location
-* Travel from point A to B: the chair can go from a predefined location to another by itself
-* Predefined locations: the user can add default locations to the map
+* Have the chair follow the user
+* Travel from point A to B. The chair can go from a location to another by itself
+* Predefined locations. The user can add default locations to the map
 
 ---
 ## Risks and Issues
-* Hit something or someone that appears right in front of the chair
-* Fail of one motor which causes the chair to sharply turn
+* Hitting something that was not previously mapped by the chair
+* Failure of connection between the user and the chair
+* Making sure only one user controls the chair at a time
+* The elemntes of the enviroment may change drastically
+* Placing the sensors in the chair so they are functional and not interfere with the user
 * The laptop runs out of battery
 
 
