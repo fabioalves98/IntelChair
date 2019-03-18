@@ -89,7 +89,7 @@ void sendFrame(const ros::TimerEvent& event){
 
 void receiveFrame(const ros::TimerEvent& event){
     // Call commSerial RX here
-    ROS_INFO("RECEIVING FRAME!!!");
+    //ROS_INFO("RECEIVING FRAME!!!");
 	commHandler.receiveFrame();
 
 //     char ch;

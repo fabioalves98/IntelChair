@@ -43,7 +43,7 @@ joystick.addEventListener('mouseup', function(){
 
 // ROS INIT
 var ros = new ROSLIB.Ros({
-    url : 'ws://localhost:9090'
+    url : 'ws://192.168.1.209:9090'
 });
 
 ros.on('connection', function() {
@@ -75,7 +75,7 @@ setInterval(function(){
 	  	});
 		pub_geometry.publish(point);
 	}
-}, 300);
+}, 50);
 
 
 function connect(){

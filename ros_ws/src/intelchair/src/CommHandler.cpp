@@ -98,6 +98,16 @@ void CommHandler::receiveFrame(){
       select(fd+1, &read_mask, NULL, NULL, &time_out);
    }
 
+   for (count = 0; count < 14 ; count++)
+    {
+         fprintf(stderr, "%c",response[count]);
+         if ((count + 1) % 2 == 0)
+         {
+            fprintf(stderr, " ");
+         }
+      }
+      fprintf(stderr, "\n");
+
 }
 
 // TODO: A frame parser function is missing.
