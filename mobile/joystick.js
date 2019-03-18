@@ -48,7 +48,7 @@ joystick.addEventListener('mouseup', function(){
 
 // ROS INIT
 var ros = new ROSLIB.Ros({
-    url : 'ws://192.168.1.209:9090'
+    url : 'ws://localhost:9090'
 });
 
 ros.on('connection', function() {
@@ -84,20 +84,9 @@ setInterval(function(){
 
 
 function connect(){
-	// console.log("Sending connection msg");
-	// publish_info("/connection", "std_msgs/String", {data: "c"});
-	var connect = new ROSLIB.Service({
-		ros: ros,
-		name: "/connection_service",
-		serviceType: "intelchair/ChairConnection"
-	});
 
-	var request = new ROSLIB.ServiceRequest({
-		connection: "c"
-	});
-
-	connect.callService(request, function(result){
-		console.log('Result from service: ' + result.response);
+	ros_call_service("/connection_service", "intelchair/ChairConnection", {connection: "c"}, function(result){
+		console.log("Connection response: " + result.response);
 	});
 }
 
@@ -106,7 +95,9 @@ function velocityUp(){
 	if(currentSpeed < 5){
 		currentSpeed++;
 		setSpeed(currentSpeed);
-		publish_info("/max_speed", "std_msgs/String", {data: "+"});
+		ros_call_service("/velocity_service", "intelchair/ChairVelocity", {velocity: "+"}, function(result){
+			console.log("Velocity response: " + result.response);
+		});
 	}
 	
 }
@@ -115,7 +106,9 @@ function velocityDown(){
 	if(currentSpeed > 1){
 		currentSpeed--;
 		setSpeed(currentSpeed);
-		publish_info("/max_speed", "std_msgs/String", {data: "-"});
+		ros_call_service("/velocity_service", "intelchair/ChairVelocity", {velocity: "-"}, function(result){
+			console.log("Velocity response: " + result.response);
+		});
 	}
 }
 
@@ -133,4 +126,16 @@ function publish_info(topic, msg_type, data){
 	});
 
 	publisher.publish(data);
+}
+
+function ros_call_service(service, service_type, data, callback){
+	var _service = new ROSLIB.Service({
+		ros: ros,
+		name: service,
+		serviceType: service_type
+	});
+
+	var request = new ROSLIB.ServiceRequest(data);
+
+	_service.callService(request, callback);	
 }

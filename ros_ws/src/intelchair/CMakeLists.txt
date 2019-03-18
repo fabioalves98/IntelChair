@@ -7,6 +7,7 @@ find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs geometry_msgs mess
 add_service_files(
   FILES
   ChairConnection.srv
+  ChairVelocity.srv
 )
 
 generate_messages(

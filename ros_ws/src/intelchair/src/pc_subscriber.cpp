@@ -3,6 +3,7 @@
 #include "geometry_msgs/Point.h"
 #include "CommHandler.h"
 #include "intelchair/ChairConnection.h"
+#include "intelchair/ChairVelocity.h"
 
 #include <sstream>
 
@@ -25,9 +26,7 @@ void resetButtons(){
 	buttonPressed = 0x00;
 }
 
-bool connectionServiceCallback(intelchair::ChairConnection::Request &req, 
-                    intelchair::ChairConnection::Response &res)
-{
+bool connectionServiceCallback(intelchair::ChairConnection::Request &req, intelchair::ChairConnection::Response &res){
     ROS_INFO("REQUEST CONNECT: %s", req.connection.c_str());
     res.response = true;
     // este response tem de ser colocado a true, apenas quando a propria cadeira responder
@@ -35,18 +34,31 @@ bool connectionServiceCallback(intelchair::ChairConnection::Request &req,
     return true;
 }
 
+bool velocityServiceCallback(intelchair::ChairVelocity::Request &req, intelchair::ChairVelocity::Response &res){
+    ROS_INFO("VELOCITY CHANGE: %s", req.velocity.c_str());
+    res.response = true;
+    // este response tem de ser colocado a true, apenas quando a propria cadeira responder
+    std::string str = req.velocity.c_str();
+	char info = str.at(0);
+	if(info == '+'){
+		buttonPressed = 0x04;
+	}else{
+		buttonPressed = 0x02;
+	}
+    return true;
+}
+
+
+
+
 void joystickTopicCallback(const geometry_msgs::Point::ConstPtr& msg){
-    ROS_INFO("Joystick info: (%f, %f)", msg->x, msg->y);
+    // ROS_INFO("Joystick info: (%f, %f)", msg->x, msg->y);
 
     joystick.x = ((int)msg->x) / 3;
     joystick.y = ((int)msg->y) / 3; 
 
 }
 
-void connectionTopicCallback(const std_msgs::String::ConstPtr& msg){
-	ROS_INFO("Connection info: %s", msg->data.c_str());
-	connectOption = 0x01;	
-}
 
 void velocityTopicCallBack(const std_msgs::String::ConstPtr& msg){
 	ROS_INFO("Velocity info: %s", msg->data.c_str());
@@ -84,6 +96,7 @@ int main(int argc, char **argv){
     //ros::Timer debug_timer = n.createTimer(ros::Duration(2), sendFrame);
 
     ros::ServiceServer connect_service = n.advertiseService("/connection_service", connectionServiceCallback);
+    ros::ServiceServer velocity_service = n.advertiseService("/velocity_service", velocityServiceCallback);
 
     ROS_INFO("Subscribing to joystick topic... ");
     ros::Subscriber joystick_sub = n.subscribe("/joystick", 1000, joystickTopicCallback);
@@ -91,8 +104,8 @@ int main(int argc, char **argv){
 	// ROS_INFO("Subscribing to connection topic... ");
     // ros::Subscriber connection_sub = n.subscribe("/connection", 1000, connectionTopicCallback);
 	
-	ROS_INFO("Subscribing to velocity topic... ");
-    ros::Subscriber sub = n.subscribe("/max_speed", 1000, velocityTopicCallBack);
+	// ROS_INFO("Subscribing to velocity topic... ");
+    // ros::Subscriber sub = n.subscribe("/max_speed", 1000, velocityTopicCallBack);
 
 	ros::spin();
 
