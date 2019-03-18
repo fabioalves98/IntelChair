@@ -15,6 +15,7 @@ class CommHandler
         CommSerial comm;
         int velocityInfo;
         int connectInfo;
+        int connectStatus;
         char aux[1024 * 4];
 
     // Methods

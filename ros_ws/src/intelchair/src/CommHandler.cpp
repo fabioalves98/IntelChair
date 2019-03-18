@@ -17,6 +17,7 @@ CommHandler::CommHandler(void)
     comm.openSerial(DEVICE, 115200, 8, PARITY_NONE, 1);
     connectInfo = 0x00;
     velocityInfo = 0x00;
+    connectStatus = 0x00;
 }
 
 CommHandler::~CommHandler(void){
@@ -26,6 +27,9 @@ CommHandler::~CommHandler(void){
 void CommHandler::buildFrame(Coordinate joystick, int buttonPressed, int connectOption){
     velocityInfo = buttonPressed;
     connectInfo  = connectOption;
+
+    if(connectInfo == 0x01)
+        connectStatus = 0x01;
     
     sprintf(aux, "#%c%03d%c%03d%1d%1d", (joystick.x > 0 ? '-' : '+'), abs(joystick.x), 
            (joystick.y > 0 ? '+' : '-'), abs(joystick.y), velocityInfo, connectInfo);
@@ -57,7 +61,7 @@ void CommHandler::receiveFrame(){
     time_out.tv_usec = 0;
     select(fd+1, &read_mask, NULL, NULL, &time_out);
 
-    if (connectInfo == 0)
+    if (connectStatus == 0)
       return;
 
     while(FD_ISSET(fd, &read_mask) || count < 14){
