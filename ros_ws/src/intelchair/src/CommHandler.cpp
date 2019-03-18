@@ -29,8 +29,11 @@ void CommHandler::buildFrame(Coordinate joystick, int buttonPressed, int connect
     connectInfo  = connectOption;
 
     if(connectInfo == 0x01)
+    {
+        printf("CONNECT\n");
         connectStatus = 0x01;
-    
+    }
+
     sprintf(aux, "#%c%03d%c%03d%1d%1d", (joystick.x > 0 ? '-' : '+'), abs(joystick.x), 
            (joystick.y > 0 ? '+' : '-'), abs(joystick.y), velocityInfo, connectInfo);
 
@@ -63,6 +66,8 @@ void CommHandler::receiveFrame(){
 
     if (connectStatus == 0)
       return;
+
+    printf("BAIXO\n");
 
     while(FD_ISSET(fd, &read_mask) || count < 14){
       comm.serialRxByte(&ch);

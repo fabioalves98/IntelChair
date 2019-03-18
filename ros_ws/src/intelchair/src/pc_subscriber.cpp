@@ -73,7 +73,7 @@ void velocityTopicCallBack(const std_msgs::String::ConstPtr& msg){
 
 void sendFrame(const ros::TimerEvent& event){
 
-	commHandler.sendFrame(joystick, connectOption, buttonPressed);
+	commHandler.sendFrame(joystick, buttonPressed, connectOption);
 	// !! THIS CALL IS NOT FINAL. SERVICES NEED TO BE ADDED !! //
 	resetButtons();
 }
