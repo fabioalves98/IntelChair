@@ -1,54 +1,34 @@
 var xCenter = window.innerWidth/2;
 var yCenter = window.innerHeight/2;
-console.log(xCenter + '  ' + yCenter);
 
-// Has to be a subscriber listening for the speed
+var options = {
+    zone: document.getElementById('zone_joystick'),
+    color: 'Blue',
+    size: '300',
+    position: {left: xCenter, bottom: yCenter},
+    mode: 'static'
+};
+var manager = nipplejs.create(options);
+var joystick = {x : 0, y : 0};
 var currentSpeed = 1;
-
-
 setSpeed(currentSpeed);
-console.log(currentSpeed);
 
 
-function call_service(){
+manager.on("move", function(event, nipple)
+{
+    joystick.x = (nipple.position.x - xCenter) * 2;
+    joystick.y = (nipple.position.y - yCenter) * 2;
+});
 
-}
-
-
-var joystick = new VirtualJoystick({
-		mouseSupport: true,
-		stationaryBase: true,
-		baseX: xCenter,
-		baseY: yCenter,
-		limitStickTravel: true,
-		stickRadius: 300
-	});
-
-var touch = false;
-
-joystick.addEventListener('touchStart', function(){
-	touch = true;
-	console.log('start - touch')
-})
-
-joystick.addEventListener('mousedown', function(){
-	touch = true;
-	console.log('start - mouse')
-})
-
-joystick.addEventListener('touchEnd', function(){
-	touch = false;
-	console.log('stop - touch')
-})
-
-joystick.addEventListener('mouseup', function(){
-	touch = false;
-	console.log('stop - mouse')
+manager.on("end", function(event, nipple)
+{
+    joystick.x = 0;
+    joystick.y = 0;
 })
 
 // ROS INIT
 var ros = new ROSLIB.Ros({
-    url : 'ws://localhost:9090'
+    url : 'ws://192.168.1.209:9090'
 });
 
 ros.on('connection', function() {
@@ -62,24 +42,12 @@ var pub_geometry = new ROSLIB.Topic({
 });
 
 setInterval(function(){
-	if (touch == true)
-	{
-		var point = new ROSLIB.Message({
-			x: joystick.deltaY(),
-			y: joystick.deltaX(),
-			z: 0
-	  	});
-		pub_geometry.publish(point);
-	}
-	else
-	{
-		var point = new ROSLIB.Message({
-			x: 0,
-			y: 0,
-			z: 0
-	  	});
-		pub_geometry.publish(point);
-	}
+    var point = new ROSLIB.Message({
+        x: joystick.y,
+        y: joystick.x,
+        z: 0
+    });
+    pub_geometry.publish(point);
 }, 50);
 
 
