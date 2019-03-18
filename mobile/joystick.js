@@ -10,6 +10,11 @@ setSpeed(currentSpeed);
 console.log(currentSpeed);
 
 
+function call_service(){
+
+}
+
+
 var joystick = new VirtualJoystick({
 		mouseSupport: true,
 		stationaryBase: true,
@@ -79,8 +84,21 @@ setInterval(function(){
 
 
 function connect(){
-	console.log("Sending connection msg");
-	publish_info("/connection", "std_msgs/String", {data: "connect"});
+	// console.log("Sending connection msg");
+	// publish_info("/connection", "std_msgs/String", {data: "c"});
+	var connect = new ROSLIB.Service({
+		ros: ros,
+		name: "/connection_service",
+		serviceType: "intelchair/ChairConnection"
+	});
+
+	var request = new ROSLIB.ServiceRequest({
+		connection: "c"
+	});
+
+	connect.callService(request, function(result){
+		console.log('Result from service: ' + result.response);
+	});
 }
 
 function velocityUp(){
