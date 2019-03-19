@@ -16,7 +16,7 @@
 
 * In this week, alongside the mentors we defined the Minimum Viable Product, that we had to present in the following week. All of it’s details can be found in the deliverables section, under Milestone 1. 
 * Having the repository available to us, we started creating the documentation website and testing it at xcoa. We also made the interface mockups, the first draft of the user manual and some slides to present our project.
-* At the technical level, at this point, we already had a good knowledge of the ROS core functionality, through making various tutorials and exploring examples. With that knowledge we made a minimal web application with a joystick, which run on our smartphone, that sent positional information to the chair’s computer, which upon receiving said information would transmit it to the chair’s controller through the gateway microcontroller.
+* At the technical level, at this point, we already had a good knowledge of the ROS core functionality, through making various tutorials and exploring examples. With that knowledge we made a minimal web application with a joystick, that runs on our smartphone and sends positional information to the chair’s computer. Upon receiving that information, it transmits it to the chair’s ECU through the gateway microcontroller.
  
 ## Week 4 - 10 de Março
 

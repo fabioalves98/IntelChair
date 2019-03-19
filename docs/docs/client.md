@@ -1,5 +1,5 @@
 ## Context
-In many working envoriments, a person may need to do short travels between locations a lot of times during the day. While doing so, it wastes time, focus and energy. That same time could be used more efficiently if there was something that could take care of the mobility of the person for her. If there was a way for the person to travel between those short locations, but still remain focused on her work, be it on a computer or smartphone, it would increase that person's producticity by a large margin.
+In many working environments, a person may need to do short travels between locations a lot of times during the day. While doing so, it wastes time, focus and energy. That same time could be used more efficiently if there was something that could take care of the mobility of the person for her. If there was a way for the person to travel between those short locations, but still remain focused on her work, be it on a computer or smartphone, it would increase that person's producticity by a large margin.
 
 ---
 ## Objectives
