@@ -11,7 +11,6 @@ var options = {
 var manager = nipplejs.create(options);
 var joystick = {x : 0, y : 0};
 var currentSpeed = 1;
-setSpeed(currentSpeed);
 
 
 manager.on("move", function(event, nipple)
@@ -28,17 +27,18 @@ manager.on("end", function(event, nipple)
 
 // ROS INIT
 var ros = new ROSLIB.Ros({
-    url : 'ws://192.168.1.209:9090'
+    url : 'ws://localhost:9090'
 });
 
 ros.on('connection', function() {
 console.log('Connected to websocket server.');
 });
 
-var pub_geometry = new ROSLIB.Topic({
-	ros: ros,
-	name: '/joystick',
-	messageType: 'geometry_msgs/Point'
+
+subscribe_info('/chair_info', 'intelchair/ChairMsg', function(message){
+	currentSpeed = message.velocity;
+	setSpeed(currentSpeed);
+	console.log(message.battery);
 });
 
 setInterval(function(){
@@ -47,7 +47,8 @@ setInterval(function(){
         y: joystick.x,
         z: 0
     });
-    pub_geometry.publish(point);
+	publish_info('/joystick', 'geometry_msgs/Point', point);
+
 }, 50);
 
 
@@ -85,6 +86,8 @@ function setSpeed(currentSpeed){
 }
 
 
+/************************* ROS WRAPPER FUNCTIONS ****************************/
+
 function publish_info(topic, msg_type, data){
 	var publisher = new ROSLIB.Topic({
 		ros: ros,
@@ -94,6 +97,16 @@ function publish_info(topic, msg_type, data){
 	});
 
 	publisher.publish(data);
+}
+
+function subscribe_info(topic, msg_type, callback){
+	var listener = new ROSLIB.Topic({
+		ros : ros,
+		name : topic,
+		messageType : msg_type
+	});
+
+	listener.subscribe(callback);		
 }
 
 function ros_call_service(service, service_type, data, callback){
@@ -107,3 +120,5 @@ function ros_call_service(service, service_type, data, callback){
 
 	_service.callService(request, callback);	
 }
+
+

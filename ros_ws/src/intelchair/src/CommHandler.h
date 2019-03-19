@@ -9,6 +9,12 @@ struct Coordinate{
     int y;
 };
 
+struct ChairInfo{
+    int connected;
+    int velocity;
+    int battery;
+};
+
 class CommHandler
 {
 	private:
@@ -21,11 +27,13 @@ class CommHandler
     // Methods
 	private:
 		void buildFrame(Coordinate joystick, int buttonPressed, int connectOption);
+        void printFrame(char* response);
 
 	public:		
 		CommHandler();
 		void sendFrame(Coordinate joystick, int buttonPressed, int connectOption);
-        void receiveFrame();
+        ChairInfo receiveFrame();
+        ChairInfo parseFrame(char* response);
 
 		~CommHandler();
 		

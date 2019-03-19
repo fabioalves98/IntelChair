@@ -48,7 +48,7 @@ void CommHandler::sendFrame(Coordinate joystick, int buttonPressed, int connectO
         fprintf(stderr, "ERRO ENVIO %s %d\n", aux, (int)strlen(aux));
 }
 
-void CommHandler::receiveFrame(){
+ChairInfo CommHandler::receiveFrame(){
 
     char ch;
     char response[1024*16] = {0};
@@ -65,9 +65,7 @@ void CommHandler::receiveFrame(){
     select(fd+1, &read_mask, NULL, NULL, &time_out);
 
     if (connectStatus == 0)
-      return;
-
-    printf("BAIXO\n");
+      return parseFrame(response);
 
     while(FD_ISSET(fd, &read_mask) || count < 14){
       comm.serialRxByte(&ch);
@@ -92,28 +90,51 @@ void CommHandler::receiveFrame(){
       }
     }
 
-   // Clean buffer in case there's still more information on it to be read
-   while(FD_ISSET(fd, &read_mask)){
-      comm.serialRxByte(&ch);
+    // Clean buffer in case there's still more information on it to be read
+    while(FD_ISSET(fd, &read_mask)){
+        comm.serialRxByte(&ch);
 
-      FD_ZERO(&read_mask);
-      FD_SET(fd, &read_mask);
-      time_out.tv_sec = 0;
-      time_out.tv_usec = 0;
-      select(fd+1, &read_mask, NULL, NULL, &time_out);
-   }
-
-   for (count = 0; count < 14 ; count++)
-    {
-         fprintf(stderr, "%c",response[count]);
-         if ((count + 1) % 2 == 0)
-         {
-            fprintf(stderr, " ");
-         }
-      }
-      fprintf(stderr, "\n");
+        FD_ZERO(&read_mask);
+        FD_SET(fd, &read_mask);
+        time_out.tv_sec = 0;
+        time_out.tv_usec = 0;
+        select(fd+1, &read_mask, NULL, NULL, &time_out);
+    }
+    printFrame(response);
+    
+    return parseFrame(response);
 
 }
 
-// TODO: A frame parser function is missing.
+
+ChairInfo CommHandler::parseFrame(char* response)
+{
+    ChairInfo chair;
+    int VELOCITY_INDEX = 10;
+    int BATTERY_INDEX = 8;
+    int CONNECT_INDEX = 4;
+
+    char bat = response[BATTERY_INDEX];
+    char vel = response[VELOCITY_INDEX];
+
+    chair.connected = response[CONNECT_INDEX] == 0x0 ? 0 : 1; 
+    chair.velocity = (((vel >= 'A') ? (vel - 'A' + 10) : (vel - '0')) - 1) / 2;
+    chair.battery = (bat >= 'A') ? (bat - 'A' + 10) : (bat - '0');
+
+    return chair;
+
+}
+
+void CommHandler::printFrame(char* response)
+{
+    for (int count = 0; count < 14 ; count++)
+    {
+        fprintf(stderr, "%c",response[count]);
+        if ((count + 1) % 2 == 0)
+        {
+        fprintf(stderr, " ");
+        }
+    }
+    fprintf(stderr, "\n");
+}
 

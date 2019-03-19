@@ -4,6 +4,7 @@
 #include "CommHandler.h"
 #include "intelchair/ChairConnection.h"
 #include "intelchair/ChairVelocity.h"
+#include "intelchair/ChairMsg.h"
 
 #include <sstream>
 
@@ -14,9 +15,11 @@
 #define DEVICE "/dev/ttyUSB0"
 
 
-CommHandler commHandler;
-Coordinate initial;    
+CommHandler commHandler;    
 Coordinate joystick;
+ChairInfo chair;
+ros::Publisher pc_publisher;
+
 char aux[1024 * 4];
 char connectOption = 0x00;
 int buttonPressed = 0x00;
@@ -36,6 +39,7 @@ bool connectionServiceCallback(intelchair::ChairConnection::Request &req, intelc
 
 bool velocityServiceCallback(intelchair::ChairVelocity::Request &req, intelchair::ChairVelocity::Response &res){
     ROS_INFO("VELOCITY CHANGE: %s", req.velocity.c_str());
+    
     res.response = true;
     // este response tem de ser colocado a true, apenas quando a propria cadeira responder
     std::string str = req.velocity.c_str();
@@ -81,16 +85,24 @@ void sendFrame(const ros::TimerEvent& event){
 void receiveFrame(const ros::TimerEvent& event){
     // Call commSerial RX here
     //ROS_INFO("RECEIVING FRAME!!!");
-	commHandler.receiveFrame();
+	chair = commHandler.receiveFrame();
+    intelchair::ChairMsg msg;
+    msg.velocity = chair.velocity;
+    msg.battery = chair.battery;
+    msg.connected = chair.connected;
+    pc_publisher.publish(msg);
+    // ros::spinOnce();
 
 }
 
 int main(int argc, char **argv){
     ros::init(argc, argv, "pcsubscriber");
-	
-
-
+    
     ros::NodeHandle n;
+
+    pc_publisher = n.advertise<intelchair::ChairMsg>("/chair_info", 1000);
+
+
     ros::Timer response_timer = n.createTimer(ros::Duration(RESPONSE_DELAY), receiveFrame);
     ros::Timer send_timer = n.createTimer(ros::Duration(SEND_DELAY), sendFrame);
     //ros::Timer debug_timer = n.createTimer(ros::Duration(2), sendFrame);
@@ -100,13 +112,6 @@ int main(int argc, char **argv){
 
     ROS_INFO("Subscribing to joystick topic... ");
     ros::Subscriber joystick_sub = n.subscribe("/joystick", 1000, joystickTopicCallback);
-    
-	// ROS_INFO("Subscribing to connection topic... ");
-    // ros::Subscriber connection_sub = n.subscribe("/connection", 1000, connectionTopicCallback);
-	
-	// ROS_INFO("Subscribing to velocity topic... ");
-    // ros::Subscriber sub = n.subscribe("/max_speed", 1000, velocityTopicCallBack);
 
 	ros::spin();
-
 }
