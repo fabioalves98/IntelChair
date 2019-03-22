@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package>
+  <name>iris_rtk</name>
+  <version>0.2.0</version>
+  <description>IRIS Robotics ToolKit</description>
+
+  <maintainer email="efp@ua.pt">Eurico Pedrosa</maintainer>
+  <author     email="efp@ua.pt">Eurico Pedrosa</author>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <build_depend>boost</build_depend>
+  <build_depend>Eigen3</build_depend>
+
+  <run_depend>boost</run_depend>
+
+  <export>
+  </export>
+</package>
