@@ -27,7 +27,7 @@ manager.on("end", function(event, nipple)
 
 // ROS INIT
 var ros = new ROSLIB.Ros({
-    url : 'ws://localhost:9090'
+    url : 'ws://192.168.1.209:9090'
 });
 
 ros.on('connection', function() {
