@@ -1,5 +1,7 @@
 # Architecture
 
+The main purpose of this high level architecture is to specify all the individual components that are used to make this system work. The three main ones are described below, but it's worth to say what information is transmited between each one. The base idea is that the web application will initially start a communication with the server, sending the user's login information. The server will then try to establish communication with the chair's laptop to see if the chair is free or not. If it is, then the server will connect the user app to the chair itself. If this process runs successfully, the webapp has the ability to send(or receive) information directly to the chair's laptop node, which then processes that information and sends it to the chair's ECU through our gateway microcontroller.
+
 ![arch](img/architecture.png)
 
 
