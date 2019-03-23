@@ -1,3 +1,0 @@
-[submodule "ros_ws/src/freenect_stack"]
-	path = ros_ws/src/freenect_stack
-	url = https://github.com/ros-drivers/freenect_stack.git
