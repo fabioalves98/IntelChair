@@ -1,0 +1,73 @@
+<!-- DOCUMENTION https://github.com/TalAter/annyang/blob/master/docs/README.md -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/annyang/1.1.0/annyang.min.js"></script>
+
+<script>
+	//COMANDS
+	//move (to the) left
+	//				right
+	//				forward
+	//				back
+	//stop
+	//move to (point) A
+	//follow me
+//window.onload = function(){
+    if (annyang) {
+    	var follow_me = function(){
+    		//chair start follows the user
+    		alert("Following");
+	    }
+
+	    var move_to_point = function(point){
+	    	//movint to point
+	    	alert("Chair is moving to point " + point);
+	    }
+
+	 	var move_dir = function(dir){
+	      	alert("Chair is moving " + dir);
+	      	//direction information
+
+	    }
+
+		var stop = function(){
+	    	alert("Chair stopped");
+	    	//Send message to chair
+		}
+        /*var commands = {
+            'move (to the) :dir': function() {
+            	alert("Chair is moving");
+            },
+            'stop': function() {
+            	alert("Chair stopped");
+            },
+            'go to (point) :point' : function() {
+            	alert("Moving to point");
+            	//moving to point
+            },
+            'follow me' : function() {
+            	alert("Following");
+            },
+            'test :dir' : move
+
+        };
+ 		*/
+ 		var commands = {
+            'move (to the) :dir': move_dir,
+            'stop': stop,
+            'go to (point) :point' : move_to_point,
+            'follow me' : follow_me
+
+        };
+           
+        
+        annyang.addCommands(commands);
+        annyang.debug();
+        annyang.start(); 
+    }
+    
+//}
+
+
+
+
+</script>
