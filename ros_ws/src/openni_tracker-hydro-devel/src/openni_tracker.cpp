@@ -19,7 +19,7 @@ XnBool g_bNeedPose   = FALSE;
 XnChar g_strPose[20] = "";
 
 void XN_CALLBACK_TYPE User_NewUser(xn::UserGenerator& generator, XnUserID nId, void* pCookie) {
-	ROS_INFO("New User %d", nId);
+	ROS_INFO("New PALHAÇO %d", nId);
 
 	if (g_bNeedPose)
 		g_UserGenerator.GetPoseDetectionCap().StartPoseDetection(g_strPose, nId);

@@ -72,7 +72,7 @@ int main(int argc, char **argv)
     cfg = laser.getScanCfg();
     outputRange = laser.getScanOutputRange();
 
-    if (cfg.scaningFrequency != 5000)
+    if (cfg.scaningFrequency != 2500)
     {
       laser.disconnect();
       ROS_WARN("Unable to get laser output range. Retrying.");
