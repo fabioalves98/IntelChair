@@ -28,21 +28,20 @@ void imuAccelCallback(const sensor_msgs::Imu::ConstPtr& msg){
     double accelz = msg->linear_acceleration.z;
 
     // Calc pitch roll and yaw
-    // pitch = 180 * atan2(accelx, sqrt(accely*accely + accelz*accelz))/M_PI;
-    // roll = 180 * atan2(accely, sqrt(accelx*accelx + accelz*accelz))/M_PI; 
-    pitch = atan2(accelx, sqrt(accely*accely + accelz*accelz));
-    roll = atan2(accely, sqrt(accelx*accelx + accelz*accelz)); 
+    // pitch = atan2(accelx, sqrt(accely*accely + accelz*accelz));
+    // roll = atan2(accely, sqrt(accelx*accelx + accelz*accelz)); 
+
+    double pitch = 0.34906585;      // 20º
+    double roll = 0;                // 0ª
 
     double mag_x = mx*cos(pitch) + my*sin(roll)*sin(pitch) + mz*cos(roll)*sin(pitch);
     double mag_y = my * cos(roll) - mz * sin(roll);
     yaw = atan2(-mag_y, mag_x);
-    double yaw_deg = 180 * yaw /M_PI;
-    // ROS_INFO("Yaw degrees: %f", yaw);
 
-    // Projetar valores de aceleração visto que existe inclinação do IMU!
-    ax = accelx + 3.35;
-    // ROS_INFO("Accelx: %f\nPitch: %f", accelx, sin(30));
-    ROS_INFO("Ax: %f", ax);
+    ax = accelx + (sqrt(accelx*accelx + accelz*accelz) * sin(pitch));
+    ay = accely;
+
+    ROS_INFO("Ax: %f\nAy: %f\nAz: %f\n", ax, ay, accelz);
 
 }
 void imuMagCallback(const sensor_msgs::MagneticField::ConstPtr& msg){
@@ -77,7 +76,7 @@ int main(int argc, char** argv){
 
    
 
-    ros::Rate r(100); 
+    ros::Rate r(20); 
 
     while(n.ok()){
         ros::spinOnce();
