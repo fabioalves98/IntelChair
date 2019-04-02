@@ -20,6 +20,10 @@ double roll;
 double pitch;
 double yaw;
 
+double meanPitch;
+double meanRoll;
+double meanCount;
+
 void imuAccelCallback(const sensor_msgs::Imu::ConstPtr& msg){
     // ROS_INFO("%f", msg->linear_acceleration.z);
 
@@ -28,20 +32,22 @@ void imuAccelCallback(const sensor_msgs::Imu::ConstPtr& msg){
     double accelz = msg->linear_acceleration.z;
 
     // Calc pitch roll and yaw
-    // pitch = atan2(accelx, sqrt(accely*accely + accelz*accelz));
-    // roll = atan2(accely, sqrt(accelx*accelx + accelz*accelz)); 
+    pitch = atan2(accelx, sqrt(accely*accely + accelz*accelz));
+    roll = atan2(accely, sqrt(accelx*accelx + accelz*accelz)); 
 
-    double pitch = 0.34906585;      // 20º
-    double roll = 0;                // 0ª
+    double def_pitch = 0.34906585;      // 20º - Angulos têm de ser definidos em codigo poruqe o IMU nao consegue calcula-los em movimento
+    double def_roll = 0;                // 0ª
 
     double mag_x = mx*cos(pitch) + my*sin(roll)*sin(pitch) + mz*cos(roll)*sin(pitch);
     double mag_y = my * cos(roll) - mz * sin(roll);
     yaw = atan2(-mag_y, mag_x);
 
-    ax = accelx + (sqrt(accelx*accelx + accelz*accelz) * sin(pitch));
-    ay = accely;
+    ax = accelx + (sqrt(accelx*accelx + accelz*accelz) * sin(def_pitch));       // Apenas tendo em conta a componente Z, por agora
+    ay = accely + (sqrt(accely*accely + accelz*accelz) * sin(def_roll));        // Apenas tendo em conta a componente Z, por agora
 
-    ROS_INFO("Ax: %f\nAy: %f\nAz: %f\n", ax, ay, accelz);
+    ROS_INFO("\nPitch: %f\nRoll: %f\n", 180*pitch/M_PI, 180*roll/M_PI);
+
+    ROS_INFO("\nAx: %f\nAy: %f\nAz: %f\n", ax, ay, accelz);
 
 }
 void imuMagCallback(const sensor_msgs::MagneticField::ConstPtr& msg){
