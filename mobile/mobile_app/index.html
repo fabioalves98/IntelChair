@@ -27,10 +27,18 @@
             <ion-content class="has-header">
                 <ion-tabs>
                     <ion-tab tab="home"><ion-grid style="height: 100%">
+                        <ion-grid>
                             <ion-row justify-content-center align-items-center style="height: 100%">
                                 <div id="zone_joystick"></div>
                             </ion-row>
-                            </ion-grid></ion-tab>
+                            <ion-row>
+                                <div>
+                                    <ion-button onclick="velocityDown()" color="primary">Speed down</ion-button>
+                                    <ion-button onclick="velocityUp()" color="primary">Speed up</ion-button>
+                                </div>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-tab>
                     <ion-tab tab="settings">This is the map page</ion-tab>
                     
                     <ion-tab-bar slot="bottom">
