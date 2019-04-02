@@ -4,13 +4,14 @@ var yCenter = window.innerHeight/2;
 var options = {
     zone: document.getElementById('zone_joystick'),
     color: 'Blue',
-    size: '300',
-    position: {left: xCenter, bottom: yCenter},
+    size: '100',
+    position: {left: '50%', bottom: '50%'},
     mode: 'static'
-};
+};	
 var manager = nipplejs.create(options);
 var joystick = {x : 0, y : 0};
 var currentSpeed = 1;
+var currentBattery;
 
 
 manager.on("move", function(event, nipple)
@@ -27,7 +28,8 @@ manager.on("end", function(event, nipple)
 
 // ROS INIT
 var ros = new ROSLIB.Ros({
-    url : 'ws://192.168.1.209:9090'
+	// url : 'ws://localhost:9090'
+	url : 'ws://192.168.1.213:9090'
 });
 
 ros.on('connection', function() {
@@ -37,9 +39,12 @@ console.log('Connected to websocket server.');
 
 subscribe_info('/chair_info', 'intelchair/ChairMsg', function(message){
 	currentSpeed = message.velocity;
-	setSpeed(currentSpeed);
-	console.log(message.battery);
+	currentBattery = message.battery;
+	// console.log(message.battery);
+	setSpeedLabel(currentSpeed);
+	setBatteryLabel(currentBattery);
 });
+
 
 setInterval(function(){
     var point = new ROSLIB.Message({
@@ -53,36 +58,37 @@ setInterval(function(){
 
 
 function connect(){
-
 	ros_call_service("/connection_service", "intelchair/ChairConnection", {connection: "c"}, function(result){
 		console.log("Connection response: " + result.response);
 	});
 }
 
 function velocityUp(){
-	
 	if(currentSpeed < 5){
 		currentSpeed++;
-		setSpeed(currentSpeed);
+		setSpeedLabel(currentSpeed);
 		ros_call_service("/velocity_service", "intelchair/ChairVelocity", {velocity: "+"}, function(result){
 			console.log("Velocity response: " + result.response);
 		});
 	}
-	
 }
 
 function velocityDown(){
 	if(currentSpeed > 1){
 		currentSpeed--;
-		setSpeed(currentSpeed);
+		setSpeedLabel(currentSpeed);
 		ros_call_service("/velocity_service", "intelchair/ChairVelocity", {velocity: "-"}, function(result){
 			console.log("Velocity response: " + result.response);
 		});
 	}
 }
 
-function setSpeed(currentSpeed){
+function setSpeedLabel(currentSpeed){
 	document.getElementById("speed-label").innerHTML = currentSpeed;
+}
+
+function setBatteryLabel(currentBattery){
+	document.getElementById("battery-label").innerHTML = currentBattery;
 }
 
 
