@@ -26,6 +26,13 @@ manager.on("end", function(event, nipple)
     joystick.y = 0;
 })
 
+
+var ros_url = 10;
+
+$.get("../api/getip", function(data) {
+	console.log(data);
+});
+
 // ROS INIT
 var ros = new ROSLIB.Ros({
 	// url : 'ws://localhost:9090'
