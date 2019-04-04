@@ -1,16 +1,21 @@
 var xCenter = window.innerWidth/2;
 var yCenter = window.innerHeight/2;
+var ros_url = 'localhost';
+var ros;
+
+
 
 var options = {
     zone: document.getElementById('zone_joystick'),
     color: 'Blue',
-    size: '300',
-    position: {left: xCenter, bottom: yCenter},
+    size: '100',
+    position: {left: '50%', bottom: '50%'},
     mode: 'static'
-};
+};	
 var manager = nipplejs.create(options);
 var joystick = {x : 0, y : 0};
 var currentSpeed = 1;
+var currentBattery;
 
 
 manager.on("move", function(event, nipple)
@@ -25,64 +30,73 @@ manager.on("end", function(event, nipple)
     joystick.y = 0;
 })
 
-// ROS INIT
-var ros = new ROSLIB.Ros({
-    url : 'ws://192.168.1.209:9090'
-});
-
-ros.on('connection', function() {
-console.log('Connected to websocket server.');
-});
-
-
-subscribe_info('/chair_info', 'intelchair/ChairMsg', function(message){
-	currentSpeed = message.velocity;
-	setSpeed(currentSpeed);
-	console.log(message.battery);
-});
-
 setInterval(function(){
-    var point = new ROSLIB.Message({
-        x: joystick.y,
-        y: joystick.x,
-        z: 0
-    });
-	publish_info('/joystick', 'geometry_msgs/Point', point);
+	if(ros){
+		var point = new ROSLIB.Message({
+			x: joystick.y,
+			y: joystick.x,
+			z: 0
+		});
+		publish_info('/joystick', 'geometry_msgs/Point', point);
+	}
 
 }, 50);
 
-
 function connect(){
+	$.get("../api/getip", function(data) {
+		var jsondata = $.parseJSON(data);
+		ros_url = jsondata.ip;
 
-	ros_call_service("/connection_service", "intelchair/ChairConnection", {connection: "c"}, function(result){
-		console.log("Connection response: " + result.response);
+		ros = new ROSLIB.Ros({
+			url : 'ws://' + ros_url + ':9090'
+		});
+
+		if(ros_url != 1){
+			ros.socket.url = "ws://" + ros_url + ":9090";
+		}	
+	
+		var connected;
+		ros_call_service("/connection_service", "intelchair/ChairConnection", {connection: "c"}, function(result){
+			console.log("Connection response: " + result.response);
+			connected = result.response;
+		});	
+	
+		subscribe_info('/chair_info', 'intelchair/ChairMsg', function(message){
+			currentSpeed = message.velocity;
+			currentBattery = message.battery;
+			setSpeedLabel(currentSpeed);
+			setBatteryLabel(currentBattery);
+		});
 	});
 }
 
+
 function velocityUp(){
-	
 	if(currentSpeed < 5){
 		currentSpeed++;
-		setSpeed(currentSpeed);
+		setSpeedLabel(currentSpeed);
 		ros_call_service("/velocity_service", "intelchair/ChairVelocity", {velocity: "+"}, function(result){
 			console.log("Velocity response: " + result.response);
 		});
 	}
-	
 }
 
 function velocityDown(){
 	if(currentSpeed > 1){
 		currentSpeed--;
-		setSpeed(currentSpeed);
+		setSpeedLabel(currentSpeed);
 		ros_call_service("/velocity_service", "intelchair/ChairVelocity", {velocity: "-"}, function(result){
 			console.log("Velocity response: " + result.response);
 		});
 	}
 }
 
-function setSpeed(currentSpeed){
+function setSpeedLabel(currentSpeed){
 	document.getElementById("speed-label").innerHTML = currentSpeed;
+}
+
+function setBatteryLabel(currentBattery){
+	document.getElementById("battery-label").innerHTML = currentBattery;
 }
 
 
