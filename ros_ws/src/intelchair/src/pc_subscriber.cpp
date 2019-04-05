@@ -58,8 +58,8 @@ bool velocityServiceCallback(intelchair::ChairVelocity::Request &req, intelchair
 void joystickTopicCallback(const geometry_msgs::Point::ConstPtr& msg){
     // ROS_INFO("Joystick info: (%f, %f)", msg->x, msg->y);
 
-    joystick.x = ((int)msg->x) / 3;
-    joystick.y = ((int)msg->y) / 3; 
+    joystick.x = ((int)msg->x);
+    joystick.y = ((int)msg->y); 
 
 }
 
