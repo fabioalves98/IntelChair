@@ -18,6 +18,7 @@ showIcons();
 
 manager.on("move", function(event, nipple)
 {
+	// Note: The mapping functions expect values ranging from -1 to 1
     joystick.x = (nipple.position.x - window.innerWidth/2) * 2;
     joystick.y = (nipple.position.y - window.innerHeight/2) * 2;
 });
@@ -145,6 +146,52 @@ function ros_call_service(service, service_type, data, callback){
 	var request = new ROSLIB.ServiceRequest(data);
 
 	_service.callService(request, callback);	
+}
+
+
+/********************** Joystick to wheel velocity mapping  *******************/
+
+
+function map_joystickA(x, y){
+	var motor_vel = {R: 0, L: 0};
+	motor_vel.R = y - x;
+	motor_vel.L = y + x;
+	return motor_vel;
+}
+
+
+function ro(x, y){
+	return Math.sqrt(x*x + y*y);
+}
+
+function theta(x, y){
+	return Math.atan(y/x) - Math.PI/2;
+}
+
+function map_joystickB(x, y){
+	var motor_vel = {R: 0, L: 0};
+	function right(x, y){
+		var t = theta(x, y);
+		var r = ro(x,y);
+		if(t >= (-Math.PI/2) && t <= 0) return r;
+		else if(t >= (Math.PI/2) && t <= Math.PI) return -r;
+		else if((t > 0 && t < (Math.PI / 2)) || (t > -Math.PI && t < -(Math.PI/2))) return ((r * (Math.cos(t + (Math.PI/4)))) / Math.cos((-Math.PI / 4)))
+	}
+
+	function left(x, y){
+		var t = theta(x, y);
+		var r = ro(x,y);
+		if(t >= 0 && t <= (-Math.PI/2)) return r;
+		else if(t >= -Math.PI && t <= (-Math.PI/2)) return -r;
+		else if((t > (-Math.PI / 2) && t < 0) || (t > (Math.PI/2) && t < Math.PI)) return ((r * (Math.cos(t - (Math.PI/4)))) / Math.cos((-Math.PI / 4)))
+
+	}
+
+	motor_vel.R = right(x, y);
+	motor_vel.L = left(x, y);
+	return motor_vel;
+
+
 }
 
 
