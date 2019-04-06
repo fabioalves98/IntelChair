@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>IntelChair &mdash; The autonomous wheelchair</title>
+      <meta name="description" content="">
+      <meta name="keywords" content="">
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+    <link rel="icon" href="img/intelchair.ico">
+    <link rel="stylesheet" href="css/styles-merged.css">
+    <link rel="stylesheet" href="css/style.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!--[if lt IE 9]>
+      <script src="js/vendor/html5shiv.min.js"></script>
+      <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+  <!-- START: header -->
+  <div class="probootstrap-loader"></div>
+  <header role="banner" class="probootstrap-header">
+      <div class="container">
+          <a href="index.html" class="probootstrap-logo">IntelChair</a>
+          
+          <a href="#" class="probootstrap-burger-menu visible-xs" ><i>Menu</i></a>
+          <div class="mobile-menu-overlay"></div>
+
+          <nav role="navigation" class="probootstrap-nav hidden-xs ">
+              <ul class="probootstrap-main-nav">
+              <li><a href="index.html">Home</a></li>
+              <li class="active"><a href="clients.html">Clients</a></li>
+              <li><a href="developers.html">Developers</a></li>
+              <li><a href="team.html">Team</a></li>
+              <li><a href="documentation.html">Documentation</a></li>
+              <li><a href="logbook.html">Logbook</a></li>
+              </ul>
+              <div class="extra-text visible-xs"> 
+              <a href="#" class="probootstrap-burger-menu"><i>Menu</i></a>
+              </div>
+          </nav>
+      </div>
+  </header>
+  
+  <!-- END: header -->
+  <section class="probootstrap-slider flexslider">
+    <ul class="slides">
+      <li style="background-image: url(img/slider_1.png);">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <div class="slides-text probootstrap-animate">
+                <h2>Clients</h2>
+                <p>To someone wanting to get a high level overview about the project</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
+  <!-- END: slider  -->
+  <section class="probootstrap-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 section-heading probootstrap-animate">
+            <h2>Context</h2>
+            <p>In many working environments, a person may need to do short travels between locations a lot of times during the day. While doing so, it wastes time, focus and energy.
+               That same time could be used more efficiently if there was something that could take care of the mobility of the person for her.
+               If there was a way for the person to travel between those short locations, but still remain focused on her work, be it on a computer or smartphone, it would increase that person's producticity by a large margin.</p>
+          </div>
+          <div class="col-md-12 section-heading probootstrap-animate">
+              <h2>Objectives</h2>
+              <p>In that sense comes the IntelChair, a motorized wheelchair packed with sensors and a computer, that takes care of transporting people from location to location,
+                 without it's user ever need to pay atention to the course of the deslocation. It does so by learning it's environment,
+                presenting the user with a top-down view of said enviroment and letting him choose where he wants to go. The interaction between the chair and the user is done through an application on his smartphone.</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12 section-heading probootstrap-animate text-center">
+                <h2>How it works</h2>
+                <img src="img/client_architecture.png" class="img-responsive img-border img-center" alt="client architecture">
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <section class="probootstrap-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 probootstrap-animate">
+            <div class="probootstrap-card">
+              <div class="probootstrap-card-text">
+                <h2 class="probootstrap-card-heading mb20">Features</h2>
+                <ul>
+                  <li>Manual control of the chair through a joystick in the web application</li>
+                  <li>Voice control. The user can speak to the web app and control the chair</li>
+                  <li>Autonomous room mapping done by the chair</li>
+                  <li>Call the chair to the user’s location</li>
+                  <li>Have the chair follow the user</li>
+                  <li>Travel from point A to B. The chair can go from a location to another by itself</li>
+                  <li>Predefined locations. The user can add default locations to the map</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 probootstrap-animate">
+            <div class="probootstrap-card">
+              <div class="probootstrap-card-text">
+                <h2 class="probootstrap-card-heading mb20">Risks and Issues</h2>
+                <ul>
+                    <li>Hitting something that was not previously mapped by the chair</li>
+                    <li>Failure of connection between the user and the chair</li>
+                    <li>Making sure only one user controls the chair at a time</li>
+                    <li>The elements of the enviroment may change drastically</li>
+                    <li>Placing the sensors in the chair so they are functional and not interfere with the user</li>
+                    <li>The laptop runs out of battery</li>
+                  </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+  <!-- END section cta -->
+
+  <footer class="probootstrap-footer probootstrap-bg">
+      <div class="container">
+        <div class="row mb60">
+          <div class="col-md-4">
+              <div class="probootstrap-footer-widget">
+                  <h4 class="heading">About IntelChair</h4>
+                  <p>A motorized wheelchair that can autonomously move itself in a known enviroment.</p>
+                </div> 
+          </div>
+          <div class="col-md-4">
+            <div class="probootstrap-footer-widget img-center">
+                <a href="http://www.ua.pt/"><img src="img/footer_ua.png" class="img-responsive ua-logo" alt="UA logo"></a>
+            </div> 
+          </div>
+          <div class="col-md-4">
+              <a href="https://www.ua.pt/deti/"><img src="img/footer_deti.png" class="img-responsive deti-logo" alt="DETI logo"></a>
+          </div>
+        </div>
+        <div class="row copyright">
+          <div class="col-md-12 text-center">
+            <div class="probootstrap-footer-widget">
+              <p>&copy; 2019 <a href="">IntelChair</a>. Designed by <a href="https://uicookies.com/">uicookies.com</a> </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  <div class="gototop js-top">
+    <a href="#" class="js-gotop"><i class="icon-chevron-thin-up"></i></a>
+  </div>
+  
+  <script src="js/scripts.min.js"></script>
+  <script src="js/main.min.js"></script>
+  <script src="js/custom.js"></script>
+  
+  </body>
+</html>

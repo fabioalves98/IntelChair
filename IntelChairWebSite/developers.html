@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>IntelChair &mdash; The autonomous wheelchair</title>
+      <meta name="description" content="">
+      <meta name="keywords" content="">
+    
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400" rel="stylesheet">
+    <link rel="icon" href="img/intelchair.ico">
+    <link rel="stylesheet" href="css/styles-merged.css">
+    <link rel="stylesheet" href="css/style.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!--[if lt IE 9]>
+      <script src="js/vendor/html5shiv.min.js"></script>
+      <script src="js/vendor/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+ <!-- START: header -->
+ <div class="probootstrap-loader"></div>
+ <header role="banner" class="probootstrap-header">
+     <div class="container">
+         <a href="index.html" class="probootstrap-logo">IntelChair</a>
+         
+         <a href="#" class="probootstrap-burger-menu visible-xs" ><i>Menu</i></a>
+         <div class="mobile-menu-overlay"></div>
+
+         <nav role="navigation" class="probootstrap-nav hidden-xs ">
+             <ul class="probootstrap-main-nav">
+             <li><a href="index.html">Home</a></li>
+             <li><a href="clients.html">Clients</a></li>
+             <li class="active"><a href="developers.html">Developers</a></li>
+             <li><a href="team.html">Team</a></li>
+             <li><a href="documentation.html">Documentation</a></li>
+             <li><a href="logbook.html">Logbook</a></li>
+             </ul>
+             <div class="extra-text visible-xs"> 
+             <a href="#" class="probootstrap-burger-menu"><i>Menu</i></a>
+             </div>
+         </nav>
+     </div>
+ </header>
+ 
+ <!-- END: header -->
+  <section class="probootstrap-slider flexslider">
+    <ul class="slides">
+      <li style="background-image: url(img/slider_1.png);">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <div class="slides-text probootstrap-animate">
+                <h2>Developers</h2>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </section>
+  <!-- END: slider  -->
+
+  <section class="probootstrap-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 section-heading probootstrap-animate" id="Archi">
+            <h2>Architecture</h2>
+            <p>The main purpose of this high level architecture is to specify all the individual components that are used to make this system work. The three main ones are described below, but it's worth to say what information is transmited between each one.
+               The base idea is that the web application will initially start a communication with the server, sending the user's login information.
+                The server will then try to establish communication with the chair's laptop to see if the chair is free or not. If it is, then the server will connect the user app to the chair itself. If this process runs successfully, the webapp has the ability to send(or receive) information directly to the chair's laptop node, which then processes that information and sends it to the chair's ECU through our gateway microcontroller.</p>
+          </div>
+        </div>
+          <div class="row">
+            <div class="col-md-12 section-heading probootstrap-animate text-center">
+                <img src="img/architecture.png" class="img-responsive img-border img-center" alt="architecture">
+              </div>
+          </div>
+      </div>
+  </section>
+
+  <section class="probootstrap-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="service left-icon probootstrap-animate">
+                <div class="icon">
+                    <i class="icon-classic-computer"></i>
+                  </div>
+              <div class="text">
+                <h3 class="heading">Server side</h3>
+                <p>A server handling database requests will be listening for user connections. This database will contain login information aswell as other relevant data necessary to create a link between the user and the chair itself. It will also store the various maps of the different locations where the chair operates. </p>
+              </div>
+  
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="service left-icon probootstrap-animate">
+                <img style="margin-top:-10px" src="img/icon_intel.jpg" alt="IntelChair icon">
+
+              <div class="text">
+                <h3 class="heading">Wheelchair</h3>
+                <p>The core part of the wheelchair, linking every node in the system, will be a laptop. It communicates with the chair's control unit through a gateway microcontroller and processes information about every sensor in the chair. The chair holds a camera for object recognition and collision detection, aswell as a Rangefinder sensor and IMU for the room mapping and navigation.</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+              <div class="service left-icon probootstrap-animate">
+                <div class="icon">
+                  <i class="icon-browser2"></i>
+                </div>
+                <div class="text">
+                  <h3 class="heading">Web application</h3>
+                  <p>The Web application will allow the user to either take control of the wheelchair or choose to let it do the work autonomously. It enables the user to define default locations to the current working map and travel between those, or simply travel to an arbitrary location chosen by him. It also displays some information about the chair's current battery levels and the current maximum speed.</p>
+                </div>
+              </div>
+            </div>
+      </div>
+    </section>
+
+    <section class="probootstrap-section">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 section-heading probootstrap-animate">
+              <h2>Requirements</h2>
+              <h3>Tests</h3>
+              <p>The chair should be able to:</p>
+              <ul>
+                <li>Respond efficiently to the application commands</li>
+                <li>Recognize and respond to voice commands</li>
+                <li>Follow the user when commanded to</li>
+                <li>Travel from point A to B smoothly without hitting anything</li>
+                <li>Saving multiple predefined locations added by the user and travel between them</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+    </section>
+
+  <footer class="probootstrap-footer probootstrap-bg">
+      <div class="container">
+        <div class="row mb60">
+          <div class="col-md-4">
+              <div class="probootstrap-footer-widget">
+                  <h4 class="heading">About IntelChair</h4>
+                  <p>A motorized wheelchair that can autonomously move itself in a known enviroment.</p>
+                </div> 
+          </div>
+          <div class="col-md-4">
+            <div class="probootstrap-footer-widget img-center">
+                <a href="http://www.ua.pt/"><img src="img/footer_ua.png" class="img-responsive ua-logo" alt="UA logo"></a>
+            </div> 
+          </div>
+          <div class="col-md-4">
+              <a href="https://www.ua.pt/deti/"><img src="img/footer_deti.png" class="img-responsive deti-logo" alt="DETI logo"></a>
+          </div>
+        </div>
+        <div class="row copyright">
+          <div class="col-md-12 text-center">
+            <div class="probootstrap-footer-widget">
+              <p>&copy; 2019 <a href="">IntelChair</a>. Designed by <a href="https://uicookies.com/">uicookies.com</a> </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+
+  <div class="gototop js-top">
+    <a href="#" class="js-gotop"><i class="icon-chevron-thin-up"></i></a>
+  </div>
+
+  <script src="js/scripts.min.js"></script>
+  <script src="js/main.min.js"></script>
+  <script src="js/custom.js"></script>
+  
+  </body>
+</html>
