@@ -44,11 +44,13 @@ bool velocityServiceCallback(intelchair::ChairVelocity::Request &req, intelchair
     // este response tem de ser colocado a true, apenas quando a propria cadeira responder
     std::string str = req.velocity.c_str();
 	char info = str.at(0);
+    int currentVelocity = chair.velocity;
 	if(info == '+'){
 		buttonPressed = 0x04;
 	}else{
 		buttonPressed = 0x02;
 	}
+    
     return true;
 }
 
@@ -56,10 +58,11 @@ bool velocityServiceCallback(intelchair::ChairVelocity::Request &req, intelchair
 
 
 void joystickTopicCallback(const geometry_msgs::Point::ConstPtr& msg){
-    // ROS_INFO("Joystick info: (%f, %f)", msg->x, msg->y);
 
     joystick.x = ((int)msg->x);
     joystick.y = ((int)msg->y); 
+    ROS_INFO("Joystick info: (%f, %f)", msg->x, msg->y);
+
 
 }
 
