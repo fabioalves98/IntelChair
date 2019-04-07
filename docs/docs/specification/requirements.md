@@ -1,6 +1,4 @@
-# Tests
-
-The chair should be able to:</br>
+The chair should be able to:
 
 * Respond efficiently to the application commands
 * Recognize and respond to voice commands
