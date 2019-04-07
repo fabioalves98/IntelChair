@@ -20,8 +20,8 @@ class api(object):
 		self.chairIP = ""
 	
 	@cherrypy.expose
-	def setip(self, chair_ip):
-		print (chair_ip)
+	def set_chair_info(self, chair_ip, chair_maxspeed):
+		print (chair_ip, chair_maxspeed)
 		self.chairIP = chair_ip
 
 	@cherrypy.expose
