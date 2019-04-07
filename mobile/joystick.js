@@ -20,7 +20,9 @@ manager.on("move", function(event, nipple)
 {
 	// Note: The mapping functions expect values ranging from -1 to 1
     joystick.x = (nipple.position.x - window.innerWidth/2) * 2;
-    joystick.y = (nipple.position.y - window.innerHeight/2) * 2;
+	joystick.y = (nipple.position.y - window.innerHeight/2 ) * 2;
+	console.log('joystick: ', joystick);
+	console.log('wheels: ', map_joystickC(joystick.x, joystick.y));
 });
 
 manager.on("end", function(event, nipple)
@@ -36,7 +38,20 @@ setInterval(function(){
 			y: joystick.x,
 			z: 0
 		});
+		// var twist = new ROSLIB.Message({
+		// 	linear:{
+		// 		x: 
+		// 		y: 0
+		// 		z: 0
+		// 	},
+		// 	angular:{
+		// 		x:
+		// 		y:
+		// 		z: 0
+		// 	}
+		// });
 		publish_info('/joystick', 'geometry_msgs/Point', point);
+		// publish_info('/cmd_vel', 'geometry_msgs/Twist', twist);
 	}
 
 }, 50);
@@ -166,8 +181,11 @@ function ro(x, y){
 
 function theta(x, y){
 	return Math.atan(y/x) - Math.PI/2;
+	// return Math.atan(y/x);
 }
 
+
+// eixos trocados? x e y?
 function map_joystickB(x, y){
 	var motor_vel = {R: 0, L: 0};
 	function right(x, y){
@@ -192,6 +210,21 @@ function map_joystickB(x, y){
 	return motor_vel;
 
 
+}
+
+function map_joystickC(x, y){
+	x = x / 100;
+	y = y / 100;
+	var motor_vel = {R: 0, L: 0};
+	function nx(x){
+		if(x/2 > 0.1) return 0.1+((x/2) - 0.1)/2;
+		else if(x/2 < -0.1) return -0.1+((x/2) + 0.1)/2;
+		else return x/2;
+	}
+
+	motor_vel.R = y - nx(x);
+	motor_vel.L = y + nx(x);
+	return motor_vel;
 }
 
 
