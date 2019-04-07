@@ -1,15 +1,40 @@
 site_name: IntelChair
+
+theme:
+    name: 'material'
+    feature:
+        tabs: true
+    palette:
+        primary: 'Green'
+        accent: 'Green'
+    logo:
+        icon: 'accessible'
+
 nav:
-    - Home: index.md
-    - Client: client.md
-    - Vision: vision.md
-    - Manual: manual.md
-    - Architecture: arch.md
-    - Requirements: requirements.md
-    - Deliverables: deliv.md
-    - Logbook: log.md
-    - Team: team.md
-theme: readthedocs
+    - Home: 
+        - index.md
+    - Client: 
+        - Concept: client/client.md
+        - Features: client/features.md
+        - Risks : client/risks.md
+    - Vision: 
+        - Personas: vision/personas.md
+        - Scenarios: vision/scenarios.md
+    - Manual: 
+        - Manual: manual.md
+    - Specification: 
+        - Functionality: specification/functionality.md
+        - Restrictions: specification/restrictions.md
+        - Requirements: specification/requirements.md
+    - Architecture: 
+        - Architecture: architecture.md
+    - Developer:
+        - Developer: developer.md
+    - Team: 
+        - Team: team/team.md
+        - Logook: team/log.md
+        - Deliverables: team/deliv.md
+
 
 markdown_extensions:
     - attr_list
