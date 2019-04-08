@@ -1,4 +1,14 @@
-#Home 
+#IntelChair
+
+<video width="37%" controls muted autoplay loop>
+  <source src="rotateFinal.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
+
+<video width="62%" controls muted autoplay loop>
+  <source src="oitosFinal.mp4" type="video/mp4" />
+  Your browser does not support the video tag.
+</video>
 
 ## What is the IntelChair?
 

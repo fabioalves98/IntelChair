@@ -10,11 +10,11 @@ CHAIR_MAX_SPEED = 6
 
 rospy.init_node("server_connection", anonymous=True)
 
-ip = ni.ifaddresses('wlo1')[ni.AF_INET][0]['addr']
+ip = ni.ifaddresses('wlp3s0')[ni.AF_INET][0]['addr']
 
 localhost = '127.0.0.1:8080'
 api_call = "/api/set_chair_info"
-server_address = localhost
+server_address = '192.168.1.209:8080'
 
 
 url = 'http://' + server_address + api_call
