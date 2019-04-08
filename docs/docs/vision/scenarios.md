@@ -4,5 +4,5 @@ Ramalho goes to work very early in the morning and leaves late afternoon. Someti
 ## Rogério sends a package to the networks department
 Rogério has been working on a new radio trasmitter which it constantly needs to be tested by a networks team on the other side of the building. Rogério places the equipment on the wheelchair, and selects the networks team's room as destination to the , on his smarpthone. The wheelchair will then travel de desired path to deliver Rogério's component. This way, Rogério doesn't need to make the delivery himslef and can continue his work on his desk.
 
-## Rogério transports item in the wheelchair by having it follow him
+## Rogério brings items in the wheelchair by having it follow him
 In many situations Rogério struggles to transport items, mainly because they are too many or heavy. In this case, Rogério commands the wheelchair to follow him, loads the necessary items in the chair and travels to where he wants to take the components. The wheelchair, loaded with said items, will then follow Rogério.

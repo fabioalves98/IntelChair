@@ -14,12 +14,12 @@ The IntelChair will be used in conjunction with a mobile application with which 
 
 ## How does it work technically?
 
-All the information about architecture can be consulted in the [specification](architecture.md) page.
+All the information about implementation details can be consulted in the [architecture](architecture.md) page.
 
 ## How can I contribute?
 
-If you wish to deploy our system or contribute in any way, see how in the [developer](team/team.md) page.
+If you wish to deploy our system or contribute in any way, see how in the [developer](developer.md) page.
 
 ## Who are we?
 
-You can read more about the team and our progress on the [team](/team/team.md) page.
+You can read more about the team and our progress on the [team](team/team.md) page.
