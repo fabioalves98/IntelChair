@@ -9,4 +9,13 @@ In that sense comes the IntelChair, a motorized wheelchair packed with sensors a
 ## How it works
 ![arch](../img/client_architecture.png)
 
+---
+## How it looks
+![primary](../img/wheelchair/primary.jpg){ width="32%"}
+![left](../img/wheelchair/left.jpg){ width="32%"}
+![right](../img/wheelchair/right.jpg){ width="32%"}
+
+> These images represent the current prototype. They don't ressemble the final aspect of the wheelchair
+
+
 
