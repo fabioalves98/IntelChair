@@ -2,8 +2,8 @@
 <html>
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0" />  
-        <title> IONIC TEST </title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0" />
+        <title> IntelChair </title>
         <link href="https://unpkg.com/@ionic/core@latest/css/ionic.bundle.css" rel="stylesheet">
     </head>
     <body>
@@ -14,17 +14,20 @@
                     <ion-buttons slot="start">
                         <ion-button onclick="connect()" fill="solid" color="primary"> Connect </ion-button>
                     </ion-buttons>
-                    
-                    <ion-buttons class="icon" slot="primary" style="display:block;">
+                    <ion-buttons slot="start">
+                        <a href="auth.html"><ion-button onclick="" fill="solid" color="primary"> Exit Session </ion-button></a>
+                    </ion-buttons>
+
+                    <ion-buttons class="icon" slot="primary" style="display:block">
                         <ion-button><ion-icon slot="end" name="battery-full"></ion-icon><p id="battery-label"></p></ion-button>
                     </ion-buttons>
-                    <ion-buttons class="icon" slot="secondary" style="display:block;">
+                    <ion-buttons class="icon" slot="secondary" style="display:block">
                         <ion-button><ion-icon slot="end" name="speedometer"></ion-icon><p id="speed-label"></p></ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
-      
-            
+
+
             <ion-content class="has-header">
                 <ion-tabs>
                     <ion-tab tab="home"><ion-grid style="height: 100%">
@@ -40,19 +43,44 @@
                             </ion-row>
                         </ion-grid>
                     </ion-tab>
-                    <ion-tab tab="settings">This is the map page</ion-tab>
-                    
+                    <ion-tab tab="settings">
+                        <ion-grid>
+                            <ion-row>
+                                <ion-img src="static/room.png"></ion-img>
+                            </ion-row>
+                            <ion-row justify-content-center align-items-center>
+                                <ion-col>
+                                    <ion-list  justify-content-center align-items-center>
+                                        <ion-item>
+                                            <ion-button  color="warning">Coffee machine</ion-button>
+                                        </ion-item>
+                                    <ion-list>
+                                </ion-col>
+                                <ion-col>
+                                    <ion-list  justify-content-center align-items-center>
+                                        <ion-item>
+                                            <ion-button  color="danger">Workstation 1</ion-button>
+                                        </ion-item>
+                                        <ion-item>
+                                            <ion-button color="medium">Workstation 2</ion-button>
+                                        </ion-item>
+                                    <ion-list>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-tab>
+
                     <ion-tab-bar slot="bottom">
                         <ion-tab-button tab="home">
                         <ion-label>Manual</ion-label>
-                        <ion-icon name="ionic"></ion-icon>
+                        <ion-icon name="move"></ion-icon>
                         </ion-tab-button>
-                    
+
                         <ion-tab-button tab="settings">
                         <ion-label>Mapa</ion-label>
                         <ion-icon name="map"></ion-icon>
                         </ion-tab-button>
-                    
+
                     </ion-tab-bar>
                 </ion-tabs>
             </ion-content>
@@ -64,7 +92,7 @@
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script src="static/nipplejs.js"></script>
         <script src="static/joystick.js"></script>
-    
-      
+
+
     </body>
 </html>
