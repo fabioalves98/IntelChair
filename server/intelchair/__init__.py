@@ -41,10 +41,13 @@ def teardown_db(exception):
 #         # Convert to HTML
 #         return markdown.markdown(content)
 
-@app.route("/")
+@app.route("/index.html")
 def index():
     return open(app.root_path + '/index.html').read()
 
+@app.route("/auth.html")
+def auth():
+    return open(app.root_path + '/auth.html').read()
 
 ############## USERS ##############
 class UserList(Resource):
