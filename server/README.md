@@ -220,3 +220,4 @@ If a chair with the given name already exists, the existing chair will be overwr
 
 - `404 Not Found` if the chair does not exist
 - `204 No Content` on success
+
