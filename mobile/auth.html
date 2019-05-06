@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0" />  
+        <title> Authentication </title>
+        <link href="https://unpkg.com/@ionic/core@latest/css/ionic.bundle.css" rel="stylesheet">
+    </head>
+    <body>
+
+        <ion-app>
+                <ion-content>
+                        <!--<form  #form="ngForm" (ngSubmit)="register(form)">-->
+                          <ion-grid>
+                            <ion-row color="primary" justify-content-center>
+                              <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+                                <div text-center>
+                                  <h3>IntelChair</h3>
+                                </div>
+                                <div padding>
+                                  <ion-item>
+                                    <ion-input  name="name" type="text" placeholder="Name" ngModel required></ion-input>
+                                  </ion-item>
+                                  <ion-item>
+                                    <ion-input name="password" type="password" placeholder="Password" ngModel required></ion-input>
+                                  </ion-item>
+                                </div>
+                                <div padding>
+                                  <ion-button  size="medium-dpi" type="submit" [disabled]="form.invalid" expand="block">Login</ion-button>
+                                </div>
+                              </ion-col>
+                            </ion-row>
+                          </ion-grid>
+                       <!-- </form>-->
+                      </ion-content>
+        </ion-app>
+
+        <script type="text/javascript" src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+        <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@ionic/core@latest/dist/ionic.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="nipplejs.js"></script>
+        <script src="joystick.js"></script>
+    
+      
+    </body>
+</html>

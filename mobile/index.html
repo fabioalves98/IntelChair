@@ -14,11 +14,14 @@
                     <ion-buttons slot="start">
                         <ion-button onclick="connect()" fill="solid" color="primary"> Connect </ion-button>
                     </ion-buttons>
-                    
-                    <ion-buttons class="icon" slot="primary" style="display:block;">
+                    <ion-buttons slot="start">
+                        <a href="auth.html"><ion-button onclick="" fill="solid" color="primary"> Exit Session </ion-button></a>
+                    </ion-buttons>
+                
+                    <ion-buttons class="icon" slot="primary" style="display:block">
                         <ion-button><ion-icon slot="end" name="battery-full"></ion-icon><p id="battery-label"></p></ion-button>
                     </ion-buttons>
-                    <ion-buttons class="icon" slot="secondary" style="display:block;">
+                    <ion-buttons class="icon" slot="secondary" style="display:block">
                         <ion-button><ion-icon slot="end" name="speedometer"></ion-icon><p id="speed-label"></p></ion-button>
                     </ion-buttons>
                 </ion-toolbar>
