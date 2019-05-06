@@ -14,7 +14,7 @@ ip = ni.ifaddresses('wlp3s0')[ni.AF_INET][0]['addr']
 
 localhost = '127.0.0.1:8080'
 api_call = "/api/set_chair_info"
-server_address = '192.168.1.209:8080'
+server_address = '192.168.1.213:8080'
 
 
 url = 'http://' + server_address + api_call
