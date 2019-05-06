@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, target-densitydpi=medium-dpi, user-scalable=0" />  
+        <title> IONIC TEST </title>
+        <link href="https://unpkg.com/@ionic/core@latest/css/ionic.bundle.css" rel="stylesheet">
+    </head>
+    <body>
+
+        <ion-app>
+            <ion-header>
+                <ion-toolbar>
+                    <ion-buttons slot="start">
+                        <ion-button onclick="connect()" fill="solid" color="primary"> Connect </ion-button>
+                    </ion-buttons>
+                    
+                    <ion-buttons class="icon" slot="primary" style="display:block;">
+                        <ion-button><ion-icon slot="end" name="battery-full"></ion-icon><p id="battery-label"></p></ion-button>
+                    </ion-buttons>
+                    <ion-buttons class="icon" slot="secondary" style="display:block;">
+                        <ion-button><ion-icon slot="end" name="speedometer"></ion-icon><p id="speed-label"></p></ion-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+      
+            
+            <ion-content class="has-header">
+                <ion-tabs>
+                    <ion-tab tab="home"><ion-grid style="height: 100%">
+                        <ion-grid>
+                            <ion-row justify-content-center align-items-center style="height: 100%">
+                                <div id="zone_joystick"></div>
+                            </ion-row>
+                            <ion-row>
+                                <div>
+                                    <ion-button onclick="velocityDown()" color="primary">Speed down</ion-button>
+                                    <ion-button onclick="velocityUp()" color="primary">Speed up</ion-button>
+                                </div>
+                            </ion-row>
+                        </ion-grid>
+                    </ion-tab>
+                    <ion-tab tab="settings">This is the map page</ion-tab>
+                    
+                    <ion-tab-bar slot="bottom">
+                        <ion-tab-button tab="home">
+                        <ion-label>Manual</ion-label>
+                        <ion-icon name="ionic"></ion-icon>
+                        </ion-tab-button>
+                    
+                        <ion-tab-button tab="settings">
+                        <ion-label>Mapa</ion-label>
+                        <ion-icon name="map"></ion-icon>
+                        </ion-tab-button>
+                    
+                    </ion-tab-bar>
+                </ion-tabs>
+            </ion-content>
+        </ion-app>
+
+        <script type="text/javascript" src="http://static.robotwebtools.org/EventEmitter2/current/eventemitter2.min.js"></script>
+        <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
+        <script type="text/javascript" src="https://unpkg.com/@ionic/core@latest/dist/ionic.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="static/nipplejs.js"></script>
+        <script src="static/joystick.js"></script>
+    
+      
+    </body>
+</html>

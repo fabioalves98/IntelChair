@@ -1,6 +1,27 @@
 # IntelChair API
 
+## Prerequisites
+
+- **Docker**:
+sudo apt-get install docker.io
+
+- **Docker-compose**:
+sudo apt-get install docker-compose
+
+## How to run
+
+**In a new terminal run these commands:**<br>
+
+If the docker has been modified:<br>
+
+- $ sudo docker-compose build<br>
+
+Then, to run the application:<br>
+
+- $ sudo docker-compose up
+
 ## Usage
+
 
 All responses will have the form
 
@@ -12,7 +33,7 @@ All responses will have the form
 ```
 
 Subsequent response definitions will only detail the expected value of the `data field`
-
+# Users
 ### List all users
 
 **Definition**
@@ -52,9 +73,9 @@ Subsequent response definitions will only detail the expected value of the `data
 
 **Arguments**
 
-- `"first-name":string` user's first name
-- `"last-name":string` user's last name
-- `"username":string` username on the platform
+- `"first-name":string`
+- `"last-name":string`
+- `"username":string`
 - `"email":string`
 - `"age":int`
 - `"gender":char`
@@ -106,4 +127,96 @@ If a user with the given username already exists, the existing user will be over
 **Response**
 
 - `404 Not Found` if the user does not exist
+- `204 No Content` on success
+
+
+# Chairs
+### List all chairs
+
+**Definition**
+
+`GET /chairs`
+
+**Response**
+
+- `200 OK` on success
+
+```json
+[
+    {
+        "company": "Karma",
+        "model": "RX123",
+        "name": "wheelchair1",
+        "id": "a1bc2",
+        "user": "none"
+    },
+    {
+        "company": "Karma",
+        "model": "RX123",
+        "name": "wheelchair2",
+        "id": "u74ao",
+        "user": "manuelcoelho"
+    }
+]
+```
+
+### Registering a new chair
+
+**Definition**
+
+`POST /chairs`
+
+**Arguments**
+
+- `"company":string`
+- `"model":string`
+- `"name":string`
+- `"id":string`
+- `"user":string`
+
+
+If a chair with the given name already exists, the existing chair will be overwritten.
+
+**Response**
+
+- `201 Created` on success
+
+```json
+{
+    "company": "Karma",
+    "model": "RX123",
+    "name": "wheelchair1",
+    "id": "a1bc2",
+    "user": "none"
+}
+```
+
+## Lookup chair details
+
+`GET /chairs/<name>`
+
+**Response**
+
+- `404 Not Found` if the chair does not exist
+- `200 OK` on success
+
+```json
+{
+    "company": "Karma",
+    "model": "RX123",
+    "name": "wheelchair1",
+    "id": "a1bc2",
+    "user": "none"
+}
+```
+
+## Delete a chair
+
+**Definition**
+
+`DELETE /chairs/<name>`
+
+**Response**
+
+- `404 Not Found` if the chair does not exist
 - `204 No Content` on success
