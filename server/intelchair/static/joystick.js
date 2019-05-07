@@ -85,7 +85,7 @@ $('#login').click(function() {
     });
 
     location.reload();
-}
+});
 
 
 function connect(){
