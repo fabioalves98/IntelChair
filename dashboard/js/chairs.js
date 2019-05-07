@@ -6,14 +6,16 @@ function create_chair_card(cinfo){
 	// cinfo.ip ="192.168.1.1";
 	if(cinfo.status == undefined) cinfo.status = "Offline";
 	var chair_card;
-	var chair_card_top = "<div onclick=\"set_active_card('" + cinfo.name + "')\" id='" + cinfo.name + "'> <div class='card shadow mb-4'>\
-    <div class='card-header py-3 d-flex flex-row align-items-center justify-content-between'> \
-    <h6 class='m-0 font-weight-bold text-primary'>" + cinfo.name + " </h6>"
+	var chair_card_top = "<div onclick=\"set_active_card('" + cinfo.name + "')\" > <div class='card shadow mb-4'>\
+	<div id='" + cinfo.name + "' class='card-header py-3 d-flex flex-row align-items-center justify-content-between'> \
+	<h6 class='m-0 font-weight-bold text-primary'>" + cinfo.name + " </h6>";
+	
+	
 
-	var chair_card_used = "<a class='btn btn-primary'>";
-	var chair_card_online = "<a class='btn btn-success'>";
-	var chair_card_offline = "<a class='btn btn-danger'>";
-	var chair_card_navigating = "<a class='btn btn-info'>";
+	var chair_card_used = "<a class='btn btn-sm btn-primary'>";
+	var chair_card_online = "<a class='btn btn-sm btn-success'>";
+	var chair_card_offline = "<a class='btn btn-sm  btn-danger'>";
+	var chair_card_navigating = "<a class='btn btn-sm btn-info'>";
 	var chair_card_button;
 	if(cinfo.status == 'Taken'){
 		chair_card_button = chair_card_used;
@@ -33,7 +35,7 @@ function create_chair_card(cinfo){
 	
 	var chair_card_body_online = chair_card_body + "<div class='card-body'> \
 	<div class='content-row'>";
-	if(cinfo.status == 'Online') chair_card_body = chair_card_body_online;
+	if(cinfo.status == 'Online' || cinfo.status == 'Taken' || cinfo.status == 'Navigating') chair_card_body = chair_card_body_online;
 
 	
 	var chair_card_battery= "<div class='row no-gutters align-items-center'>\
@@ -58,9 +60,9 @@ function create_chair_card(cinfo){
 
 
 	var chair_card_ip = "<div class='row'><div class='col-md-6'><div class='text-x1s font-weight-bold text-info mt-3 text-uppercase mb-1'>IP</div>\
-	<div class='h5 mb-0 mr-3 font-weight-bold text-gray-800'>" +cinfo.ip +"</div></div>";
+	<div class='h6 mb-0 mr-3 font-weight-bold text-gray-800'>" +cinfo.ip +"</div></div>";
 	var chair_card_user = "<div class='col-md-6'><div class='text-x1s font-weight-bold text-info mt-3 text-uppercase mb-1'>USER</div>\
-	<div class='h5 mb-0 mr-3 font-weight-bold text-gray-800'>" +cinfo.user +"</div></div></div>";
+	<div class='h6 mb-0 mr-3 font-weight-bold text-gray-800'>" +cinfo.user +"</div></div></div>";
 
 	
 	if(cinfo.battery != undefined) chair_card_body += chair_card_battery;
@@ -80,24 +82,22 @@ function create_chair_card(cinfo){
 }
 
 
-function create_info_card(){
-	console.log(active_card);
-	// $("#detail-content").empty();
-	// var card = "<div class='card shadow mb-4'> \
-	// 	<div class='card-header py-3'> \
-	// 	<h6 class='m-0 font-weight-bold text-primary'>" + active_card.name + "</h6> \
-	// 	</div> \
-	// 	<div class='card-body'> \
-	// 	<div class='text-center'> \
-	// 	<img class='img-fluid px-3 px-sm-4 mt-3 mb-4' style='width: 25rem;' src='img/undraw_posting_photo.svg'> \
-	// 	</div> \
-	// 	<p>Add some quality, svg illustrations to your project courtesy of  images that you can use completely free and without attribution!</p> \
-	// 	<a target='_blank' rel='nofollow' href='https://undraw.co/'>Browse Illustrations on unDraw &rarr;</a> \
-	// 	</div> \
-	// 	</div>";
-	
-	// $("#detail-content").append(card);
 
+function set_info_card(){
+	document.getElementById("cname").innerHTML = active_card.name;
+	document.getElementById("ccompany").innerHTML = active_card.company;
+	document.getElementById("cmodel").innerHTML = active_card.model;
+	document.getElementById("cid").innerHTML = active_card.id;
+	
+	if(active_card.user != undefined){
+		document.getElementById("no-user").style.display = "none";
+		document.getElementById("disconnect-user").style.display = "block";
+	}else{
+		document.getElementById("no-user").style.display = "block";
+		document.getElementById("disconnect-user").style.display = "none"; 
+	}
+	
+	
 	
 }
 
@@ -107,7 +107,16 @@ function set_active_card(chair_name){
 			active_card = cdata[i];
         }
 	}
-	create_info_card();
+	set_info_card();
+	for(var i = 0; i < cdata.length; i++){
+		if(active_card.name == cdata[i].name){
+			document.getElementById(cdata[i].name).style.background = '#b9ff9b';
+		}else{
+			document.getElementById(cdata[i].name).style.background = '';
+		}
+	}
+
+	// load_chairs();
 
 }
 
@@ -132,8 +141,8 @@ function add_chair(){
 		'company'    	: $('#add_c').val(),
 		'model'  	    : $('#add_m').val(),
 		'name'     		: $('#add_n').val(),
-		'id'			: 'albc4',
-		'status' 	    : 'Offline',
+		'id'					: $('#add_i').val(),
+		'status' 	    : 'Offline'
     },
     function(data, status){
         console.log(status);
@@ -146,12 +155,15 @@ function add_chair(){
 
 function remove_chair(){
 	$.ajax({
-        url: 'http://localhost:5000/chairs/' + 'AChair3',
+        url: 'http://localhost:5000/chairs/' + active_card.name,
         type: 'DELETE',
         success: function(data, status) {
             console.log(status);
         }
-    })
+	});
+	active_card = null;
+	load_chairs();
+	
 }
 
 
@@ -161,11 +173,13 @@ function load_chairs(){
 
 	$.get("http://localhost:5000/chairs", function(data) {
 		cdata = JSON.parse(data);
+		
 		for(var i = 0; i < cdata.length; i++){
 			create_chair_card(cdata[i]);
 		}
-		if(active_card == null) active_card = cdata[0];
-		create_info_card();
+		if(active_card == null) set_active_card(cdata[0].name);
+
+		set_info_card();
 		add_chair_card();
 
 	});
