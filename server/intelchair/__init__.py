@@ -51,10 +51,9 @@ def auth():
 
     shelf = get_db("users.db")
 
-<<<<<<< HEAD
     if not (POST_USERNAME in shelf):
         return login()
-=======
+
     def get(self):
         # username = request.json.get('username')
         # password = request.json.get('password')
@@ -64,7 +63,6 @@ def auth():
     def post(self):
         print(self[1])
         return ""
->>>>>>> 4cb6afb8513986d4779248b52aec2e296fbce2e0
 
     db_password = str(shelf[POST_USERNAME]['password'])
 
@@ -286,10 +284,5 @@ api.add_resource(ChairList, '/chairs')
 api.add_resource(Chair, '/chairs/<string:name>')
 api.add_resource(HistoryList, '/chairs/history')
 api.add_resource(History, '/chairs/history/<string:chairId>')
-<<<<<<< HEAD
-=======
-api.add_resource(Authentication, '/auth')
 api.add_resource(MapList, '/maps')
 api.add_resource(Map, '/maps/<string:name>')
-
->>>>>>> 4cb6afb8513986d4779248b52aec2e296fbce2e0
