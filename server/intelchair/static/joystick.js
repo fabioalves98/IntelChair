@@ -14,6 +14,8 @@ var joystick = {x : 0, y : 0};
 var currentSpeed = 1;
 var currentBattery;
 showIcons();
+var start;
+var end;
 
 
 manager.on("move", function(event, nipple)
@@ -87,6 +89,7 @@ $('#login').click(function() {
 
 
 function connect(){
+	start = + new Date();
 	$.get("../api/getip", function(data) {
 		var jsondata = $.parseJSON(data);
 		if(jsondata.ip != ""){
@@ -107,6 +110,7 @@ function connect(){
 			connected = result.response;
 			if(connected){
 				chair_connected = true;
+				document.getElementById("connectBut").innerHTML("Disconnect");
 				showIcons();
 				subscribe_info('/chair_info', 'intelchair/ChairMsg', function(message){
 					currentSpeed = message.velocity;
