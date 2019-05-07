@@ -59,47 +59,21 @@ setInterval(function(){
 }, 50);
 
 
-/*function validateLogin(username, password){
-    $('#login').click( function() {
-    $.post( 'http://localhost:5000/users',
-    {
-        'username' : $('#add_un').val(),
-        'password' : $('#add_pw').val()
-    },
-    function(username, password, status){
-        console.log(status);
-        console.log(username, password)
-    });
-
-    location.reload();
-}*/
-
-$('#login').click(function() {
-	$.post( 'http://localhost:5000/auth.html',
-    {
-        'username' : $('#add_un').val(),
-        'password' : $('#add_pw').val()
-    },
-    function(data, status) {
-    	console.log(status);
-    });
-
-    location.reload();
-});
-
-
 function connect(){
 	start = + new Date();
-	$.get("../Chair/getip", function(data) {
-		var jsondata = $.parseJSON(data);
+	
+	$.get("/chairs/123123", function(data) {
+		console.log(data["data"]);
+		var jsondata = $.parseJSON(data["data"]);
 		if(jsondata.ip != ""){
 			ros_url = jsondata.ip;
 		}
 
 		ros = new ROSLIB.Ros({
-			url : 'ws://' + ros_url + ':9090'
+			// url : 'ws://' + jsondata.ip + ':9090'
+			url: 'ws://localhost:9090/'
 		});
-
+	«
 		if(ros_url != 1){
 			ros.socket.url = "ws://" + ros_url + ":9090";
 		}

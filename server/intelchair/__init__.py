@@ -157,7 +157,7 @@ class Chair(Resource):
         if not (chairId in shelf):
             return {'message': 'Chair not found', 'data': {}}, 404
 
-        return {'message': 'Chair found', 'data': shelf[chairId]}, 200
+        return {'message': 'Chair found', 'data': json.dumps(shelf[chairId])}, 200
 
     def delete(self, chairId):
         shelf = get_db("chairs.db")
@@ -280,7 +280,7 @@ class Map(Resource):
 api.add_resource(UserList, '/users')
 api.add_resource(User, '/users/<string:username>')
 api.add_resource(ChairList, '/chairs')
-api.add_resource(Chair, '/chairs/<string:name>')
+api.add_resource(Chair, '/chairs/<string:chairId>')
 api.add_resource(HistoryList, '/history')
 api.add_resource(History, '/history/<string:chairId>')
 api.add_resource(MapList, '/maps')
