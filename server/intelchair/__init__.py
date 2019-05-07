@@ -9,6 +9,7 @@ from flask import Flask, g, request, render_template
 from flask_cors import CORS
 from flask_restful import Resource, Api, reqparse
 
+
 # Create an instance of Flask
 app = Flask(__name__)
 CORS(app)
@@ -37,10 +38,38 @@ def teardown_db(exception):
 def index():
     return open(app.root_path + '/index.html').read()
 
-@app.route("/")
-@app.route("/auth.html")
-def auth():
-    return open(app.root_path + '/auth.html').read()
+# @app.route("/")
+# @app.route("/auth.html")
+# def auth():
+#     return open(app.root_path + '/auth.html').read()
+
+class Authentication(Resource):
+    @app.route("/")
+    @app.route("/auth.html")
+    def auth():
+        return open(app.root_path + '/auth.html').read()
+
+    def get(self):
+        # username = request.json.get('username')
+        # password = request.json.get('password')
+        # print(username)
+        return ""
+        
+    def post(self):
+        username = request.json.get('username')
+        password = request.json.get('password')
+        print(username)
+        return ""
+
+
+    # @auth.verify_password
+    # def verify_password(username, password):
+    #     user = User.query.filter_by(username = username).first()
+    #     if not user or not user.verify_password(password):
+    #         return False
+    #     g.user = user
+    #     return True
+
 
 
 ############## USERS ##############
@@ -120,6 +149,8 @@ class ChairList(Resource):
         parser.add_argument('id', required=True)
         parser.add_argument('ip', required=False)
         parser.add_argument('user', required=False)
+        parser.add_argument('status', required=False)
+        parser.add_argument('battery', required=False)
 
         # Parse the arguments into an object
         args = parser.parse_args()
@@ -206,4 +237,5 @@ api.add_resource(ChairList, '/chairs')
 api.add_resource(Chair, '/chairs/<string:name>')
 api.add_resource(HistoryList, '/chairs/history')
 api.add_resource(History, '/chairs/history/<string:chairId>')
+api.add_resource(Authentication, '/auth')
 
