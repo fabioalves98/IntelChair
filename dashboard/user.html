@@ -182,7 +182,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <table class="table table-bordered" id="user_table" width="100%" cellspacing="0">
                   <thead>
                     <tr>
                       <th>Name</th>
@@ -197,6 +197,73 @@
                 </table>
               </div>
             </div>
+          </div>
+
+            <div class="row">
+              <!-- Button trigger Add User Pop -->
+              <div class="col-3 mb-2">
+                <button type="button" class="btn btn-success col-sm" data-toggle="modal" data-target="#add_modal">
+                  Add User
+                </button>
+              </div>
+
+              <!-- Button trigger Remove User Pop -->
+              <div class="col-3 mb-2">
+                <button type="button" class="btn btn-danger col-sm" data-toggle="modal" data-target="#rem_modal">
+                  Remove User
+                </button>
+              </div>
+            </div>
+
+            <!-- Add User Pop -->
+            <div class="modal fade" id="add_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold text-primary" id="exampleModalLabel">Add a new User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <input type="text" class="form-control bg-light border-0 small mb-3" id="add_fn" placeholder="First Name">
+                    <input type="text" class="form-control bg-light border-0 small mb-3" id="add_ln" placeholder="Last Name">
+                    <input type="text" class="form-control bg-light border-0 small mb-3" id="add_un" placeholder="Username">
+                    <input type="text" class="form-control bg-light border-0 small mb-3" id="add_pw" placeholder="Password">
+                    <input type="text" class="form-control bg-light border-0 small mb-3" id="add_em" placeholder="E-mail">
+                    <input type="text" class="form-control bg-light border-0 small mb-3" id="add_ag" placeholder="Age">
+                    <input type="text" class="form-control bg-light border-0 small mb-3" id="add_ge" placeholder="Gender">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-success" id="add_user">Add</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Remove User Pop -->
+            <div class="modal fade" id="rem_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title font-weight-bold text-primary" id="exampleModalLabel">Remove existing User</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <input type="text" class="form-control bg-light border-0 small mb-3" id="rem_un" placeholder="Username">
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" id="rem_user">Remove</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
           </div>
 
         </div>
