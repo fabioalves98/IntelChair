@@ -27,7 +27,7 @@ class api(object):
 	@cherrypy.expose
 	def getip(self):
 		print ("\n\nNew user connected\n\n")
-		return json.dumps({"ip" : self.chairIP})
+		return json.dumps({"ip" : "loolololol"})
 
 
 if __name__ == '__main__':
