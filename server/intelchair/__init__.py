@@ -1,14 +1,17 @@
 import markdown
 import os
 import shelve
+import json
 from os.path import dirname
 
 # Import the framework
 from flask import Flask, g
+from flask_cors import CORS
 from flask_restful import Resource, Api, reqparse
 
 # Create an instance of Flask
 app = Flask(__name__)
+CORS(app)
 
 # Create the API
 api = Api(app)
@@ -60,7 +63,7 @@ class UserList(Resource):
         for key in keys:
             users.append(shelf[key])
 
-        return {'message': 'Success', 'data': users}, 200
+        return json.dumps(users), 200
 
     def post(self):
         parser = reqparse.RequestParser()
@@ -115,7 +118,7 @@ class ChairList(Resource):
         for key in keys:
             chairs.append(shelf[key])
 
-        return {'message': 'Success', 'data': chairs}, 200
+        return json.dumps(chairs), 200
 
     def post(self):
         parser = reqparse.RequestParser()
