@@ -6,7 +6,7 @@ function create_chair_card(cinfo){
 	// cinfo.ip ="192.168.1.1";
 	if(cinfo.status == undefined) cinfo.status = "Offline";
 	var chair_card;
-	var chair_card_top = "<div onclick=\"set_active_card('" + cinfo.name + "')\" > <div class='card shadow mb-4'>\
+	var chair_card_top = "<div style='cursor: pointer' onclick=\"set_active_card('" + cinfo.name + "')\" > <div class='card shadow mb-4'>\
 	<div id='" + cinfo.name + "' class='card-header py-3 d-flex flex-row align-items-center justify-content-between'> \
 	<h6 class='m-0 font-weight-bold text-primary'>" + cinfo.name + " </h6>";
 	
@@ -110,7 +110,7 @@ function set_active_card(chair_name){
 	set_info_card();
 	for(var i = 0; i < cdata.length; i++){
 		if(active_card.name == cdata[i].name){
-			document.getElementById(cdata[i].name).style.background = '#eaf8ff';
+			document.getElementById(cdata[i].name).style.background = '#ffffb5';
 		}else{
 			document.getElementById(cdata[i].name).style.background = '';
 		}
