@@ -110,7 +110,7 @@ function set_active_card(chair_name){
 	set_info_card();
 	for(var i = 0; i < cdata.length; i++){
 		if(active_card.name == cdata[i].name){
-			document.getElementById(cdata[i].name).style.background = '#b9ff9b';
+			document.getElementById(cdata[i].name).style.background = '#fdff9b';
 		}else{
 			document.getElementById(cdata[i].name).style.background = '';
 		}
