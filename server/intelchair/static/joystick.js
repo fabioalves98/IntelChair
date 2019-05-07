@@ -90,7 +90,7 @@ $('#login').click(function() {
 
 function connect(){
 	start = + new Date();
-	$.get("../api/getip", function(data) {
+	$.get("../Chair/getip", function(data) {
 		var jsondata = $.parseJSON(data);
 		if(jsondata.ip != ""){
 			ros_url = jsondata.ip;

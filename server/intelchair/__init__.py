@@ -54,16 +54,6 @@ def auth():
     if not (POST_USERNAME in shelf):
         return login()
 
-    def get(self):
-        # username = request.json.get('username')
-        # password = request.json.get('password')
-        # print(username)
-        return ""
-        
-    def post(self):
-        print(self[1])
-        return ""
-
     db_password = str(shelf[POST_USERNAME]['password'])
 
     if db_password == POST_PASSWORD:
@@ -154,30 +144,39 @@ class ChairList(Resource):
         args = parser.parse_args()
 
         shelf = get_db("chairs.db")
-        shelf[args['name']] = args
+        shelf[args['id']] = args
 
         return {'message': 'Chair registered', 'data': args}, 201
 
 
 class Chair(Resource):
-    def get(self, name):
+    def get(self, chairId):
         shelf = get_db("chairs.db")
 
         # If the key does not exist in the data store, return a 404 error.
-        if not (name in shelf):
+        if not (chairId in shelf):
             return {'message': 'Chair not found', 'data': {}}, 404
 
-        return {'message': 'Chair found', 'data': shelf[name]}, 200
+        return {'message': 'Chair found', 'data': shelf[chairId]}, 200
 
-    def delete(self, name):
+    def delete(self, chairId):
         shelf = get_db("chairs.db")
 
         # If the key does not exist in the data store, return a 404 error.
-        if not (name in shelf):
+        if not (chairId in shelf):
             return {'message': 'Chair not found', 'data': {}}, 404
 
-        del shelf[name]
+        del shelf[chairId]
         return '', 204
+
+    def getip(self, chairId):
+        shelf = get_db("chairs.db")
+
+        # If the key does not exist in the data store, return a 404 error.
+        if not (chairId in shelf):
+            return {'message': 'Chair not found', 'data': {}}, 404
+
+        return json.dumps({"ip": str(shelf[chairId]['ip']) })        
 
 
 ############## Chairs Use History ##############
