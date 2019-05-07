@@ -58,9 +58,7 @@ class Authentication(Resource):
         return ""
         
     def post(self):
-        username = request.json.get('username')
-        password = request.json.get('password')
-        print(username)
+        print(self[1])
         return ""
 
 
@@ -204,33 +202,34 @@ class HistoryList(Resource):
         parser.add_argument('end', required=True)
         parser.add_argument('username', required=True)
         parser.add_argument('chairId', required=True)
+        parser.add_argument('historyId', required=True)
 
         # Parse the arguments into an object
         args = parser.parse_args()
 
         shelf = get_db("history.db")
-        shelf[args['chairId']] = args
+        shelf[args['historyId']] = args
 
-        return {'message': 'History saved', 'data': args}, 201
+        return {'message': 'Chair history saved', 'data': args}, 201
 
 class History(Resource):
-    def get(self, chairId):
+    def get(self, historyId):
         shelf = get_db("history.db")
 
         # If the key does not exist in the data store, return a 404 error.
-        if not (chairId in shelf):
+        if not (id in shelf):
             return {'message': 'Chair history not found', 'data': {}}, 404
 
-        return {'message': 'Chair history found', 'data': shelf[chairId]}, 200
+        return {'message': 'Chair history found', 'data': shelf[historyId]}, 200
 
-    def delete(self, chairId):
+    def delete(self, historyId):
         shelf = get_db("history.db")
 
         # If the key does not exist in the data store, return a 404 error.
-        if not (chairId in shelf):
+        if not (historyId in shelf):
             return {'message': 'Chair history not found', 'data': {}}, 404
 
-        del shelf[chairId]
+        del shelf[historyId]
         return '', 204
 
 ############## Maps ##############
