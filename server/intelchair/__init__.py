@@ -102,7 +102,7 @@ class User(Resource):
         if not (username in shelf):
             return {'message': 'User not found', 'data': {}}, 404
 
-        return {'message': 'User found', 'data': shelf[username]}, 200
+        return json.dumps(shelf[username]), 200
 
     def delete(self, username):
         shelf = get_db("users.db")
@@ -281,7 +281,7 @@ api.add_resource(UserList, '/users')
 api.add_resource(User, '/users/<string:username>')
 api.add_resource(ChairList, '/chairs')
 api.add_resource(Chair, '/chairs/<string:name>')
-api.add_resource(HistoryList, '/chairs/history')
-api.add_resource(History, '/chairs/history/<string:chairId>')
+api.add_resource(HistoryList, '/history')
+api.add_resource(History, '/history/<string:chairId>')
 api.add_resource(MapList, '/maps')
 api.add_resource(Map, '/maps/<string:name>')

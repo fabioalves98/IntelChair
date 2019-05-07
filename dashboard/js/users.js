@@ -1,11 +1,14 @@
-// Call the dataTables jQuery plugin
-$(document).ready(function() {
+// JS for user page
+$(document).ready(function() 
+{
     var table = $('#user_table').DataTable();
-    
-    $.get( 'http://localhost:5000/users', function( data ) {
+
+    $.get( 'http://localhost:5000/users', function( data ) 
+    {
         var users = JSON.parse(data);
         
-        users.forEach(element => {
+        users.forEach(element => 
+            {
             table.row.add ( [
                 element['first-name'] + " " + element['last-name'],
                 element['username'],
@@ -16,7 +19,8 @@ $(document).ready(function() {
     });
 });
 
-$('#add_user').click( function() {
+$('#add_user').click( function() 
+{
     $.post( 'http://localhost:5000/users',
     {
         'first-name'    : $('#add_fn').val(),
@@ -27,7 +31,8 @@ $('#add_user').click( function() {
         'age'           : $('#add_ag').val(),
         'gender'        : $('#add_ge').val()
     },
-    function(data, status){
+    function(data, status)
+    {
         console.log(status);
     });
 
@@ -36,11 +41,14 @@ $('#add_user').click( function() {
     location.reload();
 })
 
-$('#rem_user').click( function() {
-    $.ajax({
+$('#rem_user').click( function() 
+{
+    $.ajax(
+        {
         url: 'http://localhost:5000/users/' + $('#rem_un').val(),
         type: 'DELETE',
-        success: function(data, status) {
+        success: function(data, status) 
+        {
             console.log(status);
         }
     })
