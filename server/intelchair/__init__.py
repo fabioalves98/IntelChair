@@ -26,6 +26,8 @@ def get_db(name):
             db = g._database = shelve.open("chairs.db")
         elif name == "history.db":
             db = g._database = shelve.open("history.db")
+        elif name == "maps.db":
+            db = g._database = shelve.open("maps.db")
     return db
 
 @app.teardown_appcontext
@@ -56,9 +58,7 @@ class Authentication(Resource):
         return ""
         
     def post(self):
-        username = request.json.get('username')
-        password = request.json.get('password')
-        print(username)
+        print(self[1])
         return ""
 
 
@@ -202,34 +202,83 @@ class HistoryList(Resource):
         parser.add_argument('end', required=True)
         parser.add_argument('username', required=True)
         parser.add_argument('chairId', required=True)
+        parser.add_argument('historyId', required=True)
 
         # Parse the arguments into an object
         args = parser.parse_args()
 
         shelf = get_db("history.db")
-        shelf[args['chairId']] = args
+        shelf[args['historyId']] = args
 
-        return {'message': 'History saved', 'data': args}, 201
+        return {'message': 'Chair history saved', 'data': args}, 201
 
 class History(Resource):
-    def get(self, chairId):
+    def get(self, historyId):
         shelf = get_db("history.db")
 
         # If the key does not exist in the data store, return a 404 error.
-        if not (chairId in shelf):
+        if not (id in shelf):
             return {'message': 'Chair history not found', 'data': {}}, 404
 
-        return {'message': 'Chair history found', 'data': shelf[chairId]}, 200
+        return {'message': 'Chair history found', 'data': shelf[historyId]}, 200
 
-    def delete(self, chairId):
+    def delete(self, historyId):
         shelf = get_db("history.db")
 
         # If the key does not exist in the data store, return a 404 error.
-        if not (chairId in shelf):
+        if not (historyId in shelf):
             return {'message': 'Chair history not found', 'data': {}}, 404
 
-        del shelf[chairId]
+        del shelf[historyId]
         return '', 204
+
+############## Maps ##############
+class MapList(Resource):
+    def get(self):
+        shelf = get_db("maps.db")
+        keys = list(shelf.keys())
+
+        maps = []
+
+        for key in keys:
+            maps.append(shelf[key])
+
+        return json.dumps(maps), 200
+
+    def post(self):
+        parser = reqparse.RequestParser()
+        
+        parser.add_argument('name', required=True)
+        parser.add_argument('image', required=True)
+
+        # Parse the arguments into an object
+        args = parser.parse_args()
+
+        shelf = get_db("maps.db")
+        shelf[args['name']] = args
+
+        return {'message': 'Map saved', 'data': args}, 201
+
+class Map(Resource):
+    def get(self, name):
+        shelf = get_db("maps.db")
+
+        # If the key does not exist in the data store, return a 404 error.
+        if not (name in shelf):
+            return {'message': 'Map not found', 'data': {}}, 404
+
+        return {'message': 'Map found', 'data': shelf[name]}, 200
+
+    def delete(self, name):
+        shelf = get_db("maps.db")
+
+        # If the key does not exist in the data store, return a 404 error.
+        if not (name in shelf):
+            return {'message': 'Map not found', 'data': {}}, 404
+
+        del shelf[name]
+        return '', 204
+
 
 api.add_resource(UserList, '/users')
 api.add_resource(User, '/users/<string:username>')
@@ -238,4 +287,6 @@ api.add_resource(Chair, '/chairs/<string:name>')
 api.add_resource(HistoryList, '/chairs/history')
 api.add_resource(History, '/chairs/history/<string:chairId>')
 api.add_resource(Authentication, '/auth')
+api.add_resource(MapList, '/maps')
+api.add_resource(Map, '/maps/<string:name>')
 

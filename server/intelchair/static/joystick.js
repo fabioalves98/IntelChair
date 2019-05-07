@@ -57,9 +57,34 @@ setInterval(function(){
 }, 50);
 
 
-function validateLogin(name, password){
-    
+/*function validateLogin(username, password){
+    $('#login').click( function() {
+    $.post( 'http://localhost:5000/users',
+    {
+        'username' : $('#add_un').val(),
+        'password' : $('#add_pw').val()
+    },
+    function(username, password, status){
+        console.log(status);
+        console.log(username, password)
+    });
+
+    location.reload();
+}*/
+
+$('#login').click(function() {
+	$.post( 'http://localhost:5000/auth.html',
+    {
+        'username' : $('#add_un').val(),
+        'password' : $('#add_pw').val()
+    },
+    function(data, status) {
+    	console.log(status);
+    });
+
+    location.reload();
 }
+
 
 function connect(){
 	$.get("../api/getip", function(data) {
