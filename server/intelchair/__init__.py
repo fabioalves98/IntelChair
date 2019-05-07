@@ -5,7 +5,7 @@ import json
 from os.path import dirname
 
 # Import the framework
-from flask import Flask, g
+from flask import Flask, g, request, render_template
 from flask_cors import CORS
 from flask_restful import Resource, Api, reqparse
 
@@ -33,19 +33,6 @@ def teardown_db(exception):
     if db is not None:
         db.close()
 
-
-# def index():
-#     """Present some documentation"""
-
-#     # Open the README file
-#     with open(os.path.dirname(app.root_path) + '/README.md', 'r') as markdown_file:
-
-#         # Read the content of the file
-#         content = markdown_file.read()
-
-#         # Convert to HTML
-#         return markdown.markdown(content)
-
 @app.route("/index.html")
 def index():
     return open(app.root_path + '/index.html').read()
@@ -54,6 +41,7 @@ def index():
 @app.route("/auth.html")
 def auth():
     return open(app.root_path + '/auth.html').read()
+
 
 ############## USERS ##############
 class UserList(Resource):
