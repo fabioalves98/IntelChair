@@ -36,20 +36,23 @@ def teardown_db(exception):
     if db is not None:
         db.close()
 
-@app.route("/index.html")
+@app.route("/index")
 def index():
     return open(app.root_path + '/index.html').read()
+    
+@app.route('/')
+def login():
+    return open(app.root_path + '/auth.html').read()
 
-# @app.route("/")
-# @app.route("/auth.html")
-# def auth():
-#     return open(app.root_path + '/auth.html').read()
+@app.route('/login', methods=['POST'])
+def auth():
+    POST_USERNAME = str(request.form['name'])
+    POST_PASSWORD = str(request.form['password'])
 
-class Authentication(Resource):
-    @app.route("/")
-    @app.route("/auth.html")
-    def auth():
-        return open(app.root_path + '/auth.html').read()
+    shelf = get_db("users.db")
+
+    if not (POST_USERNAME in shelf):
+        return login()
 
     def get(self):
         # username = request.json.get('username')
@@ -61,15 +64,10 @@ class Authentication(Resource):
         print(self[1])
         return ""
 
+    db_password = str(shelf[POST_USERNAME]['password'])
 
-    # @auth.verify_password
-    # def verify_password(username, password):
-    #     user = User.query.filter_by(username = username).first()
-    #     if not user or not user.verify_password(password):
-    #         return False
-    #     g.user = user
-    #     return True
-
+    if db_password == POST_PASSWORD:
+        return index()
 
 
 ############## USERS ##############
@@ -286,7 +284,5 @@ api.add_resource(ChairList, '/chairs')
 api.add_resource(Chair, '/chairs/<string:name>')
 api.add_resource(HistoryList, '/chairs/history')
 api.add_resource(History, '/chairs/history/<string:chairId>')
-api.add_resource(Authentication, '/auth')
 api.add_resource(MapList, '/maps')
 api.add_resource(Map, '/maps/<string:name>')
-
