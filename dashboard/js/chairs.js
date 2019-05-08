@@ -10,11 +10,9 @@ function create_chair_card(cinfo){
 	<div id='" + cinfo.name + "' class='card-header py-3 d-flex flex-row align-items-center justify-content-between'> \
 	<h6 class='m-0 font-weight-bold text-primary'>" + cinfo.name + " </h6>";
 	
-	
-
 	var chair_card_used = "<a class='btn btn-sm btn-primary'>";
 	var chair_card_online = "<a class='btn btn-sm btn-success'>";
-	var chair_card_offline = "<a class='btn btn-sm  btn-danger'>";
+	var chair_card_offline = "<a class='btn btn-sm btn-danger'>";
 	var chair_card_navigating = "<a class='btn btn-sm btn-info'>";
 	var chair_card_button;
 	if(cinfo.status == 'Taken'){
@@ -64,11 +62,11 @@ function create_chair_card(cinfo){
 	var chair_card_user = "<div class='col-md-6'><div class='text-x1s font-weight-bold text-info mt-3 text-uppercase mb-1'>USER</div>\
 	<div class='h6 mb-0 mr-3 font-weight-bold text-gray-800'>" +cinfo.user +"</div></div></div>";
 
-	
-	if(cinfo.battery != undefined) chair_card_body += chair_card_battery;
-	if(cinfo.ip != undefined) chair_card_body += chair_card_ip;
-	if(cinfo.user != undefined) chair_card_body += chair_card_user;
-
+	if(cinfo.status != 'Offline'){
+		if(cinfo.battery != undefined) chair_card_body += chair_card_battery;
+		if(cinfo.ip != undefined) chair_card_body += chair_card_ip;
+		if(cinfo.user != undefined) chair_card_body += chair_card_user;
+	}
 	var chair_card_end = "</div> \
 		</div> \
 		</div> \
@@ -173,13 +171,15 @@ function load_chairs(){
 
 	$.get("http://localhost:5000/chairs", function(data) {
 		cdata = JSON.parse(data);
+		if(cdata.length > 0){
+			for(var i = 0; i < cdata.length; i++){
+				create_chair_card(cdata[i]);
+			}
 		
-		for(var i = 0; i < cdata.length; i++){
-			create_chair_card(cdata[i]);
+			if(active_card == null) set_active_card(cdata[0].name);
+		
+			set_info_card();
 		}
-		if(active_card == null) set_active_card(cdata[0].name);
-
-		set_info_card();
 		add_chair_card();
 
 	});
