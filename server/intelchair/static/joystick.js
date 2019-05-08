@@ -73,7 +73,7 @@ function connect(){
 			// url : 'ws://' + jsondata.ip + ':9090'
 			url: 'ws://localhost:9090/'
 		});
-	«
+		
 		if(ros_url != 1){
 			ros.socket.url = "ws://" + ros_url + ":9090";
 		}
