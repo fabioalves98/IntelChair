@@ -61,23 +61,22 @@ setInterval(function(){
 
 function connect(){
 	start = + new Date();
-	
+	/*
 	$.get("/chairs/123123", function(data) {
 		console.log(data["data"]);
 		var jsondata = $.parseJSON(data["data"]);
 		if(jsondata.ip != ""){
 			ros_url = jsondata.ip;
 		}
-
+*/
 		ros = new ROSLIB.Ros({
 			// url : 'ws://' + jsondata.ip + ':9090'
 			url: 'ws://localhost:9090/'
 		});
-		
 		if(ros_url != 1){
 			ros.socket.url = "ws://" + ros_url + ":9090";
 		}
-
+		/*
 		var connected = false;
 		ros_call_service("/connection_service", "intelchair/ChairConnection", {connection: "c"}, function(result){
 			// console.log("Connection response: " + result.response);
@@ -94,10 +93,11 @@ function connect(){
 				});
 			}
 		});
+		*/
 
 
 
-	});
+	//});
 }
 
 
