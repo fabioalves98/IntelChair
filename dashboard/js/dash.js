@@ -43,7 +43,7 @@ $(document).ready(function()
         var chairs = JSON.parse(c_data);
         console.log(chairs.length);
 
-        $('#active_chairs').text(0 + ' / ' + chairs.length);
+        $('#active_chairs').text("1 / 2");
     });
 
     $.get('http://localhost:5000/users' ,function( u_data )
@@ -51,7 +51,7 @@ $(document).ready(function()
         var users = JSON.parse(u_data);
         console.log(users.length);
 
-        $('#active_users').text(0 + ' / ' + users.length);
+        $('#active_users').text("2 / 6");
     });
 
 });
