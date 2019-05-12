@@ -31,3 +31,6 @@ include_directories(include ${catkin_INCLUDE_DIRS})
 ## PC_Subscriber
 add_executable(subscriber src/pc_subscriber.cpp src/CommSerial.cpp src/CommHandler.cpp)
 target_link_libraries(subscriber ${catkin_LIBRARIES})
+
+add_executable(cmdparser src/cmdvel_parser.cpp)
+target_link_libraries(cmdparser ${catkin_LIBRARIES})
