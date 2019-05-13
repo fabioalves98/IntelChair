@@ -34,7 +34,7 @@ void CommHandler::buildFrame(Coordinate joystick, int buttonPressed, int connect
         connectStatus = 0x01;
     }
 
-    sprintf(aux, "#%c%03d%c%03d%1d%1d", (joystick.x > 0 ? '-' : '+'), abs(joystick.x), 
+    sprintf(aux, "#%c%03d%c%03d%1d%1d", (joystick.x > 0 ? '+' : '-'), abs(joystick.x), 
            (joystick.y > 0 ? '+' : '-'), abs(joystick.y), velocityInfo, connectInfo);
 
     // printf("FRAME: %s\n", aux);

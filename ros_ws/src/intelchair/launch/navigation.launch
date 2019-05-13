@@ -1,12 +1,14 @@
 <launch>
    <master auto="start"/>
     <!-- Run the map server --> 
-   <node name="map_server" pkg="map_server" type="map_server" args="$(find intelchair)/my_map.pgm my_map_resolution"/>
+   <node name="map_server" pkg="map_server" type="map_server" args="$(find intelchair)/lol.yaml"/>
 
-    <!--- Run AMCL --> 
-    <!-- <include file="$(find amcl)/examples/amcl_omni.launch" /> -->
+    <!-- Run Localization -->
+    <node pkg="iris_rtk_ros" type="loc2d_ros" name="local" output="screen">
+        <param name="scan" value="/scan_filtered"/>
+    </node>
 
-    <node pkg="intelchair" type="navigation" respawn="false" name="move_base" output="screen">
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
         <rosparam file="$(find intelchair)/common_costmap.yaml" command="load" ns="global_costmap" /> 
         <rosparam file="$(find intelchair)/common_costmap.yaml" command="load" ns="local_costmap" />
         <rosparam file="$(find intelchair)/local_costmap.yaml" command="load" />
