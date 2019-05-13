@@ -53,12 +53,19 @@ def query_users():
   
     return get_allusers()
 
-@app.route("/users/<username>", methods=['POST', 'GET'])
+@app.route("/users/<username>", methods=['POST', 'GET', 'DELETE'])
 def user_update(username):
     if request.method == 'POST':
         return update_user(username)
+    elif request.method == 'DELETE':
+        return remove_user(username)
   
     return get_user(username)
+
+@app.route("/remove/users/<username>", methods=['POST'])
+def remove(username):
+    return remove_user(username)
+
 
 @app.route("/chairs", methods=['POST', 'GET'])
 def query_chairs():
@@ -153,15 +160,31 @@ def update_user(username):
         db.commit()
         print("Table 'users' created")
 
+def remove_user(username):
+    db = get_db()
+    c = db.cursor()
+
+    c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='users'") # checking if the table exists
+    if c.fetchone()[0]==1:
+        c.execute("DELETE FROM users WHERE username = ?", [username,])
+        db.commit()
+        return 200
+    else:
+        c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text)")
+        db.commit()
+        print("Table 'users' created")
+
+
 def valid_login(username, password):
     db = get_db()
     c = db.cursor()
     user = c.execute("SELECT * FROM users WHERE username = ?", [username,])
-    db.commit()
-    if user is None:
+    rows = user.fetchone()
+
+    if rows is None:
         return False
 
-    return True
+    return password == rows['password']
 
 def log_the_user_in():
     return redirect(url_for('index'))
@@ -202,3 +225,22 @@ def get_chair(id):
         print("Chair '?' not found", id)
 
     return json.dumps([dict(x) for x in chair])
+
+def add_chair():
+    db = get_db()
+    c = db.cursor()
+
+    company = request.form['company']
+    model = request.form['model']
+    name = request.form['name']
+    id = request.form['id']
+    
+    c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='chairs'") # checking if the table exists
+    if c.fetchone()[0]==1:
+        c.execute("INSERT INTO chairs(company, model, name, id, ip, user, status, battery) \
+                        VALUES(?, ?, ?, ?, ?, ?, ?, ?)", (company, model, name, id, None, None, None, None))
+        db.commit()
+    else:
+        c.execute("CREATE TABLE IF NOT EXISTS chairs (company text, model text, name text, id text, ip text, user text, status text, battery integer);")
+        db.commit()
+        print("Table 'chairs' created")
