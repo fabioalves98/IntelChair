@@ -3,8 +3,10 @@ import json
 from flask import Flask, g
 from flask import render_template
 from flask import redirect, url_for, request
+from flask_cors import CORS
 
 app = Flask(__name__)
+cors = CORS(app)
 DATABASE = "database.db"
 
 def get_db():
@@ -46,10 +48,31 @@ def index():
 
 @app.route("/users", methods=['POST', 'GET'])
 def query_users():
-  if request.method == 'POST':
-    add_user()
+    if request.method == 'POST':
+        add_user()
   
-  return get_allusers()
+    return get_allusers()
+
+@app.route("/users/<username>", methods=['POST', 'GET'])
+def user_update(username):
+    if request.method == 'POST':
+        return update_user(username)
+  
+    return get_user(username)
+
+@app.route("/chairs", methods=['POST', 'GET'])
+def query_chairs():
+    if request.method == 'POST':
+        add_chair()
+  
+    return get_allchairs()
+
+@app.route("/chairs/<id>", methods=['POST', 'GET'])
+def chair_update(id):
+    if request.method == 'POST':
+        return update_chair(id)
+  
+    return get_chair(id)
 
 def get_allusers():
     db = get_db()
@@ -63,13 +86,6 @@ def get_allusers():
         print("Table 'users' created")
 
     return json.dumps([dict(x) for x in users])
-
-@app.route("/users/<username>", methods=['POST', 'GET'])
-def user_update(username):
-  if request.method == 'POST':
-    return update_user(username)
-  
-  return get_user(username)
 
 def get_user(username):
     db = get_db()
@@ -127,7 +143,8 @@ def update_user(username):
 
 def valid_login(username, password):
     db = get_db()
-    user = db.execute('select * from users where username = ?', [username])
+    c = db.cursor()
+    user = c.execute("SELECT * FROM users WHERE username = ?", [username,])
     if user is None:
         return False
 
@@ -136,3 +153,35 @@ def valid_login(username, password):
 def log_the_user_in():
     return redirect(url_for('index'))
 
+
+#### Chairs ####
+def get_allchairs():
+    db = get_db()
+    c = db.cursor()
+    chairs = []
+
+    c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='chairs'") # checking if the table exists
+    if c.fetchone()[0]==1:
+        chairs = c.execute("SELECT * FROM chairs")
+    else:
+        c.execute("CREATE TABLE IF NOT EXISTS chairs (company text, model text, name text, id text, ip text, user text, status text, battery integer);")
+        print("Table 'chairs' created")
+
+    return json.dumps([dict(x) for x in chairs])
+
+def get_chair(id):
+    db = get_db()
+    c = db.cursor()
+    chairs = []
+
+    c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='chairs'") # checking if the table exists
+    if c.fetchone()[0]==1:
+        chair = c.execute("SELECT * FROM chairs WHERE id = ?", [id,])
+    else:
+        c.execute("CREATE TABLE IF NOT EXISTS chairs (company text, model text, name text, id text, ip text, user text, status text, battery integer);")
+        print("Table 'chairs' created")
+
+    if chair == None:
+        print("Chair '?' not found", id)
+
+    return json.dumps([dict(x) for x in chair])

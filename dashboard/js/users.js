@@ -1,4 +1,3 @@
-// JS for user page
 $(document).ready(function() 
 {
     var table = $('#user_table').DataTable();
