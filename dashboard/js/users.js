@@ -36,8 +36,8 @@ $('#add_user').click( function()
     });
 
     $('#add_modal').modal('toggle');
-    
-    location.reload();
+ 	
+ 	location.reload();
 })
 
 $('#rem_user').click( function() 

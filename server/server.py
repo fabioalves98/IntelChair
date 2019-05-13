@@ -78,11 +78,15 @@ def get_allusers():
     db = get_db()
     c = db.cursor()
 
+    users=[]
+    
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='users'") # checking if the table exists
     if c.fetchone()[0]==1:
         users = c.execute("SELECT * FROM users")
+        db.commit()
     else:
         c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text);")
+        db.commit()
         print("Table 'users' created")
 
     return json.dumps([dict(x) for x in users])
@@ -91,11 +95,15 @@ def get_user(username):
     db = get_db()
     c = db.cursor()
 
+    users=[]
+    
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='users'") # checking if the table exists
     if c.fetchone()[0]==1:
         user = c.execute("SELECT * FROM users WHERE username = ?", [username,])
+        db.commit()
     else:
         c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text);")
+        db.commit()
         print("Table 'users' created")
 
     if user == None:
@@ -107,8 +115,8 @@ def add_user():
     db = get_db()
     c = db.cursor()
 
-    firstname = request.form['firstname']
-    lastname = request.form['lastname']
+    firstname = request.form['first-name']
+    lastname = request.form['last-name']
     username = request.form['username']
     password = request.form['password']
     email = request.form['email']
@@ -118,9 +126,11 @@ def add_user():
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='users'") # checking if the table exists
     if c.fetchone()[0]==1:
         c.execute("INSERT INTO users(firstname, lastname, username, password, email, age, gender, chair) \
-                        VALUES(?, ?, ?, ?, ?, ?, ?, ?)", (firstname, lastname, username, password, email, age, gender))
+                        VALUES(?, ?, ?, ?, ?, ?, ?, ?)", (firstname, lastname, username, password, email, age, gender, None))
+        db.commit()
     else:
         c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text)")
+        db.commit()
         print("Table 'users' created")
 
 def update_user(username):
@@ -137,14 +147,17 @@ def update_user(username):
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='users'") # checking if the table exists
     if c.fetchone()[0]==1:
         c.execute("UPDATE users SET firstname = ?...") # ??
+        db.commit()
     else:
         c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text)")
+        db.commit()
         print("Table 'users' created")
 
 def valid_login(username, password):
     db = get_db()
     c = db.cursor()
     user = c.execute("SELECT * FROM users WHERE username = ?", [username,])
+    db.commit()
     if user is None:
         return False
 
@@ -163,8 +176,10 @@ def get_allchairs():
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='chairs'") # checking if the table exists
     if c.fetchone()[0]==1:
         chairs = c.execute("SELECT * FROM chairs")
+        db.commit()
     else:
         c.execute("CREATE TABLE IF NOT EXISTS chairs (company text, model text, name text, id text, ip text, user text, status text, battery integer);")
+        db.commit()
         print("Table 'chairs' created")
 
     return json.dumps([dict(x) for x in chairs])
@@ -177,8 +192,10 @@ def get_chair(id):
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='chairs'") # checking if the table exists
     if c.fetchone()[0]==1:
         chair = c.execute("SELECT * FROM chairs WHERE id = ?", [id,])
+        db.commit()
     else:
         c.execute("CREATE TABLE IF NOT EXISTS chairs (company text, model text, name text, id text, ip text, user text, status text, battery integer);")
+        db.commit()
         print("Table 'chairs' created")
 
     if chair == None:
