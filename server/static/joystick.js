@@ -33,6 +33,22 @@ manager.on("end", function(event, nipple)
     joystick.y = 0;
 })
 
+
+
+$('#login').click(function() {
+
+	$.post( 'http://localhost:5000/auth.html',
+    {
+        'username' : $('#user').val(),
+        'password' : $('#pw').val()
+    },
+    function(data, status) {
+    	console.log(status);
+    });
+    location.reload();
+})
+
+
 setInterval(function(){
 	if(ros){
 		var point = new ROSLIB.Message({
