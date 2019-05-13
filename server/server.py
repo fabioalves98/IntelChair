@@ -74,6 +74,28 @@ def chair_update(id):
   
     return get_chair(id)
 
+@app.route("/history", methods=['POST', 'GET'])
+def query_history():
+    if request.method == 'POST':
+        add_history()
+  
+    return get_allhistory()
+
+@app.route("/history/<id>", methods=['POST'])
+def update_history():
+    if request.method == 'POST':
+        remove_history(id)
+  
+    return get_history_by_chair(id)
+
+
+@app.route("/maps", methods=['POST', 'GET'])
+def query_maps():
+    if request.method == 'POST':
+        add_map()
+  
+    return get_allmaps()
+
 def get_allusers():
     db = get_db()
     c = db.cursor()
@@ -245,10 +267,108 @@ def remove_chair(id):
 
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='users'") # checking if the table exists
     if c.fetchone()[0]==1:
-        c.execute("DELETE FROM chairs WHERE id = ?", [id,])
+        c.execute("DELETE FROM chairs WHERE name = ?", [id,])
         db.commit()
         return '', 200
     else:
         c.execute("CREATE TABLE IF NOT EXISTS chairs (company text, model text, name text, id text, ip text, user text, status text, battery integer);")
         db.commit()
         print("Table 'chairs' created")
+
+
+#### History ####
+def get_allhistory():
+    db = get_db()
+    c = db.cursor()
+    history = []
+
+    c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='history'") # checking if the table exists
+    if c.fetchone()[0]==1:
+        history = c.execute("SELECT * FROM history")
+        db.commit()
+    else:
+        c.execute("CREATE TABLE IF NOT EXISTS history (startTime text, endTime text, username text, chairId text);")
+        db.commit()
+        print("Table 'history' created")
+
+    return json.dumps([dict(x) for x in history])
+
+
+
+#### history by chair not working yet
+def get_history_by_chair(id):
+    db = get_db()
+    c = db.cursor()
+    history = []
+
+    c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='history'") # checking if the table exists
+    if c.fetchone()[0]==1:
+        history = c.execute("SELECT * FROM history WHERE chairId = ?", [id,])
+        db.commit()
+    else:
+        c.execute("CREATE TABLE IF NOT EXISTS history (startTime text, endTime text, username text, chairId text);")
+        db.commit()
+        print("Table 'history' created")
+
+    if chair == None:
+        print("History '?' not found", id)
+
+    return json.dumps([dict(x) for x in history])
+
+
+
+
+############# POST after user disconnects from chair sending usage time username and chairID
+def add_history():      
+    db = get_db()
+    c = db.cursor()
+
+    # startTime = request.form['startTime']
+    # endTime = request.form['endTime']
+    # username = request.form['username']
+    # chairId = request.form['chairId']
+    
+    c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='history'") # checking if the table exists
+    if c.fetchone()[0]==1:
+        c.execute("INSERT INTO history(startTime, endTime, username, chairId) \
+                        VALUES(?, ?, ?, ?)", (startTime, endTime, username, chairId))
+        db.commit()
+    else:
+        c.execute("CREATE TABLE IF NOT EXISTS history (startTime text, endTime text, username text, chairId text);")
+        db.commit()
+        print("Table 'history' created")
+############################################################
+
+def remove_history(id):
+    db = get_db()
+    c = db.cursor()
+
+    c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='history'") # checking if the table exists
+    if c.fetchone()[0]==1:
+        c.execute("DELETE FROM history WHERE chairId = ?", [id,])
+        db.commit()
+        return '', 200
+    else:
+        c.execute("CREATE TABLE IF NOT EXISTS history (startTime text, endTime text, username text, chairId text);")
+        db.commit()
+        print("Table 'history' created")
+
+
+
+##### MAPS #####
+
+def get_allmaps():
+    db = get_db()
+    c = db.cursor()
+    maps = []
+
+    c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='maps'") # checking if the table exists
+    if c.fetchone()[0]==1:
+        maps = c.execute("SELECT * FROM maps")
+        db.commit()
+    else:
+        c.execute("CREATE TABLE IF NOT EXISTS maps (name text, image blob);")
+        db.commit()
+        print("Table 'maps' created")
+
+    return json.dumps([dict(x) for x in maps])
