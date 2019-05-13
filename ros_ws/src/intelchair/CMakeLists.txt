@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(intelchair)
 
 ## Find catkin and any catkin packages
-find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs geometry_msgs message_generation)
+find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs geometry_msgs message_generation tf)
 
 add_service_files(
   FILES
@@ -34,3 +34,6 @@ target_link_libraries(subscriber ${catkin_LIBRARIES})
 
 add_executable(cmdparser src/cmdvel_parser.cpp)
 target_link_libraries(cmdparser ${catkin_LIBRARIES})
+
+add_executable(tf_broadcaster src/tf_broadcaster.cpp)
+target_link_libraries(tf_broadcaster ${catkin_LIBRARIES})
