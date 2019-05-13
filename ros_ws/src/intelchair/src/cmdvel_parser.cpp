@@ -55,15 +55,14 @@ void parseCmdvel(const geometry_msgs::Twist::ConstPtr& msg){
     */
     // solving equation system 
     float nx = (vel_right - vel_left) / 2;
-    ROS_INFO("NX: %f", nx);
     float y = -nx + vel_right;
     float x = invert_nx(nx);
-    ROS_INFO("JOYSTICK(X,Y): (%f, %f)", x, y);
 
  
     geometry_msgs::Point j;
-    j.x = x;
-    j.y = y;
+    j.y = msg->linear.x * 100;
+    j.x = msg->angular.z * 100;
+    ROS_INFO("JOYSTICK(X,Y): (%f, %f)", j.x, j.y);
 
 
     pub.publish(j);
