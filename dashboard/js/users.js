@@ -42,16 +42,6 @@ $('#add_user').click( function()
 
 $('#rem_user').click( function() 
 {
-    /*$.ajax(
-        {
-        url: 'http://localhost:5000/remove/users/' + $('#rem_un').val(),
-        type: 'DELETE',
-        success: function(data, status) 
-        {
-            console.log(status);
-        }
-    })*/
-
     $.post( 'http://localhost:5000/remove/users/' + $('#rem_un').val(),
     function(data, status)
     {

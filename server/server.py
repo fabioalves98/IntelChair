@@ -53,19 +53,12 @@ def query_users():
   
     return get_allusers()
 
-@app.route("/users/<username>", methods=['POST', 'GET', 'DELETE'])
+@app.route("/users/<username>", methods=['POST', 'GET'])
 def user_update(username):
     if request.method == 'POST':
         return update_user(username)
-    elif request.method == 'DELETE':
-        return remove_user(username)
   
     return get_user(username)
-
-@app.route("/remove/users/<username>", methods=['POST'])
-def remove(username):
-    return remove_user(username)
-
 
 @app.route("/chairs", methods=['POST', 'GET'])
 def query_chairs():
@@ -160,6 +153,7 @@ def update_user(username):
         db.commit()
         print("Table 'users' created")
 
+@app.route("/remove/users/<username>", methods=['POST'])
 def remove_user(username):
     db = get_db()
     c = db.cursor()
@@ -168,12 +162,11 @@ def remove_user(username):
     if c.fetchone()[0]==1:
         c.execute("DELETE FROM users WHERE username = ?", [username,])
         db.commit()
-        return 200
+        return '', 200
     else:
         c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text)")
         db.commit()
         print("Table 'users' created")
-
 
 def valid_login(username, password):
     db = get_db()
@@ -240,6 +233,21 @@ def add_chair():
         c.execute("INSERT INTO chairs(company, model, name, id, ip, user, status, battery) \
                         VALUES(?, ?, ?, ?, ?, ?, ?, ?)", (company, model, name, id, None, None, None, None))
         db.commit()
+    else:
+        c.execute("CREATE TABLE IF NOT EXISTS chairs (company text, model text, name text, id text, ip text, user text, status text, battery integer);")
+        db.commit()
+        print("Table 'chairs' created")
+
+@app.route("/remove/chairs/<id>", methods=['POST'])
+def remove_chair(id):
+    db = get_db()
+    c = db.cursor()
+
+    c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='users'") # checking if the table exists
+    if c.fetchone()[0]==1:
+        c.execute("DELETE FROM chairs WHERE id = ?", [id,])
+        db.commit()
+        return '', 200
     else:
         c.execute("CREATE TABLE IF NOT EXISTS chairs (company text, model text, name text, id text, ip text, user text, status text, battery integer);")
         db.commit()

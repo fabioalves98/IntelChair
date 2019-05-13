@@ -139,7 +139,7 @@ function add_chair(){
 		'company'    	: $('#add_c').val(),
 		'model'  	    : $('#add_m').val(),
 		'name'     		: $('#add_n').val(),
-		'id'					: $('#add_i').val(),
+		'id'			: $('#add_i').val(),
 		'status' 	    : 'Offline'
     },
     function(data, status){
@@ -152,16 +152,13 @@ function add_chair(){
 
 
 function remove_chair(){
-	$.ajax({
-        url: 'http://localhost:5000/chairs/' + active_card.name,
-        type: 'DELETE',
-        success: function(data, status) {
-            console.log(status);
-        }
-	});
+	$.post( 'http://localhost:5000/remove/chairs/' + active_card.name,
+    function(data, status)
+    {
+        console.log(status);
+    });
 	active_card = null;
 	load_chairs();
-	
 }
 
 
