@@ -1,6 +1,6 @@
 var ros_url = 'localhost';
 var ros;
-var chair_connected = false;
+var chair_connected = 0;
 
 var options = {
     zone: document.getElementById('zone_joystick'),
@@ -40,20 +40,8 @@ setInterval(function(){
 			y: joystick.x,
 			z: 0
 		});
-		// var twist = new ROSLIB.Message({
-		// 	linear:{
-		// 		x:
-		// 		y: 0
-		// 		z: 0
-		// 	},
-		// 	angular:{
-		// 		x:
-		// 		y:
-		// 		z: 0
-		// 	}
-		// });
+
 		publish_info('/joystick', 'geometry_msgs/Point', point);
-		// publish_info('/cmd_vel', 'geometry_msgs/Twist', twist);
 	}
 
 }, 50);
@@ -61,14 +49,14 @@ setInterval(function(){
 
 function connect(){
 	start = + new Date();
-	/*
+
 	$.get("/chairs/123123", function(data) {
-		console.log(data["data"]);
-		var jsondata = $.parseJSON(data["data"]);
+		console.log(data);
+		var jsondata = $.parseJSON(data);
 		if(jsondata.ip != ""){
 			ros_url = jsondata.ip;
 		}
-*/
+
 		ros = new ROSLIB.Ros({
 			// url : 'ws://' + jsondata.ip + ':9090'
 			url: 'ws://localhost:9090/'
@@ -76,47 +64,55 @@ function connect(){
 		if(ros_url != 1){
 			ros.socket.url = "ws://" + ros_url + ":9090";
 		}
-		/*
-		var connected = false;
-		ros_call_service("/connection_service", "intelchair/ChairConnection", {connection: "c"}, function(result){
-			// console.log("Connection response: " + result.response);
-			connected = result.response;
-			if(connected){
-				chair_connected = true;
-				document.getElementById("connectBut").innerHTML("Disconnect");
-				showIcons();
-				subscribe_info('/chair_info', 'intelchair/ChairMsg', function(message){
-					currentSpeed = message.velocity;
-					currentBattery = message.battery;
-					setSpeedLabel(currentSpeed);
-					setBatteryLabel(currentBattery);
-				});
-			}
-		});
-		*/
+
+		chair_connected = 1;
+		showIcons();
+		subscribe_info('/chair_info', 'intelchair/ChairMsg', function(message){
+			currentSpeed = message.velocity;
+			currentBattery = message.battery;
+			setSpeedLabel(currentSpeed);
+			setBatteryLabel(currentBattery);
+		});	
+
+		publish_info('/chair_info', 'intelchair/ChairMsg', new ROSLIB.Message({
+			velocity: currentSpeed,
+			battery: currentBattery,
+			connected: chair_connected
+		}));
 
 
 
-	//});
+	});
 }
 
 
 function velocityUp(){
 	if(currentSpeed < 5){
-		ros_call_service("/velocity_service", "intelchair/ChairVelocity", {velocity: "+"}, function(result){
-			currentSpeed++;
-			setSpeedLabel(currentSpeed);
-		});
+		// ros_call_service("/velocity_service", "intelchair/ChairVelocity", {velocity: "+"}, function(result){
+		// 	currentSpeed++;
+		// 	setSpeedLabel(currentSpeed);
+		// });
+		
+		publish_info("/chair_info", "intelchair/ChairMsg", new ROSLIB.Message({
+			velocity: currentSpeed + 1,
+			battery: currentBattery,
+			connected: chair_connected
+		}));
 
 	}
 }
 
 function velocityDown(){
 	if(currentSpeed > 1){
-		ros_call_service("/velocity_service", "intelchair/ChairVelocity", {velocity: "-"}, function(result){
-			currentSpeed--;
-			setSpeedLabel(currentSpeed);
-		});
+		// ros_call_service("/velocity_service", "intelchair/ChairVelocity", {velocity: "-"}, function(result){
+		// 	currentSpeed--;
+		// 	setSpeedLabel(currentSpeed);
+		// });
+		publish_info("/chair_info", "intelchair/ChairMsg", new ROSLIB.Message({
+			velocity: currentSpeed - 1,
+			battery: currentBattery,
+			connected: 1
+		}));
 	}
 }
 

@@ -29,30 +29,13 @@ void resetButtons(){
 	buttonPressed = 0x00;
 }
 
-bool connectionServiceCallback(intelchair::ChairConnection::Request &req, intelchair::ChairConnection::Response &res){
-    ROS_INFO("REQUEST CONNECT: %s", req.connection.c_str());
-    res.response = true;
-    // este response tem de ser colocado a true, apenas quando a propria cadeira responder
-    connectOption = 0x01;
-    return true;
-}
-
-bool velocityServiceCallback(intelchair::ChairVelocity::Request &req, intelchair::ChairVelocity::Response &res){
-    ROS_INFO("VELOCITY CHANGE: %s", req.velocity.c_str());
-    
-    res.response = true;
-    // este response tem de ser colocado a true, apenas quando a propria cadeira responder
-    std::string str = req.velocity.c_str();
-	char info = str.at(0);
-    int currentVelocity = chair.velocity;
-	if(info == '+'){
-		buttonPressed = 0x04;
-	}else{
-		buttonPressed = 0x02;
-	}
-    
-    return true;
-}
+// bool connectionServiceCallback(intelchair::ChairConnection::Request &req, intelchair::ChairConnection::Response &res){
+//     ROS_INFO("REQUEST CONNECT: %s", req.connection.c_str());
+//     res.response = true;
+//     // este response tem de ser colocado a true, apenas quando a propria cadeira responder
+//     connectOption = 0x01;
+//     return true;
+// }
 
 
 
@@ -67,21 +50,24 @@ void joystickTopicCallback(const geometry_msgs::Point::ConstPtr& msg){
 }
 
 
-void velocityTopicCallBack(const std_msgs::String::ConstPtr& msg){
-	ROS_INFO("Velocity info: %s", msg->data.c_str());
-	std::string str = msg->data.c_str();
-	char info = str.at(0);
-	if(info == '+'){
-		buttonPressed = 0x04;
-	}else{
+void chairInfoCallback(const intelchair::ChairMsg::ConstPtr& msg){
+    if(msg->velocity > chair.velocity){
+        buttonPressed = 0x04;
+    }else if(msg->velocity < chair.velocity){
 		buttonPressed = 0x02;
-	}
+    }
+    chair.velocity = msg->velocity;
+
+    if(msg->connected == 1 && chair.connected == 0){
+        ROS_INFO("Client connected!");
+        connectOption = 0x01;
+        chair.connected = 1;
+    }
+    
 }
 
 void sendFrame(const ros::TimerEvent& event){
-
 	commHandler.sendFrame(joystick, buttonPressed, connectOption);
-	// !! THIS CALL IS NOT FINAL. SERVICES NEED TO BE ADDED !! //
 	resetButtons();
 }
 
@@ -106,15 +92,16 @@ int main(int argc, char **argv){
     pc_publisher = n.advertise<intelchair::ChairMsg>("/chair_info", 1000);
 
 
-    ros::Timer response_timer = n.createTimer(ros::Duration(RESPONSE_DELAY), receiveFrame);
-    ros::Timer send_timer = n.createTimer(ros::Duration(SEND_DELAY), sendFrame);
+    // ros::Timer response_timer = n.createTimer(ros::Duration(RESPONSE_DELAY), receiveFrame);
+    // ros::Timer send_timer = n.createTimer(ros::Duration(SEND_DELAY), sendFrame);
     //ros::Timer debug_timer = n.createTimer(ros::Duration(2), sendFrame);
 
-    ros::ServiceServer connect_service = n.advertiseService("/connection_service", connectionServiceCallback);
-    ros::ServiceServer velocity_service = n.advertiseService("/velocity_service", velocityServiceCallback);
+    // ros::ServiceServer connect_service = n.advertiseService("/connection_service", connectionServiceCallback);
+    // ros::ServiceServer velocity_service = n.advertiseService("/velocity_service", velocityServiceCallback);
 
     ROS_INFO("Subscribing to joystick topic... ");
     ros::Subscriber joystick_sub = n.subscribe("/joystick", 1000, joystickTopicCallback);
+    ros::Subscriber chair_info = n.subscribe("/chair_info", 1000, chairInfoCallback);
 
 	ros::spin();
 }
