@@ -10,79 +10,27 @@
 
 ros::Publisher pub;
 
-float invert_nx(float nx){
-
-    float rx;
-    rx = 2 * (2 * (nx - 0.1) + 0.1);
-    if(rx/2 > 0.1) return rx;
-
-    rx = 2 * (2 * (nx + 0.1) - 0.1);
-    if(rx/2 < -0.1) return rx;
-
-    else return nx * 2;
-}
-
 
 void parseCmdvel(const geometry_msgs::Twist::ConstPtr& msg){
-    float v = msg->linear.x;
-    float w = msg->angular.z;
-
-    // cmd_vel to wheel velocity
-    float vel_right = ((2 * v) + w) / 2; 
-    float vel_left =  ((2*v) - w) / 2;
-
-    ROS_INFO("VEL RIGHT : VEL LEFT: (%f, %f)", vel_right, vel_left);
-
-
-    // Wheel velocity to joystick x and y
-    // other options are available.
-
-    /*
-    function map_joystickC(x, y){
-        x = x / 100;
-        y = y / 100;
-        var motor_vel = {R: 0, L: 0};
-        function nx(x){
-            if(x/2 > 0.1) return 0.1+((x/2) - 0.1)/2;
-            else if(x/2 < -0.1) return -0.1+((x/2) + 0.1)/2;
-            else return x/2;
-        }
-
-        motor_vel.R = y + nx(x);
-        motor_vel.L = y - nx(x);
-        return motor_vel;
-    }
-    */
-    // solving equation system 
-    float nx = (vel_right - vel_left) / 2;
-    float y = -nx + vel_right;
-    float x = invert_nx(nx);
-
  
     geometry_msgs::Point j;
-    j.y = msg->linear.x * 100;
-    j.x = msg->angular.z * 100;
+    j.x = msg->linear.x * 30;
+    j.y = -1 * msg->angular.z * 100;
     ROS_INFO("JOYSTICK(X,Y): (%f, %f)", j.x, j.y);
-
 
     pub.publish(j);
     ros::spinOnce(); // important for later callback usage
 
 }
 
-
-
-
 int main(int argc, char **argv){
     ros::init(argc, argv, "cmdvel_parser");
     
     ros::NodeHandle n;
 
-
     ROS_INFO("Subscribing to cmd_vel topic... ");
     ros::Subscriber sub = n.subscribe("/cmd_vel", 1000, parseCmdvel);
     pub = n.advertise<geometry_msgs::Point>("/joystick", 1000);
    
-
 	ros::spin();
 }
