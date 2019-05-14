@@ -11,10 +11,10 @@
         <ion-app>
             <ion-header>
                 <ion-toolbar>
-                    <ion-buttons slot="start">
-                        <ion-button onclick="connect()" id="connectBut" fill="solid" color="primary"> Connect </ion-button>
+                    <ion-buttons id="btn-connect" slot="start">
+                        <ion-button onclick="connect()" fill="solid" color="primary"> Connect </ion-button>
                     </ion-buttons>
-                    <ion-buttons slot="start">
+                    <ion-buttons id="btn-disconnect" slot="start">
                         <a href="/"><ion-button onclick="" fill="solid" color="primary"> Exit Session </ion-button></a>
                     </ion-buttons>
 
@@ -33,10 +33,15 @@
                     <ion-tab tab="home"><ion-grid style="height: 100%">
                         <ion-grid>
                             <ion-row justify-content-center align-items-center style="height: 100%">
+                                <ion-item id="zone_joystick_message">
+                                    <ion-label>
+                                        Please connect the device first! 
+                                    </ion-label>
+                                </ion-item>
                                 <div id="zone_joystick"></div>
                             </ion-row>
                             <ion-row>
-                                <div>
+                                <div class="spd-btn">
                                     <ion-button onclick="velocityDown()" color="primary">Speed down</ion-button>
                                     <ion-button onclick="velocityUp()" color="primary">Speed up</ion-button>
                                 </div>

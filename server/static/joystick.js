@@ -80,22 +80,31 @@ function connect(){
 		if(ros_url != 1){
 			ros.socket.url = "ws://" + ros_url + ":9090";
 		}
+		ros.on('connection', function() {
+			console.log('Connected to websocket server.');
+			chair_connected = 1;
+			showIcons();
+			subscribe_info('/chair_info', 'intelchair/ChairMsg', function(message){
+				currentSpeed = message.velocity;
+				currentBattery = message.battery;
+				setSpeedLabel(currentSpeed);
+				setBatteryLabel(currentBattery);
+			});	
 
-		chair_connected = 1;
-		showIcons();
-		subscribe_info('/chair_info', 'intelchair/ChairMsg', function(message){
-			currentSpeed = message.velocity;
-			currentBattery = message.battery;
-			setSpeedLabel(currentSpeed);
-			setBatteryLabel(currentBattery);
-		});	
+			publish_info('/chair_info_control', 'intelchair/ChairMsg', new ROSLIB.Message({
+				velocity: currentSpeed,
+				battery: currentBattery,
+				connected: chair_connected
+			}));
 
-		publish_info('/chair_info_control', 'intelchair/ChairMsg', new ROSLIB.Message({
-			velocity: currentSpeed,
-			battery: currentBattery,
-			connected: chair_connected
-		}));
+		});
 
+		ros.on('error', function(error) {
+			console.log('Error connecting to websocket server');
+			alert('Cant connect');
+		});
+
+		
 
 
 	});
@@ -142,9 +151,22 @@ function setBatteryLabel(currentBattery){
 
 function showIcons(){
 	if(chair_connected){
-		$('.icon').css('display','block')
+		$('.icon').show();
+		$('.spd-btn').show();
+		$('#btn-disconnect').show();
+		$('#btn-connect').hide();
+		$('#zone_joystick').show();
+		$('#zone_joystick_message').hide();
+
 	}else{
-		$('.icon').css('display','none')	}
+		$('.icon').hide();
+		$('.spd-btn').hide();
+		$('#btn-disconnect').hide();
+		$('#btn-connect').show();
+		$('#zone_joystick').hide();
+		$('#zone_joystick_message').show()
+
+	}
 }
 
 
