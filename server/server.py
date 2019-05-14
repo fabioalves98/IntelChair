@@ -81,14 +81,6 @@ def query_history():
   
     return get_allhistory()
 
-# @app.route("/history/", methods=['POST'])
-# def update_history():
-#     if request.method == 'POST':
-#         remove_history(id)
-  
-#     return get_history_by_chair(id)
-
-
 @app.route("/maps", methods=['POST', 'GET'])
 def query_maps():
     if request.method == 'POST':
@@ -177,6 +169,25 @@ def update_user(username):
         db.commit()
         print("Table 'users' created")
 
+@app.route("/users/chair/<username>", methods=['POST'])
+def update_user_chair_state(username):
+    db = get_db()
+    c = db.cursor()
+
+    chair = request.form['chair_user']
+
+    c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='users'") # checking if the table exists
+    if c.fetchone()[0]==1:
+        c.execute("UPDATE users SET chair = ? WHERE username = ?",
+            (chair, username))
+        db.commit()
+        return '',200
+    else:
+        c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text)")
+        db.commit()
+        print("Table 'users' created")  
+        return '',200  
+
 @app.route("/remove/users/<username>", methods=['POST'])
 def remove_user(username):
     db = get_db()
@@ -192,6 +203,7 @@ def remove_user(username):
         db.commit()
         print("Table 'users' created")
 
+###### Login #### 
 def valid_login(username, password):
     db = get_db()
     c = db.cursor()
@@ -243,6 +255,46 @@ def get_chair(id):
 
     return json.dumps([dict(x) for x in chair])
 
+@app.route("/chair/<id>", methods=['POST'])
+def update_chair_status_user(id):
+    db = get_db()
+    c = db.cursor()
+    d = db.cursor()
+
+    user = request.form['username']
+    status = request.form['status']
+    
+    c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='chairs'") # checking if the table exists
+    if c.fetchone()[0]==1:
+        c.execute("UPDATE chairs SET user = ?, status = ? WHERE id = ?", (user, status, id))
+        db.commit()
+        return '',200
+    else:
+        c.execute("CREATE TABLE IF NOT EXISTS chairs (company text, model text, name text, id text, ip text, user text, status text, battery integer);")
+        db.commit()
+        print("Table 'chairs' created")
+        return '',200
+
+def update_chair(id):
+    db = get_db()
+    c = db.cursor()
+
+    company = request.form['company']
+    model = request.form['model']
+    name = request.form['name']
+    id = request.form['id']
+    
+    c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='chairs'") # checking if the table exists
+    if c.fetchone()[0]==1:
+        c.execute("UPDATE chairs SET company = ?, model = ?, name = ? WHERE id = ?", (company, model, name, id))
+        db.commit()
+        return '',200
+    else:
+        c.execute("CREATE TABLE IF NOT EXISTS chairs (company text, model text, name text, id text, ip text, user text, status text, battery integer);")
+        db.commit()
+        print("Table 'chairs' created")
+        return '',200
+
 def add_chair():
     db = get_db()
     c = db.cursor()
@@ -269,7 +321,7 @@ def remove_chair(id):
 
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='users'") # checking if the table exists
     if c.fetchone()[0]==1:
-        c.execute("DELETE FROM chairs WHERE name = ?", [id,])
+        c.execute("DELETE FROM chairs WHERE id = ?", [id,])
         db.commit()
         return '', 200
     else:
@@ -292,28 +344,6 @@ def get_allhistory():
         c.execute("CREATE TABLE IF NOT EXISTS history (startTime text, endTime text, username text, chairId text);")
         db.commit()
         print("Table 'history' created")
-
-    return json.dumps([dict(x) for x in history])
-
-
-
-#### history by chair not working yet
-def get_history_by_chair(id):
-    db = get_db()
-    c = db.cursor()
-    history = []
-
-    c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='history'") # checking if the table exists
-    if c.fetchone()[0]==1:
-        history = c.execute("SELECT * FROM history WHERE chairId = ?", [id,])
-        db.commit()
-    else:
-        c.execute("CREATE TABLE IF NOT EXISTS history (startTime text, endTime text, username text, chairId text);")
-        db.commit()
-        print("Table 'history' created")
-
-    if chair == None:
-        print("History '?' not found", id)
 
     return json.dumps([dict(x) for x in history])
 
@@ -359,7 +389,6 @@ def remove_history():
 
 
 ##### MAPS #####
-
 def get_allmaps():
     db = get_db()
     c = db.cursor()

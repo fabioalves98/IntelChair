@@ -36,18 +36,22 @@ manager.on("end", function(event, nipple)
 
 
 
-$('#login').click(function() {
+// $('#login').click(function() {
 
-	$.post( 'http://localhost:5000/auth.html',
-    {
-        'username' : $('#user').val(),
-        'password' : $('#pw').val()
-    },
-    function(data, status) {
-    	console.log(status);
-    });
-    location.reload();
-})
+// 	$.post( 'http://localhost:5000/auth.html',
+//     {
+//         'username' : $('#user').val(),
+//         'password' : $('#pw').val()
+//     },
+//     function(data, status) {
+//     	console.log(status);
+//     });
+//     location.reload();
+// })
+
+function storeUser(){
+	localStorage.setItem('username', $('#user').val())
+}
 
 setInterval(function(){
 	if(ros){
@@ -104,29 +108,61 @@ function connect(){
 			console.log('Error connecting to websocket server');
 			alert('Cant connect');
 		});
+	});
 
-		
+	$.post( 'http://localhost:5000/chair/123123',
+	{
+		'username' 	: localStorage.username,
+		'status'  	: 'Connected'
+	},
+	function(data, status){
+		console.log(status);
+	});
 
-
+	$.post( 'http://localhost:5000/users/chair/' + localStorage.username,
+	{
+		'chair_user' 	: 'None'
+	},
+	function(data, status){
+		console.log(status);
 	});
 }
 
 function disconnect(){
 	// var s = new Date();
 	// end = s.getDate()+'/'+(s.getMonth()+1)+'/'+s.getFullYear()+"-"+s.getHours()+":"+s.getMinutes();
+	$.post( 'http://localhost:5000/chair/123123',
+	{
+		'username' 	: null,
+		'status'  	: 'Disconnected'
+	},
+	function(data, status){
+		console.log(status);
+	});
+
+	$.post( 'http://localhost:5000/users/chair/' + localStorage.username,
+	{
+		'chair_user' 	: null
+	},
+	function(data, status){
+		console.log(status);
+	});
+
 	end = new Date().getTime();
 	$.post( 'http://localhost:5000/history',
 	{
 		'startTime'	: start, 
 		'endTime' 	: end,
-		'username'	: 'msilva',
+		'username'	: localStorage.username,
 		'chairID'	: '123123'
 	},
 	function(data, status)
 	{
 		console.log(status)
 		window.location.replace("http://localhost:5000/login");
-	});
+	});	
+
+	location.reload();
 }
 
 function velocityUp(){

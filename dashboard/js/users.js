@@ -89,6 +89,7 @@ $('#search_user').click( function()
         $('#up_fn').val(user['firstname']),
         $('#up_ln').val(user['lastname']),
         $('#up_un').val(user['username']),
+        console.log(user['password']);
         $('#up_pw').val(user['password']),
         $('#up_em').val(user['email']),
         $('#up_ag').val(user['age']),

@@ -152,7 +152,7 @@ function add_chair(){
 
 
 function remove_chair(){
-	$.post( 'http://localhost:5000/remove/chairs/' + active_card.name,
+	$.post( 'http://localhost:5000/remove/chairs/' + active_card.id,
     function(data, status)
     {
         console.log(status);
@@ -161,6 +161,41 @@ function remove_chair(){
 	load_chairs();
 }
 
+$('#up_chair').click( function() 
+{
+    $.get( 'http://localhost:5000/chairs/' + active_card.id,
+    function(data, status)
+    {   
+        var chair = JSON.parse(data)[0];
+
+        $('#up_n').val(chair['name']),
+        $('#up_c').val(chair['company']),
+        $('#up_m').val(chair['model']),
+        $('#up_i').val(chair['id']),
+        
+        console.log(status);
+    });
+
+    $('#update_modal').modal('show');
+      
+})
+
+function update_chair(){
+	$.post('http://localhost:5000/chairs/' + active_card.id,
+    {
+		'company'    	: $('#up_c').val(),
+		'model'  	    : $('#up_m').val(),
+		'name'     		: $('#up_n').val(),
+		'id'			: $('#up_i').val(),
+    },
+    function(data, status){
+        console.log(status);
+    });
+
+	$('#update_modal').modal('toggle');
+	location.reload();
+	load_chairs();
+}
 
 function load_chairs(){
 	
