@@ -1,15 +1,19 @@
 <launch>
+    
+    <!--<node pkg="intelchair" type="subscriber" name="controller" output="screen">
+    </node>-->
 
-    <node pkg="intelchair" type="subscriber" name="controller" output="screen">
-    </node>
+    <!--<node pkg="intelchair" type="cmdparser" name="cmdvel_parser" output="screen">        
+    </node>-->
+
     <node pkg="intelchair" type="tf_broadcaster" name="static_tf" output="screen">        
     </node>
-    <node pkg="intelchair" type="cmdparser" name="cmdvel_parser" output="screen">        
-    </node>
-    <node pkg="laser_filters" type="filter_scan" output="screen" name="laser_filter">
+
+    <node pkg="laser_filters" type="scan_to_scan_filter_chain" output="screen" name="laser_filter">
       <remap from="base_scan" to="scan" />
       <rosparam command="load" file="$(find laser_filters)/examples/angular_filter.yaml" />
     </node>
+    
     <arg name="host" default="192.168.2.100" />
     <arg name="publish_min_range_as_inf" default="false" />
     <node pkg="lms1xx" name="lms1xx" type="LMS1xx_node">
@@ -17,6 +21,7 @@
         <param name="frame_id" value="base_laser"/>
         <param name="publish_min_range_as_inf" value="$(arg publish_min_range_as_inf)" />
     </node>
+    
     <node pkg="rf2o_laser_odometry" type="rf2o_laser_odometry_node" name="rf2o_laser_odometry" output="screen">
         <param name="laser_scan_topic" value="/scan_filtered"/>              # topic where the lidar scans are being published
         <param name="odom_topic" value="/odom" />              # topic where tu publish the odometry estimations
@@ -27,6 +32,5 @@
         <param name="freq" value="20.0"/>                            # Execution frequency.
         <param name="verbose" value="true" />                       # verbose
     </node>
-
 
 </launch> 
