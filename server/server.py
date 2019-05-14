@@ -81,12 +81,12 @@ def query_history():
   
     return get_allhistory()
 
-@app.route("/history/<id>", methods=['POST'])
-def update_history():
-    if request.method == 'POST':
-        remove_history(id)
+# @app.route("/history/", methods=['POST'])
+# def update_history():
+#     if request.method == 'POST':
+#         remove_history(id)
   
-    return get_history_by_chair(id)
+#     return get_history_by_chair(id)
 
 
 @app.route("/maps", methods=['POST', 'GET'])
@@ -158,17 +158,19 @@ def add_user():
 def update_user(username):
     db = get_db()
     c = db.cursor()
-    # firstname = 
-    # lastname = 
-    # password
-    # email
-    # age
-    # gender
-    # chair
+
+    firstname = request.form['first-name']
+    lastname = request.form['last-name']
+    username = request.form['username']
+    password = request.form['password']
+    email = request.form['email']
+    age = request.form['age']
+    gender = request.form['gender']
 
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='users'") # checking if the table exists
     if c.fetchone()[0]==1:
-        c.execute("UPDATE users SET firstname = ?...") # ??
+        c.execute("UPDATE users SET firstname = ?, lastname = ?, password = ?, email = ?, age = ?, gender = ?, chair = ? WHERE username = ?",
+            (firstname, lastname, password, email, age, gender, None, username))
         db.commit()
     else:
         c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text)")
@@ -316,17 +318,16 @@ def get_history_by_chair(id):
     return json.dumps([dict(x) for x in history])
 
 
-
-
-############# POST after user disconnects from chair sending usage time username and chairID
 def add_history():      
     db = get_db()
     c = db.cursor()
 
-    # startTime = request.form['startTime']
-    # endTime = request.form['endTime']
-    # username = request.form['username']
-    # chairId = request.form['chairId']
+    startTime = request.form['startTime']
+    endTime = request.form['endTime']
+    username = request.form['username']
+    chairId = request.form['chairID']
+
+    print(startTime + " " + endTime + " " + username + " " + chairId)
     
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='history'") # checking if the table exists
     if c.fetchone()[0]==1:
@@ -337,15 +338,17 @@ def add_history():
         c.execute("CREATE TABLE IF NOT EXISTS history (startTime text, endTime text, username text, chairId text);")
         db.commit()
         print("Table 'history' created")
-############################################################
+        return redirect(url_for('login'))
 
-def remove_history(id):
+@app.route("/remove/history", methods=['POST'])
+def remove_history():
     db = get_db()
     c = db.cursor()
 
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='history'") # checking if the table exists
     if c.fetchone()[0]==1:
-        c.execute("DELETE FROM history WHERE chairId = ?", [id,])
+        # c.execute("DELETE FROM history WHERE chairId = ?", [id,])
+        c.execute("DELETE FROM history")
         db.commit()
         return '', 200
     else:

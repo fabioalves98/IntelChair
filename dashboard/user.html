@@ -207,6 +207,12 @@
               </button>
             </div>
 
+            <div class="col-3 mb-2">
+              <button type="button" class="btn btn-warning col-sm" data-toggle="modal" data-target="#search_modal">
+                Update User
+              </button>
+            </div>
+
             <!-- Button trigger Remove User Pop -->
             <div class="col-3 mb-2">
               <button type="button" class="btn btn-danger col-sm" data-toggle="modal" data-target="#rem_modal">
@@ -229,7 +235,7 @@
                   <input type="text" class="form-control bg-light border-0 small mb-3" id="add_fn" placeholder="First Name">
                   <input type="text" class="form-control bg-light border-0 small mb-3" id="add_ln" placeholder="Last Name">
                   <input type="text" class="form-control bg-light border-0 small mb-3" id="add_un" placeholder="Username">
-                  <input type="text" class="form-control bg-light border-0 small mb-3" id="add_pw" placeholder="Password">
+                  <input type="password" class="form-control bg-light border-0 small mb-3" id="add_pw" placeholder="Password">
                   <input type="text" class="form-control bg-light border-0 small mb-3" id="add_em" placeholder="E-mail">
                   <input type="text" class="form-control bg-light border-0 small mb-3" id="add_ag" placeholder="Age">
                   <input type="text" class="form-control bg-light border-0 small mb-3" id="add_ge" placeholder="Gender">
@@ -237,6 +243,54 @@
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                   <button type="button" class="btn btn-success" id="add_user">Add</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+           <!-- Select User Pop -->
+          <div class="modal fade" id="search_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title font-weight-bold text-primary" id="exampleModalLabel">Search Username</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <input type="text" class="form-control bg-light border-0 small mb-3" id="srch_un" placeholder="Username">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-success" id="search_user" data-toogle="modal" data-target="#update_modal">Search</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Update User Pop -->
+          <div class="modal fade" id="update_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title font-weight-bold text-primary" id="exampleModalLabel">Update User</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <input type="text" class="form-control bg-light border-0 small mb-3" id="up_un" placeholder="Username">
+                  <input type="text" class="form-control bg-light border-0 small mb-3" id="up_fn" placeholder="First Name">
+                  <input type="text" class="form-control bg-light border-0 small mb-3" id="up_ln" placeholder="Last Name">
+                  <input type="password" class="form-control bg-light border-0 small mb-3" id="up_pw" placeholder="Password">
+                  <input type="text" class="form-control bg-light border-0 small mb-3" id="up_em" placeholder="E-mail">
+                  <input type="text" class="form-control bg-light border-0 small mb-3" id="up_ag" placeholder="Age">
+                  <input type="text" class="form-control bg-light border-0 small mb-3" id="up_ge" placeholder="Gender">
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-success" id="update_user">Update</button>
                 </div>
               </div>
             </div>

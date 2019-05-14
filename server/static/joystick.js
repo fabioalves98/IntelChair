@@ -15,6 +15,7 @@ var currentSpeed = 1;
 var currentBattery;
 showIcons();
 var start;
+var username;
 var end;
 
 
@@ -48,7 +49,6 @@ $('#login').click(function() {
     location.reload();
 })
 
-
 setInterval(function(){
 	if(ros){
 		var point = new ROSLIB.Message({
@@ -64,8 +64,9 @@ setInterval(function(){
 
 
 function connect(){
-	start = + new Date();
-
+	// var s = new Date();
+	// start = s.getDate()+'/'+(s.getMonth()+1)+'/'+s.getFullYear()+"-"+s.getHours()+":"+s.getMinutes();
+	start = new Date().getTime();
 	$.get("/chairs/123123", function(data) {
 		console.log(data);
 		var jsondata = $.parseJSON(data);
@@ -110,6 +111,23 @@ function connect(){
 	});
 }
 
+function disconnect(){
+	// var s = new Date();
+	// end = s.getDate()+'/'+(s.getMonth()+1)+'/'+s.getFullYear()+"-"+s.getHours()+":"+s.getMinutes();
+	end = new Date().getTime();
+	$.post( 'http://localhost:5000/history',
+	{
+		'startTime'	: start, 
+		'endTime' 	: end,
+		'username'	: 'msilva',
+		'chairID'	: '123123'
+	},
+	function(data, status)
+	{
+		console.log(status)
+		window.location.replace("http://localhost:5000/login");
+	});
+}
 
 function velocityUp(){
 	// if(currentSpeed < 5){

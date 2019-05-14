@@ -40,6 +40,26 @@ $('#add_user').click( function()
  	location.reload();
 })
 
+$('#update_user').click( function() 
+{
+    $.post( 'http://localhost:5000/users/' + $('#up_un').val(),
+    {
+        'first-name'    : $('#up_fn').val(),
+        'last-name'     : $('#up_ln').val(),
+        'username'      : $('#up_un').val(),
+        'password'      : $('#up_pw').val(),
+        'email'         : $('#up_em').val(),
+        'age'           : $('#up_ag').val(),
+        'gender'        : $('#up_ge').val()
+    },
+    function(data, status)
+    {
+        console.log(status);
+    });
+    
+    location.reload();
+})
+
 $('#rem_user').click( function() 
 {
     $.post( 'http://localhost:5000/remove/users/' + $('#rem_un').val(),
@@ -54,4 +74,30 @@ $('#rem_user').click( function()
 })
 
 
+$('#search_user').click( function() 
+{
+    $.get( 'http://localhost:5000/users/' + $('#srch_un').val(),
+    function(data, status)
+    {   
+        var user = JSON.parse(data)[0];
+        
+        if(user == undefined){
+            alert("User not found");
+            location.reload();
+        }
 
+        $('#up_fn').val(user['firstname']),
+        $('#up_ln').val(user['lastname']),
+        $('#up_un').val(user['username']),
+        $('#up_pw').val(user['password']),
+        $('#up_em').val(user['email']),
+        $('#up_ag').val(user['age']),
+        $('#up_ge').val(user['gender'])
+
+        console.log(status);
+    });
+
+    $('#search_modal').modal('hide');
+    $('#update_modal').modal('show');
+      
+})

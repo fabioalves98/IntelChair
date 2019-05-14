@@ -17,24 +17,24 @@ $(document).ready(function()
                 success : function (data) 
                 {
                     var user = JSON.parse(data);
-                    name = user['first-name'] + ' ' + user['last-name'];
+                    name = user[0]['firstname'] + ' ' + user[0]['lastname'];
                     console.log(name);
                 },
             });
-            time = parseInt(element["end"]) - parseInt(element["start"]);
+            time = parseInt(element["endTime"]) - parseInt(element["startTime"]);
             total_time += time;
 
-            var date = new Date(parseInt(element["end"])*1000);
+            var date = new Date(parseInt(element["endTime"]));
 
-            var formattedTime = date.getDay() + '/' + date.getMonth() + '/' + date.getFullYear()%2000 + ' - ' + date.getHours() + ':' + date.getMinutes();
+            var formattedTime = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear()%2000 + ' - ' + date.getHours() + ':' + date.getMinutes();
 
             var to_append = '<p><span class=\'font-weight-bold\'>' + formattedTime + '</span> - O utilizador ' + name + ' usou a cadeira ' + 
-            element['chairId'] + ' durante ' + parseInt(time/60) + ' minutos</p>'
+            element['chairId'] + ' durante ' + parseInt((time/1000)/60) + ' minutos</p>'
 
             $('#history').append(to_append);
         });
 
-        $('#time_nav').text(parseInt(total_time/60) + ' Min');
+        $('#time_nav').text(parseInt(total_time/1000/60) + ' Min');
 
     });
 
@@ -55,3 +55,13 @@ $(document).ready(function()
     });
 
 });
+
+function delete_history() {
+    $.post( 'http://localhost:5000/remove/history',
+    function(data, status)
+    {
+        console.log(status);
+    });
+
+    location.reload();
+}
