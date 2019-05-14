@@ -90,7 +90,7 @@ function connect(){
 			setBatteryLabel(currentBattery);
 		});	
 
-		publish_info('/chair_info', 'intelchair/ChairMsg', new ROSLIB.Message({
+		publish_info('/chair_info_control', 'intelchair/ChairMsg', new ROSLIB.Message({
 			velocity: currentSpeed,
 			battery: currentBattery,
 			connected: chair_connected
@@ -103,33 +103,33 @@ function connect(){
 
 
 function velocityUp(){
-	if(currentSpeed < 5){
+	// if(currentSpeed < 5){
 		// ros_call_service("/velocity_service", "intelchair/ChairVelocity", {velocity: "+"}, function(result){
 		// 	currentSpeed++;
 		// 	setSpeedLabel(currentSpeed);
 		// });
 		
-		publish_info("/chair_info", "intelchair/ChairMsg", new ROSLIB.Message({
+		publish_info("/chair_info_control", "intelchair/ChairMsg", new ROSLIB.Message({
 			velocity: currentSpeed + 1,
 			battery: currentBattery,
 			connected: chair_connected
 		}));
 
-	}
+	// }
 }
 
 function velocityDown(){
-	if(currentSpeed > 1){
+	// if(currentSpeed > 1){
 		// ros_call_service("/velocity_service", "intelchair/ChairVelocity", {velocity: "-"}, function(result){
 		// 	currentSpeed--;
 		// 	setSpeedLabel(currentSpeed);
 		// });
-		publish_info("/chair_info", "intelchair/ChairMsg", new ROSLIB.Message({
+		publish_info("/chair_info_control", "intelchair/ChairMsg", new ROSLIB.Message({
 			velocity: currentSpeed - 1,
 			battery: currentBattery,
 			connected: 1
 		}));
-	}
+	// }
 }
 
 function setSpeedLabel(currentSpeed){
