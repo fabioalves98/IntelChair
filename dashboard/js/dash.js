@@ -41,9 +41,13 @@ $(document).ready(function()
     $.get('http://localhost:5000/chairs' ,function( c_data )
     {
         var chairs = JSON.parse(c_data);
-        console.log(chairs.length);
-
-        $('#active_chairs').text("1 / 2");
+        var active_chairs = 0;
+        for(let chair of chairs){
+            if(chair.status != "Offline" && chair.status != null){
+                active_chairs++;
+            }
+        }
+        $('#active_chairs').text(active_chairs + " / " + chairs.length);
     });
 
     $.get('http://localhost:5000/users' ,function( u_data )
@@ -51,7 +55,7 @@ $(document).ready(function()
         var users = JSON.parse(u_data);
         console.log(users.length);
 
-        $('#active_users').text("2 / 6");
+        $('#active_users').text("calc this / " + users.length);
     });
 
 });
