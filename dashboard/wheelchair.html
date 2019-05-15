@@ -177,12 +177,17 @@
           <div id="detail-content" class="col-md-8">
 		  	<div class='card shadow mb-4'> 
 				<div class='card-header py-3'> 
-					<h6  id="cname" class='m-0 font-weight-bold text-primary'>CARDNAME</h6>
-          <div class="col-2 mb-2" style="FLOAT:right">
-              <button type="button" class="btn btn-success col-sm" data-toggle="modal" data-target="#update_modal" id="up_chair">
-                Update Chair
+          <div class="row">
+            <div class="col-md-2">
+              <h5  id="cname" class='m-0 font-weight-bold text-primary'>CARDNAME</h5>
+            </div>
+            <div class="col-md-8"></div>
+            <div class="col-md-2">
+              <button type="button" class="btn btn-warning col-sm " data-toggle="modal" data-target="#update_modal" id="up_chair">
+                Update
               </button>
             </div>
+          </div>
 				</div>
 				<div class='card-body'> 
 					<!-- <div class='text-center'> 
@@ -332,6 +337,7 @@
 
   <script src="js/chairs.js"></script>
 
+  <script src="../server/static/nipplejs.js"></script>
   <script src="../server/static/joystick.js"></script>
 
 </body>

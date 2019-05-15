@@ -54,9 +54,10 @@ setInterval(function(){
 }, 50);
 
 // Each 30 secs, post chair info to the server
-setInterval(post_chair_info, 30000);
+//setInterval(post_chair_info(), 5000);
 
-function post_chair_info(){
+// 5 second interval to post chair info
+setInterval(function post_chair_info(){
 	if(chair_connected){
 		$.post('/chair/123123',
 			{	
@@ -68,8 +69,7 @@ function post_chair_info(){
 				console.log(status);
 		});
 	}
-}
-
+}, 5000);
 
 function connect(){
 	// var s = new Date();
@@ -123,7 +123,8 @@ function connect(){
 	$.post( '/chair/123123',
 	{
 		'username' 	: localStorage.username,
-		'status'  	: 'Connected'
+		'status'  	: 'Connected',
+		'battery'	: currentBattery
 	},
 	function(data, status){
 		console.log(status);
