@@ -18,6 +18,8 @@ var start;
 var username;
 var end;
 
+$('#usershow').html("Logged as: " + localStorage.username);
+
 
 manager.on("move", function(event, nipple)
 {
@@ -330,3 +332,5 @@ function map_joystickC(x, y){
 	motor_vel.L = y + nx(x);
 	return motor_vel;
 }
+
+
