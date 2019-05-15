@@ -56,11 +56,14 @@ function create_chair_card(cinfo){
 		</div>\
 		</div>";
 
+	if(cinfo.user == "None"){
+		cinfo.user = 'No user';
+	}
 
 	var chair_card_ip = "<div class='row'><div class='col-md-6'><div class='text-x1s font-weight-bold text-info mt-3 text-uppercase mb-1'>IP</div>\
-	<div class='h6 mb-0 mr-3 font-weight-bold text-gray-800'>" +cinfo.ip +"</div></div>";
+	<div class='h7 mb-0 mr-3 font-weight-bold text-gray-800'>" +cinfo.ip +"</div></div>";
 	var chair_card_user = "<div class='col-md-6'><div class='text-x1s font-weight-bold text-info mt-3 text-uppercase mb-1'>USER</div>\
-	<div class='h6 mb-0 mr-3 font-weight-bold text-gray-800'>" +cinfo.user +"</div></div></div>";
+	<div class='h7 mb-0 mr-3 font-weight-bold text-gray-800'>" +cinfo.user +"</div></div></div>";
 
 	if(cinfo.status != 'Offline'){
 		if(cinfo.battery != undefined) chair_card_body += chair_card_battery;

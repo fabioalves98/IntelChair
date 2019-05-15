@@ -17,7 +17,7 @@ $(document).ready(function()
                 success : function (data) 
                 {
                     var user = JSON.parse(data);
-                    name = user[0]['firstname'] + ' ' + user[0]['lastname'];
+                    name = user['firstname'] + ' ' + user['lastname'];
                     console.log(name);
                 },
             });
@@ -53,15 +53,29 @@ $(document).ready(function()
     $.get('http://localhost:5000/users' ,function( u_data )
     {
         var users = JSON.parse(u_data);
+        var active_users = 0;
         console.log(users.length);
+        for(let user of users){
+            if(user.chair != 'None'){
+                active_users++;
+            }
+        }
 
-        $('#active_users').text("calc this / " + users.length);
+        $('#active_users').text(active_users + " / " + users.length);
+    });
+
+
+    $.get('http://localhost:5000/maps', function(m_data){
+
+        var maps = JSON.parse(m_data) ;
+        $('#active_maps').text(maps.length);
+
     });
 
 });
 
 function delete_history() {
-    $.post( 'http://localhost:5000/remove/history',
+    $.post('http://localhost:5000/remove/history',
     function(data, status)
     {
         console.log(status);

@@ -1,6 +1,7 @@
 var ros_url = 'localhost';
 var ros;
 var chair_connected = 0;
+var chair_ip;
 
 var options = {
     zone: document.getElementById('zone_joystick'),
@@ -51,34 +52,36 @@ setInterval(function(){
 
 }, 50);
 
-// Each 30 secs, post chair info to the server
-//setInterval(post_chair_info(), 5000);
+//Each 30 secs, post chair info to the server
+setInterval(post_chair_info, 30000);
 
-// 5 second interval to post chair info
-setInterval(function post_chair_info(){
+function post_chair_info(){
 	if(chair_connected){
 		$.post('/chair/123123',
 			{	
 				'username' 	: localStorage.username,
-				'status'  	: 'Connected',
-				'battery'	: currentBattery
+				'status'  	: 'Taken',
+				'battery'	: currentBattery,
+				'chair_ip'		: chair_ip
 
 			},function(data, status){
 				console.log(status);
 		});
 	}
-}, 5000);
+}
 
 function connect(){
 	// var s = new Date();
 	// start = s.getDate()+'/'+(s.getMonth()+1)+'/'+s.getFullYear()+"-"+s.getHours()+":"+s.getMinutes();
 	start = new Date().getTime();
 	$.get("/chairs/123123", function(data) {
-		console.log(data);
 		var jsondata = $.parseJSON(data);
 		if(jsondata.ip != ""){
 			ros_url = jsondata.ip;
+			chair_ip = jsondata.ip;
+
 		}
+
 
 		ros = new ROSLIB.Ros({
 			// url : 'ws://' + jsondata.ip + ':9090'
@@ -106,6 +109,25 @@ function connect(){
 			}));
 
 		});
+		
+		$.post('/chair/123123',
+		{
+			'username' 	: localStorage.username,
+			'status'  	: 'Taken',
+			'battery'	: currentBattery,
+			'chair_ip'	: chair_ip
+		},
+		function(data, status){
+			console.log(status);
+		});
+
+		$.post('/users/chair/' + localStorage.username,
+		{
+			'chair_user' 	: '123123'
+		},
+		function(data, status){
+			console.log(status);
+		});
 
 		ros.on('error', function(error) {
 			console.log('Error connecting to websocket server');
@@ -117,34 +139,19 @@ function connect(){
 			disconnect();
 		})
 	});
-
-	$.post( '/chair/123123',
-	{
-		'username' 	: localStorage.username,
-		'status'  	: 'Connected',
-		'battery'	: currentBattery
-	},
-	function(data, status){
-		console.log(status);
-	});
-
-	$.post( '/users/chair/' + localStorage.username,
-	{
-		'chair_user' 	: 'None'
-	},
-	function(data, status){
-		console.log(status);
-	});
+	
 }
 
 function disconnect(){
 	chair_connected = 0;
 	// var s = new Date();
 	// end = s.getDate()+'/'+(s.getMonth()+1)+'/'+s.getFullYear()+"-"+s.getHours()+":"+s.getMinutes();
-	$.post( 'http://localhost:5000/chairs/123123',
+	$.post( 'http://localhost:5000/chair/123123',
 	{
-		'username' 	: null,
-		'status'  	: 'Offline'
+		'username' 	: "None",
+		'status'  	: 'Online',
+		'chair_ip'		: chair_ip,
+		'battery'	: currentBattery
 	},
 	function(data, status){
 		console.log(status);

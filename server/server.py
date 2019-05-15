@@ -278,11 +278,14 @@ def update_chair_status_user(id):
 
     user = request.form['username']
     status = request.form['status']
-    battery = request.form['status']
+    battery = request.form['battery']
+    ip = request.form['chair_ip']
+
     
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='chairs'") # checking if the table exists
     if c.fetchone()[0]==1:
-        c.execute("UPDATE chairs SET user = ?, status = ? WHERE id = ?", (user, status, id))
+        c.execute("UPDATE chairs SET user = ?, status = ?, battery = ?, ip = ? WHERE id = ?", (user, status, battery, ip, id))
+
         db.commit()
         return '',200
     else:
