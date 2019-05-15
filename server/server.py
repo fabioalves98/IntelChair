@@ -108,8 +108,6 @@ def get_allusers():
 def get_user(username):
     db = get_db()
     c = db.cursor()
-
-    users=[]
     
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='users'") # checking if the table exists
     if c.fetchone()[0]==1:
@@ -120,10 +118,7 @@ def get_user(username):
         db.commit()
         print("Table 'users' created")
 
-    if user == None:
-        print("User '?' not found", username)
-
-    return json.dumps([dict(x) for x in user])
+    return json.dumps([dict(x) for x in user][0])
 
 def add_user():
     db = get_db()
@@ -139,9 +134,15 @@ def add_user():
     
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='users'") # checking if the table exists
     if c.fetchone()[0]==1:
-        c.execute("INSERT INTO users(firstname, lastname, username, password, email, age, gender, chair) \
+        user = c.execute("SELECT * FROM users WHERE username = ?", [username,])
+        rows = user.fetchone()
+
+        if rows == None:
+            c.execute("INSERT INTO users(firstname, lastname, username, password, email, age, gender, chair) \
                         VALUES(?, ?, ?, ?, ?, ?, ?, ?)", (firstname, lastname, username, password, email, age, gender, None))
-        db.commit()
+            db.commit()
+        else:
+            print("User already exists!")
     else:
         c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text)")
         db.commit()
@@ -161,9 +162,14 @@ def update_user(username):
 
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='users'") # checking if the table exists
     if c.fetchone()[0]==1:
-        c.execute("UPDATE users SET firstname = ?, lastname = ?, password = ?, email = ?, age = ?, gender = ?, chair = ? WHERE username = ?",
-            (firstname, lastname, password, email, age, gender, None, username))
-        db.commit()
+        user = c.execute("SELECT * FROM users WHERE username = ?", [username,])
+        rows = user.fetchone()
+        if rows != None:
+            c.execute("UPDATE users SET firstname = ?, lastname = ?, password = ?, email = ?, age = ?, gender = ?, chair = ? WHERE username = ?",
+                (firstname, lastname, password, email, age, gender, None, username))
+            db.commit()
+        else:
+            print("User does not exist!")
     else:
         c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text)")
         db.commit()
@@ -230,7 +236,7 @@ def get_allchairs():
         chairs = c.execute("SELECT * FROM chairs")
         db.commit()
     else:
-        c.execute("CREATE TABLE IF NOT EXISTS chairs (company text, model text, name text, id text, ip text, user text, status text, battery integer);")
+        c.execute("CREATE TABLE IF NOT EXISTS chairs (company text, model text, name text, id text UNIQUE, ip text, user text, status text, battery integer);")
         db.commit()
         print("Table 'chairs' created")
 
@@ -239,7 +245,6 @@ def get_allchairs():
 def get_chair(id):
     db = get_db()
     c = db.cursor()
-    chairs = []
 
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='chairs'") # checking if the table exists
     if c.fetchone()[0]==1:
@@ -253,7 +258,7 @@ def get_chair(id):
     if chair == None:
         print("Chair '?' not found", id)
 
-    return json.dumps([dict(x) for x in chair])
+    return json.dumps([dict(x) for x in chair][0])
 
 @app.route("/chair/<id>", methods=['POST'])
 def update_chair_status_user(id):
@@ -286,6 +291,7 @@ def update_chair(id):
     
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='chairs'") # checking if the table exists
     if c.fetchone()[0]==1:
+
         c.execute("UPDATE chairs SET company = ?, model = ?, name = ? WHERE id = ?", (company, model, name, id))
         db.commit()
         return '',200

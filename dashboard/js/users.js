@@ -79,7 +79,7 @@ $('#search_user').click( function()
     $.get( 'http://localhost:5000/users/' + $('#srch_un').val(),
     function(data, status)
     {   
-        var user = JSON.parse(data)[0];
+        var user = JSON.parse(data);
         
         if(user == undefined){
             alert("User not found");
