@@ -118,7 +118,12 @@ def get_user(username):
         db.commit()
         print("Table 'users' created")
 
-    return json.dumps([dict(x) for x in user][0])
+    rtUser = [dict(x) for x in user]
+
+    if(len(rtUser) != 0):
+        return json.dumps(rtUser[0])
+
+    return json.dumps(None)
 
 def add_user():
     db = get_db()
@@ -258,7 +263,12 @@ def get_chair(id):
     if chair == None:
         print("Chair '?' not found", id)
 
-    return json.dumps([dict(x) for x in chair][0])
+    rtChair = [dict(x) for x in chair]
+
+    if(len(rtChair) != 0):
+        return json.dumps(rtChair[0])
+
+    return json.dumps(None)
 
 @app.route("/chair/<id>", methods=['POST'])
 def update_chair_status_user(id):
@@ -268,6 +278,7 @@ def update_chair_status_user(id):
 
     user = request.form['username']
     status = request.form['status']
+    battery = request.form['status']
     
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='chairs'") # checking if the table exists
     if c.fetchone()[0]==1:
@@ -317,6 +328,9 @@ def add_chair():
         if rows == None:
             c.execute("INSERT INTO chairs(company, model, name, id, ip, user, status, battery) \
                             VALUES(?, ?, ?, ?, ?, ?, ?, ?)", (company, model, name, id, None, None, None, None))
+            db.commit()
+        else:
+            c.execute("UPDATE chairs SET company = ?, model = ?, name = ? WHERE id = ?", (company, model, name, id))
             db.commit()
     else:
         c.execute("CREATE TABLE IF NOT EXISTS chairs (company text, model text, name text, id text, ip text, user text, status text, battery integer);")
