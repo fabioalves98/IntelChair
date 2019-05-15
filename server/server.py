@@ -291,7 +291,6 @@ def update_chair(id):
     
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='chairs'") # checking if the table exists
     if c.fetchone()[0]==1:
-
         c.execute("UPDATE chairs SET company = ?, model = ?, name = ? WHERE id = ?", (company, model, name, id))
         db.commit()
         return '',200
@@ -312,9 +311,13 @@ def add_chair():
     
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='chairs'") # checking if the table exists
     if c.fetchone()[0]==1:
-        c.execute("INSERT INTO chairs(company, model, name, id, ip, user, status, battery) \
-                        VALUES(?, ?, ?, ?, ?, ?, ?, ?)", (company, model, name, id, None, None, None, None))
-        db.commit()
+        chair = c.execute("SELECT * FROM chairs WHERE id = ?", [id,])
+        rows = chair.fetchone()
+
+        if rows == None:
+            c.execute("INSERT INTO chairs(company, model, name, id, ip, user, status, battery) \
+                            VALUES(?, ?, ?, ?, ?, ?, ?, ?)", (company, model, name, id, None, None, None, None))
+            db.commit()
     else:
         c.execute("CREATE TABLE IF NOT EXISTS chairs (company text, model text, name text, id text, ip text, user text, status text, battery integer);")
         db.commit()

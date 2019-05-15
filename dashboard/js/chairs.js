@@ -166,7 +166,7 @@ $('#up_chair').click( function()
     $.get( 'http://localhost:5000/chairs/' + active_card.id,
     function(data, status)
     {   
-        var chair = JSON.parse(data)[0];
+        var chair = JSON.parse(data);
 
         $('#up_n').val(chair['name']),
         $('#up_c').val(chair['company']),
