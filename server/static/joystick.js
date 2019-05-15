@@ -56,16 +56,11 @@ setInterval(post_chair_info, 30000);
 
 function post_chair_info(){
 	if(chair_connected){
-		$.post('/chairs',
+		$.post('/chair/123123',
 			{	
-				'company': 'Karma',
-				'model': 'RX123',
-				'name':'IrisChair',
-				'id':'123123',
 				'username' 	: localStorage.username,
 				'status'  	: 'Connected',
-				'battery'	: currentBattery,
-				'ip'	: '123.123.123.123'
+				'battery'	: currentBattery
 
 			},function(data, status){
 				console.log(status);
@@ -123,9 +118,8 @@ function connect(){
 		})
 	});
 
-	$.post( 'http://localhost:5000/chairs',
+	$.post( '/chair/123123',
 	{
-		'id':'123123',
 		'username' 	: localStorage.username,
 		'status'  	: 'Connected'
 	},
@@ -133,7 +127,7 @@ function connect(){
 		console.log(status);
 	});
 
-	$.post( 'http://localhost:5000/users/chair/' + localStorage.username,
+	$.post( '/users/chair/' + localStorage.username,
 	{
 		'chair_user' 	: 'None'
 	},
