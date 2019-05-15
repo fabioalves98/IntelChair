@@ -34,21 +34,6 @@ manager.on("end", function(event, nipple)
     joystick.y = 0;
 })
 
-
-
-// $('#login').click(function() {
-
-// 	$.post( 'http://localhost:5000/auth.html',
-//     {
-//         'username' : $('#user').val(),
-//         'password' : $('#pw').val()
-//     },
-//     function(data, status) {
-//     	console.log(status);
-//     });
-//     location.reload();
-// })
-
 function storeUser(){
 	localStorage.setItem('username', $('#user').val())
 }
@@ -66,6 +51,28 @@ setInterval(function(){
 
 }, 50);
 
+// Each 30 secs, post chair info to the server
+setInterval(post_chair_info, 30000);
+
+function post_chair_info(){
+	if(chair_connected){
+		$.post('/chairs',
+			{	
+				'company': 'Karma',
+				'model': 'RX123',
+				'name':'IrisChair',
+				'id':'123123',
+				'username' 	: localStorage.username,
+				'status'  	: 'Connected',
+				'battery'	: currentBattery,
+				'ip'	: '123.123.123.123'
+
+			},function(data, status){
+				console.log(status);
+		});
+	}
+}
+
 
 function connect(){
 	// var s = new Date();
@@ -80,7 +87,8 @@ function connect(){
 
 		ros = new ROSLIB.Ros({
 			// url : 'ws://' + jsondata.ip + ':9090'
-			url: 'ws://localhost:9090/'
+			url : 'ws://localhost:9090'
+
 		});
 		if(ros_url != 1){
 			ros.socket.url = "ws://" + ros_url + ":9090";
@@ -108,10 +116,16 @@ function connect(){
 			console.log('Error connecting to websocket server');
 			alert('Cant connect');
 		});
+
+		ros.on('disconnect', function(){
+			console.log('Disconnected');
+			disconnect();
+		})
 	});
 
-	$.post( 'http://localhost:5000/chair/123123',
+	$.post( 'http://localhost:5000/chairs',
 	{
+		'id':'123123',
 		'username' 	: localStorage.username,
 		'status'  	: 'Connected'
 	},
@@ -129,12 +143,13 @@ function connect(){
 }
 
 function disconnect(){
+	chair_connected = 0;
 	// var s = new Date();
 	// end = s.getDate()+'/'+(s.getMonth()+1)+'/'+s.getFullYear()+"-"+s.getHours()+":"+s.getMinutes();
-	$.post( 'http://localhost:5000/chair/123123',
+	$.post( 'http://localhost:5000/chairs/123123',
 	{
 		'username' 	: null,
-		'status'  	: 'Disconnected'
+		'status'  	: 'Offline'
 	},
 	function(data, status){
 		console.log(status);
@@ -218,8 +233,7 @@ function showIcons(){
 		$('#btn-disconnect').hide();
 		$('#btn-connect').show();
 		$('#zone_joystick').hide();
-		$('#zone_joystick_message').show()
-
+		$('#zone_joystick_message').show();
 	}
 }
 
