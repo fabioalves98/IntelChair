@@ -81,7 +81,7 @@ $('#search_user').click( function()
     {   
         var user = JSON.parse(data);
         
-        if(user == undefined){
+        if(user == undefined) {
             alert("User not found");
             location.reload();
         }
