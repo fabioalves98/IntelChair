@@ -286,7 +286,7 @@ def update_chair(id):
     
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='chairs'") # checking if the table exists
     if c.fetchone()[0]==1:
-        c.execute("UPDATE chairs SET company = ?, model = ?, name = ? WHERE id = ?", (company, model, name, id))
+        c.execute("UPDATE chairs SET company = ?, model = ?, name = ?, ip = ?, user = ?, status = ?, battery = ? WHERE id = ?", (company, model, name, None, None, None, None, id))
         db.commit()
         return '',200
     else:
