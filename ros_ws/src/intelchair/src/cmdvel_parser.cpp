@@ -15,6 +15,17 @@ void parseCmdvel(const geometry_msgs::Twist::ConstPtr& msg){
  
     geometry_msgs::Point j;
     j.x = msg->linear.x * 30;
+    
+    // Martelado
+    if (j.x < 20 && j.x > 0)
+    {
+        j.x = 20;
+    }
+    else if (j.x < 0)
+    {
+        j.x = -20;
+    }
+    
     j.y = -1 * msg->angular.z * 100;
     ROS_INFO("JOYSTICK(X,Y): (%f, %f)", j.x, j.y);
 

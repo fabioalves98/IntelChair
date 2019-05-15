@@ -61,6 +61,7 @@ rtk::Loc2DROS::~Loc2DROS()
 
 void rtk::Loc2DROS::onInitialPose(const geometry_msgs::PoseWithCovarianceStampedConstPtr& initial_pose)
 {
+    ROS_INFO("SetInitalPose");
 }
 
 void rtk::Loc2DROS::onLaserScan(const sensor_msgs::LaserScanConstPtr& laser_scan)
