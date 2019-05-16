@@ -4,12 +4,6 @@ project(intelchair)
 ## Find catkin and any catkin packages
 find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs geometry_msgs message_generation tf)
 
-add_service_files(
-  FILES
-  ChairConnection.srv
-  ChairVelocity.srv
-)
-
 add_message_files(
   FILES
   ChairMsg.msg

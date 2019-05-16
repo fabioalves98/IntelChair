@@ -20,18 +20,16 @@ class CommHandler
 	private:
         CommSerial comm;
         int velocityInfo;
-        int connectInfo;
-        int connectStatus;
         char aux[1024 * 4];
 
     // Methods
 	private:
-		void buildFrame(Coordinate joystick, int buttonPressed, int connectOption);
+		void buildFrame(Coordinate joystick, int buttonPressed);
         void printFrame(char* response);
 
 	public:		
 		CommHandler();
-		void sendFrame(Coordinate joystick, int buttonPressed, int connectOption);
+		void sendFrame(Coordinate joystick, int buttonPressed);
         ChairInfo receiveFrame();
         ChairInfo parseFrame(char* response);
 

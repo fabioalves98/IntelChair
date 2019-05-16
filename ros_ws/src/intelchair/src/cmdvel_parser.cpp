@@ -2,17 +2,14 @@
 #include "std_msgs/String.h"
 #include "geometry_msgs/Point.h"
 #include "geometry_msgs/Twist.h"
-#include "intelchair/ChairConnection.h"
-#include "intelchair/ChairVelocity.h"
 #include "intelchair/ChairMsg.h"
 
 #include <sstream>
 
 ros::Publisher pub;
 
-
-void parseCmdvel(const geometry_msgs::Twist::ConstPtr& msg){
- 
+void parseCmdvel(const geometry_msgs::Twist::ConstPtr& msg)
+{
     geometry_msgs::Point j;
     j.x = msg->linear.x * 30;
     
@@ -31,10 +28,10 @@ void parseCmdvel(const geometry_msgs::Twist::ConstPtr& msg){
 
     pub.publish(j);
     ros::spinOnce(); // important for later callback usage
-
 }
 
-int main(int argc, char **argv){
+int main(int argc, char **argv)
+{
     ros::init(argc, argv, "cmdvel_parser");
     
     ros::NodeHandle n;

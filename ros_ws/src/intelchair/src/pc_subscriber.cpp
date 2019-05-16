@@ -2,8 +2,6 @@
 #include "std_msgs/String.h"
 #include "geometry_msgs/Point.h"
 #include "CommHandler.h"
-#include "intelchair/ChairConnection.h"
-#include "intelchair/ChairVelocity.h"
 #include "intelchair/ChairMsg.h"
 
 #include <sstream>
@@ -19,12 +17,10 @@ ChairInfo chair;
 ros::Publisher pc_publisher;
 
 char aux[1024 * 4];
-char connectOption = 0x00;
 int buttonPressed = 0x00;
 
 void resetButtons()
 {
-	connectOption = 0x00;
 	buttonPressed = 0x00;
 }
 
@@ -47,19 +43,11 @@ void chairInfoCallback(const intelchair::ChairMsg::ConstPtr& msg)
         ROS_INFO("Velocity Down!");
 		buttonPressed = 0x02;
     }
-
-    if(msg->connected == 1 && chair.connected == 0)
-    {
-        ROS_INFO("Client connected!");
-        connectOption = 0x01;
-        chair.connected = 1;
-    }
-    
 }
 
 void sendFrame(const ros::TimerEvent& event)
 {
-	commHandler.sendFrame(joystick, buttonPressed, connectOption);
+	commHandler.sendFrame(joystick, buttonPressed);
 	resetButtons();
 }
 
@@ -71,7 +59,6 @@ void receiveFrame(const ros::TimerEvent& event)
     msg.battery = chair.battery;
     msg.connected = chair.connected;
     pc_publisher.publish(msg);
-    // ros::spinOnce();
 }
 
 int main(int argc, char **argv)

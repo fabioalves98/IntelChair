@@ -10,9 +10,6 @@ chair_battery = -1
 
 def chair_info_callback(data):
     chair_battery = data.battery
-
-    print(chair_battery)
-
     url = 'http://' + server_address + api_call
     print(url)
     values = {'battery' : chair_battery, 'status':'Online','username': None, 'chair_ip' : ip}
