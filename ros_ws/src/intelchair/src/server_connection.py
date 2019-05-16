@@ -28,12 +28,10 @@ rospy.init_node("server_connection", anonymous=True)
 
 rospy.Subscriber("chair_info", ChairMsg, chair_info_callback)
 
-ip = ni.ifaddresses('wlo1')[ni.AF_INET][0]['addr']
+ip = ni.ifaddresses('wlp3s0')[ni.AF_INET][0]['addr']
 
 localhost = '127.0.0.1:8080'
 api_call = "/chair/123123"
 server_address = 'localhost:5000'
-
-
 
 rospy.spin()

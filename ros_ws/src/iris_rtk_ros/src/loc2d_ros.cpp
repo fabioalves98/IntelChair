@@ -47,6 +47,8 @@ rtk::Loc2DROS::Loc2DROS()
 
     InitLoc2DFromOccupancyGridMsg(resp.map);
 
+    //loc2d_.triggerGlobalLocalization();
+
     ROS_INFO("2D Localization node up and running");
 }
 
@@ -61,7 +63,13 @@ rtk::Loc2DROS::~Loc2DROS()
 
 void rtk::Loc2DROS::onInitialPose(const geometry_msgs::PoseWithCovarianceStampedConstPtr& initial_pose)
 {
-    ROS_INFO("SetInitalPose");
+    double x = initial_pose->pose.pose.position.x;
+    double y = initial_pose->pose.pose.position.y;
+    double yaw = tf::getYaw(initial_pose->pose.pose.orientation);
+
+    rtk::geom::Pose2D pose(x,y,yaw);
+
+    loc2d_.setPose(pose);
 }
 
 void rtk::Loc2DROS::onLaserScan(const sensor_msgs::LaserScanConstPtr& laser_scan)

@@ -26,7 +26,7 @@ manager.on("move", function(event, nipple)
 {
 	// Note: The mapping functions expect values ranging from -1 to 1
     joystick.x = (nipple.position.x - window.innerWidth/2) * 2;
-	joystick.y = (nipple.position.y - window.innerHeight/2 ) * 2;
+	joystick.y = (nipple.position.y - window.innerHeight/2 ) * -2;
 	console.log('joystick: ', joystick);
 	console.log('wheels: ', map_joystickC(joystick.x, joystick.y));
 });
@@ -84,11 +84,11 @@ function connect(){
 
 		}
 
+		console.log(jsondata);
 
 		ros = new ROSLIB.Ros({
-			// url : 'ws://' + jsondata.ip + ':9090'
-			url : 'ws://localhost:9090'
-
+			url : 'ws://' + jsondata.ip + ':9090'
+			//url: 'ws://localhost:9090/'
 		});
 		if(ros_url != 1){
 			ros.socket.url = "ws://" + ros_url + ":9090";

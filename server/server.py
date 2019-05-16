@@ -302,10 +302,11 @@ def update_chair(id):
     model = request.form['model']
     name = request.form['name']
     id = request.form['id']
+    ip = request.form['ip']
     
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='chairs'") # checking if the table exists
     if c.fetchone()[0]==1:
-        c.execute("UPDATE chairs SET company = ?, model = ?, name = ? WHERE id = ?", (company, model, name, id))
+        c.execute("UPDATE chairs SET company = ?, model = ?, name = ?, ip = ? WHERE id = ?", (company, model, name, ip, id))
         db.commit()
         return '',200
     else:
@@ -322,6 +323,7 @@ def add_chair():
     model = request.form['model']
     name = request.form['name']
     id = request.form['id']
+    ip = request.form['ip']
     
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='chairs'") # checking if the table exists
     if c.fetchone()[0]==1:

@@ -8,12 +8,10 @@
 
 #include <sstream>
 
-
 // Valores iguais ao codigo em "MainWindow.cpp"
 #define RESPONSE_DELAY 0.008 
 #define SEND_DELAY 0.05
 #define DEVICE "/dev/ttyUSB0"
-
 
 CommHandler commHandler;    
 Coordinate joystick;
@@ -24,31 +22,34 @@ char aux[1024 * 4];
 char connectOption = 0x00;
 int buttonPressed = 0x00;
 
-void resetButtons(){
+void resetButtons()
+{
 	connectOption = 0x00;
 	buttonPressed = 0x00;
 }
 
-void joystickTopicCallback(const geometry_msgs::Point::ConstPtr& msg){
-
+void joystickTopicCallback(const geometry_msgs::Point::ConstPtr& msg)
+{
     joystick.x = ((int)msg->x);
     joystick.y = ((int)msg->y); 
     // ROS_INFO("Joystick info: (%f, %f)", msg->x, msg->y);
-
-
 }
 
-
-void chairInfoCallback(const intelchair::ChairMsg::ConstPtr& msg){
-    if(msg->velocity > chair.velocity){
+void chairInfoCallback(const intelchair::ChairMsg::ConstPtr& msg)
+{
+    if(msg->velocity > chair.velocity)
+    {
         buttonPressed = 0x04;
         ROS_INFO("Velocity up!");
-    }else if(msg->velocity < chair.velocity){
+    }
+    else if(msg->velocity < chair.velocity)
+    {
         ROS_INFO("Velocity Down!");
 		buttonPressed = 0x02;
     }
 
-    if(msg->connected == 1 && chair.connected == 0){
+    if(msg->connected == 1 && chair.connected == 0)
+    {
         ROS_INFO("Client connected!");
         connectOption = 0x01;
         chair.connected = 1;
@@ -56,12 +57,14 @@ void chairInfoCallback(const intelchair::ChairMsg::ConstPtr& msg){
     
 }
 
-void sendFrame(const ros::TimerEvent& event){
+void sendFrame(const ros::TimerEvent& event)
+{
 	commHandler.sendFrame(joystick, buttonPressed, connectOption);
 	resetButtons();
 }
 
-void receiveFrame(const ros::TimerEvent& event){
+void receiveFrame(const ros::TimerEvent& event)
+{
 	chair = commHandler.receiveFrame();
     intelchair::ChairMsg msg;
     msg.velocity = chair.velocity;
@@ -69,21 +72,19 @@ void receiveFrame(const ros::TimerEvent& event){
     msg.connected = chair.connected;
     pc_publisher.publish(msg);
     // ros::spinOnce();
-
 }
 
-int main(int argc, char **argv){
+int main(int argc, char **argv)
+{
     ros::init(argc, argv, "pcsubscriber");
     
     ros::NodeHandle n;
 
     pc_publisher = n.advertise<intelchair::ChairMsg>("/chair_info", 1000);
 
-
     ros::Timer response_timer = n.createTimer(ros::Duration(RESPONSE_DELAY), receiveFrame);
     ros::Timer send_timer = n.createTimer(ros::Duration(SEND_DELAY), sendFrame);
     //ros::Timer debug_timer = n.createTimer(ros::Duration(2), sendFrame);
-
 
     ROS_INFO("Subscribing to joystick topic... ");
     ros::Subscriber joystick_sub = n.subscribe("/joystick", 1000, joystickTopicCallback);
