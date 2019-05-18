@@ -16,9 +16,19 @@ if (annyang) {
         },
       'speed down': function(){
         if (chair_connected == 1){
-            velocityDown;
+            velocityDown();
         }
-    }
+    },
+      'maps': function(){
+        $('#tab-button-settings').trigger("click");
+      },
+    
+      'mapping': function(){
+        $('#tab-button-mapping').trigger("click");
+      },
+      'navigation': function(){
+        $('#tab-button-home').trigger("click");
+      }
     };
   
     annyang.addCommands(commands);
