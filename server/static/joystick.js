@@ -19,7 +19,7 @@ var start;
 var username;
 var end;
 
-$('#usershow').html("Logged as: " + localStorage.username);
+$('#usershow').html(localStorage.username);
 
 
 manager.on("move", function(event, nipple)
@@ -87,8 +87,8 @@ function connect(){
 		console.log(jsondata);
 
 		ros = new ROSLIB.Ros({
-			url : 'ws://' + jsondata.ip + ':9090'
-			//url: 'ws://localhost:9090/'
+			//url : 'ws://' + jsondata.ip + ':9090'
+			url: 'ws://localhost:9090/'
 		});
 		if(ros_url != 1){
 			ros.socket.url = "ws://" + ros_url + ":9090";
@@ -190,7 +190,6 @@ function velocityUp(){
 		// 	currentSpeed++;
 		// 	setSpeedLabel(currentSpeed);
 		// });
-		
 		publish_info("/chair_info_control", "intelchair/ChairMsg", new ROSLIB.Message({
 			velocity: currentSpeed + 1,
 			battery: currentBattery,

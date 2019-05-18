@@ -30,6 +30,11 @@
 
 
             <ion-content class="has-header">
+                <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+                    <ion-fab-button onclick="voice_activate()">
+                        <ion-icon id="voice_ico" name="mic"></ion-icon>
+                    </ion-fab-button>
+                </ion-fab>
                 <ion-tabs>
                     <ion-tab tab="home"><ion-grid >
                         <ion-grid>
@@ -50,6 +55,18 @@
                                     </div>
                                 </ion-row>
                         </ion-grid>
+                    </ion-tab>
+                    <ion-tab tab="mapping">
+                        <ion-grid>
+                                <ion-row justify-content-center align-items-center>
+                                    <ion-item id="mapping_start_message">
+                                        <ion-label>
+                                            Please start the mapping on PC! 
+                                        </ion-label>
+                                    </ion-item>
+                                </ion-row>
+                        </ion-grid>
+
                     </ion-tab>
                     <ion-tab tab="settings">
                         <ion-grid>
@@ -102,8 +119,10 @@
         <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
         <script type="text/javascript" src="https://unpkg.com/@ionic/core@latest/dist/ionic.js"></script>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
         <script src="static/nipplejs.js"></script>
         <script src="static/joystick.js"></script>
+        <script src="static/voice.js"></script>
 
         
         <script>
