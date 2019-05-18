@@ -30,24 +30,43 @@
 
 
             <ion-content class="has-header">
+                <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+                    <ion-fab-button onclick="voice_activate()">
+                        <ion-icon id="voice_ico" name="mic"></ion-icon>
+                    </ion-fab-button>
+                </ion-fab>
                 <ion-tabs>
-                    <ion-tab tab="home"><ion-grid style="height: 100%">
+                    <ion-tab tab="home"><ion-grid >
                         <ion-grid>
-                            <ion-row justify-content-center align-items-center style="height: 100%">
+                            <ion-row align-items-center>
                                 <ion-item id="zone_joystick_message">
                                     <ion-label>
                                         Please connect the device first! 
                                     </ion-label>
                                 </ion-item>
-                                <div id="zone_joystick"></div>
                             </ion-row>
                             <ion-row>
-                                <div class="spd-btn">
-                                    <ion-button onclick="velocityDown()" color="primary">Speed down</ion-button>
-                                    <ion-button onclick="velocityUp()" color="primary">Speed up</ion-button>
-                                </div>
+                                <div id="zone_joystick"></div>
                             </ion-row>
+                            <ion-row justify-content-center align-items-center>
+                                    <div class="spd-btn" style="position:fixed; bottom:10px">
+                                        <ion-button onclick="velocityDown()" color="primary">Speed down</ion-button>
+                                        <ion-button onclick="velocityUp()" color="primary">Speed up</ion-button>
+                                    </div>
+                                </ion-row>
                         </ion-grid>
+                    </ion-tab>
+                    <ion-tab tab="mapping">
+                        <ion-grid>
+                                <ion-row justify-content-center align-items-center>
+                                    <ion-item id="mapping_start_message">
+                                        <ion-label>
+                                            Please start the mapping on PC! 
+                                        </ion-label>
+                                    </ion-item>
+                                </ion-row>
+                        </ion-grid>
+
                     </ion-tab>
                     <ion-tab tab="settings">
                         <ion-grid>
@@ -75,12 +94,17 @@
 
                     <ion-tab-bar slot="bottom">
                         <ion-tab-button tab="home">
-                        <ion-label>Manual</ion-label>
+                        <ion-label>Navigation</ion-label>
                         <ion-icon name="move"></ion-icon>
                         </ion-tab-button>
 
+                        <ion-tab-button tab="mapping">
+                        <ion-label>Mapping</ion-label>
+                        <ion-icon name="eye"></ion-icon>
+                        </ion-tab-button>
+
                         <ion-tab-button tab="settings">
-                        <ion-label>Mapa</ion-label>
+                        <ion-label>Maps</ion-label>
                         <ion-icon name="map"></ion-icon>
                         </ion-tab-button>
 
@@ -95,8 +119,10 @@
         <script type="text/javascript" src="http://static.robotwebtools.org/roslibjs/current/roslib.min.js"></script>
         <script type="text/javascript" src="https://unpkg.com/@ionic/core@latest/dist/ionic.js"></script>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="//cdnjs.cloudflare.com/ajax/libs/annyang/2.6.0/annyang.min.js"></script>
         <script src="static/nipplejs.js"></script>
         <script src="static/joystick.js"></script>
+        <script src="static/voice.js"></script>
 
         
         <script>
