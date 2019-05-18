@@ -31,22 +31,24 @@
 
             <ion-content class="has-header">
                 <ion-tabs>
-                    <ion-tab tab="home"><ion-grid style="height: 100%">
+                    <ion-tab tab="home"><ion-grid >
                         <ion-grid>
-                            <ion-row justify-content-center align-items-center style="height: 100%">
+                            <ion-row align-items-center>
                                 <ion-item id="zone_joystick_message">
                                     <ion-label>
                                         Please connect the device first! 
                                     </ion-label>
                                 </ion-item>
-                                <div id="zone_joystick"></div>
                             </ion-row>
                             <ion-row>
-                                <div class="spd-btn">
-                                    <ion-button onclick="velocityDown()" color="primary">Speed down</ion-button>
-                                    <ion-button onclick="velocityUp()" color="primary">Speed up</ion-button>
-                                </div>
+                                <div id="zone_joystick"></div>
                             </ion-row>
+                            <ion-row justify-content-center align-items-center>
+                                    <div class="spd-btn" style="position:fixed; bottom:10px">
+                                        <ion-button onclick="velocityDown()" color="primary">Speed down</ion-button>
+                                        <ion-button onclick="velocityUp()" color="primary">Speed up</ion-button>
+                                    </div>
+                                </ion-row>
                         </ion-grid>
                     </ion-tab>
                     <ion-tab tab="settings">
@@ -75,12 +77,17 @@
 
                     <ion-tab-bar slot="bottom">
                         <ion-tab-button tab="home">
-                        <ion-label>Manual</ion-label>
+                        <ion-label>Navigation</ion-label>
                         <ion-icon name="move"></ion-icon>
                         </ion-tab-button>
 
+                        <ion-tab-button tab="mapping">
+                        <ion-label>Mapping</ion-label>
+                        <ion-icon name="eye"></ion-icon>
+                        </ion-tab-button>
+
                         <ion-tab-button tab="settings">
-                        <ion-label>Mapa</ion-label>
+                        <ion-label>Maps</ion-label>
                         <ion-icon name="map"></ion-icon>
                         </ion-tab-button>
 
