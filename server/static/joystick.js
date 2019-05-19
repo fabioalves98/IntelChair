@@ -21,6 +21,16 @@ var end;
 
 $('#usershow').html(localStorage.username);
 
+function testF(){
+	$.get( 'http://localhost:5000/users/<username>', function( data ) 
+    {
+        var user = JSON.parse(data);
+		console.log(user.element['role']);        
+	});
+}
+
+
+
 
 manager.on("move", function(event, nipple)
 {

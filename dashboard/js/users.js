@@ -28,7 +28,8 @@ $('#add_user').click( function()
         'password'      : $('#add_pw').val(),
         'email'         : $('#add_em').val(),
         'age'           : $('#add_ag').val(),
-        'gender'        : $('#add_ge').val()
+        'gender'        : $('#add_ge').val(),
+        'role'          : $('#add_rl').val()
     },
     function(data, status)
     {
@@ -50,7 +51,8 @@ $('#update_user').click( function()
         'password'      : $('#up_pw').val(),
         'email'         : $('#up_em').val(),
         'age'           : $('#up_ag').val(),
-        'gender'        : $('#up_ge').val()
+        'gender'        : $('#up_ge').val(),
+        'role'          : $('#up_rl').val()
     },
     function(data, status)
     {

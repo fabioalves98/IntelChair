@@ -99,7 +99,7 @@ def get_allusers():
         users = c.execute("SELECT * FROM users")
         db.commit()
     else:
-        c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text);")
+        c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text, role text);")
         db.commit()
         print("Table 'users' created")
 
@@ -114,7 +114,7 @@ def get_user(username):
         user = c.execute("SELECT * FROM users WHERE username = ?", [username,])
         db.commit()
     else:
-        c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text);")
+        c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text, role text);")
         db.commit()
         print("Table 'users' created")
 
@@ -136,6 +136,7 @@ def add_user():
     email = request.form['email']
     age = request.form['age']
     gender = request.form['gender']
+    role = request.form['role']
     
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='users'") # checking if the table exists
     if c.fetchone()[0]==1:
@@ -143,13 +144,13 @@ def add_user():
         rows = user.fetchone()
 
         if rows == None:
-            c.execute("INSERT INTO users(firstname, lastname, username, password, email, age, gender, chair) \
-                        VALUES(?, ?, ?, ?, ?, ?, ?, ?)", (firstname, lastname, username, password, email, age, gender, None))
+            c.execute("INSERT INTO users(firstname, lastname, username, password, email, age, gender, chair, role) \
+                        VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)", (firstname, lastname, username, password, email, age, gender, None, role))
             db.commit()
         else:
             print("User already exists!")
     else:
-        c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text)")
+        c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text, role text)")
         db.commit()
         print("Table 'users' created")
 
@@ -164,19 +165,20 @@ def update_user(username):
     email = request.form['email']
     age = request.form['age']
     gender = request.form['gender']
+    role = request.form['role']
 
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='users'") # checking if the table exists
     if c.fetchone()[0]==1:
         user = c.execute("SELECT * FROM users WHERE username = ?", [username,])
         rows = user.fetchone()
         if rows != None:
-            c.execute("UPDATE users SET firstname = ?, lastname = ?, password = ?, email = ?, age = ?, gender = ?, chair = ? WHERE username = ?",
-                (firstname, lastname, password, email, age, gender, None, username))
+            c.execute("UPDATE users SET firstname = ?, lastname = ?, password = ?, email = ?, age = ?, gender = ?, chair = ?, role = ? WHERE username = ?",
+                (firstname, lastname, password, email, age, gender, None, role, username))
             db.commit()
         else:
             print("User does not exist!")
     else:
-        c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text)")
+        c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text, role text)")
         db.commit()
         print("Table 'users' created")
 
@@ -194,7 +196,7 @@ def update_user_chair_state(username):
         db.commit()
         return '',200
     else:
-        c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text)")
+        c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text, role text)")
         db.commit()
         print("Table 'users' created")  
         return '',200  
@@ -210,7 +212,7 @@ def remove_user(username):
         db.commit()
         return '', 200
     else:
-        c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text)")
+        c.execute("CREATE TABLE IF NOT EXISTS users (firstname text, lastname text, username text, password text, email text, age integer, gender text, chair text, role text)")
         db.commit()
         print("Table 'users' created")
 
