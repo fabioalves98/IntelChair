@@ -1,10 +1,13 @@
 import sqlite3
 import json
+import os
+from pathlib import Path
 from flask import Flask, g
 from flask import render_template
 from flask import redirect, url_for, request
 from flask_cors import CORS
 
+cwd = os.getcwd()
 app = Flask(__name__)
 cors = CORS(app)
 DATABASE = "database.db"
@@ -429,7 +432,35 @@ def get_allmaps():
         maps = c.execute("SELECT * FROM maps")
         db.commit()
     else:
-        c.execute("CREATE TABLE IF NOT EXISTS maps (name text, image blob);")
+        c.execute("CREATE TABLE IF NOT EXISTS maps (name text, pgm_path text, yaml_path text);")
+        db.commit()
+        print("Table 'maps' created")
+
+    return json.dumps([dict(x) for x in maps])
+
+def add_map():
+    db = get_db()
+    c = db.cursor()
+    name = request.form['name']
+    try:
+        pgm_file = cwd + "/static/" + name + ".pgm"
+        yaml_file = cwd + "/static/" + name + ".yaml"
+    except FileNotFoundError:
+        print(name + ".pgm or " + name + ".yaml not found!")
+
+    c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='maps'") # checking if the table exists
+    if c.fetchone()[0]==1:
+        maps = c.execute("SELECT * FROM maps WHERE name = ?", [name,])
+        rows = maps.fetchone()
+
+        if rows == None:
+            c.execute("INSERT INTO maps(name, pgm_path, yaml_path) \
+                            VALUES(?, ?, ?)", (name, pgm_file, yaml_file))
+            db.commit()
+        else:
+            print("Map already exists!")
+    else:
+        c.execute("CREATE TABLE IF NOT EXISTS maps (name text, pgm_path text, yaml_path text);")
         db.commit()
         print("Table 'maps' created")
 
