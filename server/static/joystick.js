@@ -21,16 +21,19 @@ var end;
 
 $('#usershow').html(localStorage.username);
 
-function testF(){
-	$.get( 'http://localhost:5000/users/<username>', function( data ) 
+$(document).ready(function() 
+{
+	$.get( 'http://localhost:5000/users/' + localStorage.username , function( data ) 
     {
-        var user = JSON.parse(data);
-		console.log(user.element['role']);        
+		var user = JSON.parse(data);
+		if(user == undefined) {
+            alert("User not found");
+		}		
+		if (user['role'] == 'null'){
+			$('#mappingTab').hide();		
+		}
 	});
-}
-
-
-
+});
 
 manager.on("move", function(event, nipple)
 {

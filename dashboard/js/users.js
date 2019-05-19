@@ -20,21 +20,41 @@ $(document).ready(function()
 
 $('#add_user').click( function() 
 {
-    $.post( 'http://localhost:5000/users',
-    {
-        'first-name'    : $('#add_fn').val(),
-        'last-name'     : $('#add_ln').val(),
-        'username'      : $('#add_un').val(),
-        'password'      : $('#add_pw').val(),
-        'email'         : $('#add_em').val(),
-        'age'           : $('#add_ag').val(),
-        'gender'        : $('#add_ge').val(),
-        'role'          : $('#add_rl').val()
-    },
-    function(data, status)
-    {
-        console.log(status);
-    });
+    if ($('#add_rl').prop('checked')){
+
+        $.post( 'http://localhost:5000/users',
+        {
+            'first-name'    : $('#add_fn').val(),
+            'last-name'     : $('#add_ln').val(),
+            'username'      : $('#add_un').val(),
+            'password'      : $('#add_pw').val(),
+            'email'         : $('#add_em').val(),
+            'age'           : $('#add_ag').val(),
+            'gender'        : $('#add_ge').val(),
+            'role'          : $('#add_rl').val()
+        },
+        function(data, status)
+        {
+            console.log(status);
+        });
+    }else{
+        $.post( 'http://localhost:5000/users',
+        {
+            'first-name'    : $('#add_fn').val(),
+            'last-name'     : $('#add_ln').val(),
+            'username'      : $('#add_un').val(),
+            'password'      : $('#add_pw').val(),
+            'email'         : $('#add_em').val(),
+            'age'           : $('#add_ag').val(),
+            'gender'        : $('#add_ge').val(),
+            'role'          : 'null'
+        },
+        function(data, status)
+        {
+            console.log(status);
+        });
+    }
+
 
     $('#add_modal').modal('toggle');
  	
