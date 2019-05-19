@@ -41,7 +41,7 @@
                             <ion-row align-items-center>
                                 <ion-item id="zone_joystick_message">
                                     <ion-label>
-                                        Please connect the device first! 
+                                        Please connect the device first!
                                     </ion-label>
                                 </ion-item>
                             </ion-row>
@@ -61,7 +61,7 @@
                                 <ion-row justify-content-center align-items-center>
                                     <ion-item id="mapping_start_message">
                                         <ion-label>
-                                            Please start the mapping on PC! 
+                                            Please start the mapping on PC!
                                         </ion-label>
                                     </ion-item>
                                 </ion-row>
@@ -71,24 +71,27 @@
                     <ion-tab tab="settings">
                         <ion-grid>
                             <ion-row justify-content-center align-items-center>
-                                <ion-img src="static/room.png"></ion-img>
+                                <canvas style="background-image: url('static/lol.png'); background-repeat:no-repeat;"  id="canvas"></canvas>
                             </ion-row>
-                            <ion-row justify-content-center align-items-center>
-                                <ion-col>       
+                            <!-- <ion-row justify-content-center align-items-center>
+                                <ion-img src="static/room.png"></ion-img>
+                            </ion-row> -->
+                            <!-- <ion-row justify-content-center align-items-center>
+                                <ion-col>
                                         <ion-popover-controller></ion-popover-controller>
                                         <ion-button onclick="handleButtonClick()" color="warning">Coffee machine</ion-button>
                                 </ion-col>
                                 <ion-col>
                                         <ion-checkbox value="listed" checked></ion-checkbox>
                                 </ion-col>
-                                <ion-col justify-content-center align-items-center>      
-                                        <ion-button size="small">Color</ion-button>   
+                                <ion-col justify-content-center align-items-center>
+                                        <ion-button size="small">Color</ion-button>
                                 </ion-col>
                             </ion-row>
                             <ul id="dynamic-list"></ul>
-                            <ion-row justify-content-center align-items-center >        
-                                    <ion-button onclick="addLocation()"><ion-icon slot="icon-only" name="add-circle"></ion-icon></ion-button>    
-                            </ion-row>
+                            <ion-row justify-content-center align-items-center >
+                                    <ion-button onclick="addLocation()"><ion-icon slot="icon-only" name="add-circle"></ion-icon></ion-button>
+                            </ion-row> -->
                         </ion-grid>
                     </ion-tab>
 
@@ -124,12 +127,12 @@
         <script src="static/joystick.js"></script>
         <script src="static/voice.js"></script>
 
-        
+
         <script>
             //popup localizacoes
                 const popoverController = document.querySelector('ion-popover-controller');
                 let currentPopover = null;
-    
+
                 async function handleButtonClick(ev) {
                 popover = await popoverController.create({
                     component: 'popover-example-page',
@@ -139,13 +142,13 @@
                 currentPopover = popover;
                 return popover.present();
                 }
-    
+
                 function dismissPopover() {
                 if (currentPopover) {
                     currentPopover.dismiss().then(() => { currentPopover = null; });
                 }
                 }
-    
+
                 customElements.define('popover-example-page', class ModalContent extends HTMLElement {
                 connectedCallback() {
                     this.innerHTML = `
@@ -162,7 +165,7 @@
                                 <ion-col>
                                     <ion-item button color="danger">Remove Location</ion-item>
                                 </ion-col>
-                            </ion-row>                        
+                            </ion-row>
                         </ion-grid>
                     </ion-list>
                     <ion-button expand="block" onClick="dismissPopover()">Close</ion-button>`;
@@ -186,4 +189,3 @@
             </script>
     </body>
 </html>
-
