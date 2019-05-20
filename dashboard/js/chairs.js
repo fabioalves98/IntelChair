@@ -207,6 +207,7 @@ function load_chairs(){
 	$.get("http://localhost:5000/chairs", function(data) {
 		cdata = JSON.parse(data);
 		if(cdata.length > 0){
+			$("#detail-content").show();
 			for(var i = 0; i < cdata.length; i++){
 				create_chair_card(cdata[i]);
 			}
@@ -214,7 +215,11 @@ function load_chairs(){
 			if(active_card == null) set_active_card(cdata[0].name);
 		
 			set_info_card();
+		}else{
+			$("#detail-content").hide();
 		}
+		
+
 		add_chair_card();
 
 	});

@@ -6,11 +6,44 @@ from flask import Flask, g
 from flask import render_template
 from flask import redirect, url_for, request
 from flask_cors import CORS
+import time
+import threading
+
+chair_connection = 0
+current_timestamp = 0
+
+def set_interval(func, sec):
+    def func_wrapper():
+        set_interval(func, sec) 
+        func()  
+    t = threading.Timer(sec, func_wrapper)
+    t.start()
+    return t
+
+
+def check_connected():
+    #global current_timestamp, chair_connection
+    current_timestamp = time.time()
+
+    if(float(current_timestamp) > float(chair_connection) + 10):
+        print('Chair disconnected')
+
 
 cwd = os.getcwd()
 app = Flask(__name__)
 cors = CORS(app)
 DATABASE = "database.db"
+set_interval(check_connected, 5)
+
+
+@app.route("/chair_active", methods=['POST'])
+def publish_chair_active():
+    global chair_connection
+    if request.method == 'POST':
+        ts = request.form['timestamp']
+        chair_connection = ts
+        return '', 200
+ 
 
 def get_db():
     db = getattr(g, '_database', None)
@@ -29,6 +62,8 @@ def close_connection(exception):
 @app.route("/")
 def start():
     return redirect(url_for('login'))
+
+
 
 @app.route("/login", methods=['POST', 'GET'])
 def login():
@@ -328,7 +363,7 @@ def add_chair():
     model = request.form['model']
     name = request.form['name']
     id = request.form['id']
-    ip = request.form['ip']
+    #ip = request.form['ip']
     
     c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='chairs'") # checking if the table exists
     if c.fetchone()[0]==1:
