@@ -252,6 +252,22 @@ function connect(){
 			}));
 
 			setInterval(post_chair_info, 30000);
+
+			$.ajax(
+			{
+				url 	: 	'/chairs/123123',
+				type 	: 	'PUT',
+				data	:	
+				{
+					"user"		: localStorage.username,
+					"status"	: "Taken"
+				},
+				success : function(data)
+				{
+					console.log(data)
+				}
+			});
+
 		});
 
 		ros.on('error', function(error) {
@@ -261,7 +277,7 @@ function connect(){
 
 		ros.on('disconnect', function(){
 			console.log('Disconnected');
-			disconnect();
+			//disconnect();
 		})
 	});
 
@@ -271,24 +287,22 @@ function disconnect(){
 	chair_connected = 0;
 	// var s = new Date();
 	// end = s.getDate()+'/'+(s.getMonth()+1)+'/'+s.getFullYear()+"-"+s.getHours()+":"+s.getMinutes();
-	$.post( '/chair/123123',
-	{
-		'username' 	: "None",
-		'status'  	: 'Online',
-		'chair_ip'		: chair_ip,
-		'battery'	: currentBattery
-	},
-	function(data, status){
-		console.log(status);
-	});
+	
+	$.ajax(
+		{
+			url 	: 	'/chairs/123123',
+			type 	: 	'PUT',
+			data	:	
+			{
+				"user"		: null,
+				"status"	: "Online"
+			},
+			success : function(data)
+			{
+				console.log(data)
+			}
+		});
 
-	$.post( '/users/chair/' + localStorage.username,
-	{
-		'chair_user' 	: null
-	},
-	function(data, status){
-		console.log(status);
-	});
 
 	end = new Date().getTime();
 	$.post( '/history',
@@ -304,7 +318,7 @@ function disconnect(){
 		window.location.replace("/login");
 	});
 
-	location.reload();
+	//location.reload();
 }
 
 function velocityUp(){
