@@ -6,6 +6,26 @@ from flask import Flask, g
 from flask import render_template
 from flask import redirect, url_for, request
 from flask_cors import CORS
+import time
+import threading
+
+chair_connection = 0
+current_timestamp = 0
+
+def set_interval(func, sec):
+    def func_wrapper():
+        set_interval(func, sec) 
+        func()  
+    t = threading.Timer(sec, func_wrapper)
+    t.start()
+    return t
+
+
+def check_connected():
+    current_timestamp = time.time()
+
+    if(float(current_timestamp) > float(chair_connection) + 10):
+        print('Chair disconnected')
 
 def init_db():
     conn = sqlite3.connect(DATABASE)
@@ -15,7 +35,7 @@ def init_db():
              (firstname text, lastname text, username text UNIQUE, password text, email text, age integer, role text, status text);")
     try:
         c.execute("INSERT INTO users VALUES \
-                (?, ?, ?, ?, ?, ?, ?, ?);", ("Fabio", "Alves", "fmcalves", "123", "fabioalves98@ua.pt", "20", "admin", "offline"))
+                (?, ?, ?, ?, ?, ?, ?, ?);", ("Fabio", "Alves", "fmcalves", "123", "fabioalves98@ua.pt", "20", "admin", "Offline"))
     except sqlite3.IntegrityError:
         print ("User Already Inserted")
 
@@ -42,6 +62,8 @@ cwd = os.getcwd()
 app = Flask(__name__)
 cors = CORS(app)
 DATABASE = "database2.db"
+
+set_interval(check_connected, 5)
 
 init_db()
 
@@ -184,6 +206,10 @@ def add_user():
             insert += arg + ','
             checks += '?,'
         except:
+            if arg == 'status':
+                values += ['Offline']
+                insert += arg + ','
+                checks += '?,'
             pass
 
     query = "INSERT INTO users (" + insert[:-1] + ") VALUES (" + checks[:-1] + ")"
