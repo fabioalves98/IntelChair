@@ -100,14 +100,22 @@ def login():
     error = None
 
     if request.method == 'POST':
-        username = request.form['name']
+        username = request.form['username']
         password = request.form['password']
         if valid_login(username, password):
             return log_the_user_in(username)
         else:
             error = "Invalid username or password"
 
-    return render_template('auth.html') # executed if method = GET
+    return render_template('auth.html')
+
+@app.route("/logout", methods=['POST', 'GET'])
+def logout():
+    if request.method == 'POST':
+        username = request.form['username']
+        log_the_user_out(username)
+
+    return redirect(url_for('login'))
 
 @app.route("/index")
 def index():
@@ -186,7 +194,6 @@ def valid_login(username, password):
     return password == rows['password']
 
 def log_the_user_in(username):
-
     conn = sqlite3.connect(DATABASE)
     c = conn.cursor()
 
@@ -196,6 +203,15 @@ def log_the_user_in(username):
     conn.close()
 
     return redirect(url_for('index'))
+
+def log_the_user_out(username):
+    conn = sqlite3.connect(DATABASE)
+    c = conn.cursor()
+
+    c.execute("UPDATE users SET status = ? WHERE username = ?", ('Offline', username))
+
+    conn.commit()
+    conn.close()
 
 # Users
 def get_users():
@@ -389,6 +405,7 @@ def add_history():
             insert += arg + ','
             checks += '?,'
         except:
+            print (arg)
             pass
 
     query = "INSERT INTO history (" + insert[:-1] + ") VALUES (" + checks[:-1] + ")"

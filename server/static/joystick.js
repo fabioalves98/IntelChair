@@ -156,6 +156,10 @@ $(document).ready(function()
 			$('#mappingTab').hide();
 		}
 	});
+
+	$(window).bind("beforeunload", function () {
+		disconnect();
+	})
 });
 
 manager.on("move", function(event, nipple)
@@ -200,7 +204,7 @@ function post_chair_info(){
 			type: 'PUT',
 			data : {
 				'status'    : 'Taken',
-				'user'      : localStorage.username},
+				'user'  	: localStorage.username},
 			success: function(){
 			}
 		});
@@ -258,7 +262,7 @@ function connect()
 				type 	: 	'PUT',
 				data	:	
 				{
-					"user"		: localStorage.username,
+					"user"  	: localStorage.username,
 					"status"	: "Taken"
 				},
 				success : function(data)
@@ -281,9 +285,7 @@ function connect()
 }
 
 function disconnect()
-{
-	chair_connected = 0;
-	
+{	
 	$.ajax(
 	{
 		url 	: 	'/chairs/123123',
@@ -311,8 +313,18 @@ function disconnect()
 	function(data, status)
 	{
 		console.log(status)
-		window.location.replace("/login");
 	});
+
+	$.post('/logout',
+	{
+		'username' : localStorage.username
+	},
+	function(data, status) 
+	{
+		console.log(status);
+	});
+	
+	window.location.replace("/login");
 }
 
 function velocityUp()
