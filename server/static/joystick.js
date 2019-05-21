@@ -30,7 +30,9 @@ var canvas,
     dragStartLocation,
     windowHeight,
     windowWidth,
-    snapshot;
+	snapshot;
+	
+
 
 
 // -------------------MAP TAB--------------------
@@ -144,13 +146,13 @@ $('#usershow').html(localStorage.username);
 
 $(document).ready(function()
 {
-	$.get( 'http://localhost:5000/users/' + localStorage.username , function( data )
+	$.get( '/users/' + localStorage.username , function( data )
     {
 		var user = JSON.parse(data);
 		if(user == undefined) {
             alert("User not found");
 		}
-		if (user['role'] == 'null'){
+		if (user['role'] == 'guest'){
 			$('#mappingTab').hide();
 		}
 	});
@@ -189,19 +191,18 @@ setInterval(function(){
 }, 50);
 
 //Each 30 secs, post chair info to the server
-setInterval(post_chair_info, 30000);
+//setInterval(post_chair_info, 30000);
 
 function post_chair_info(){
 	if(chair_connected){
-		$.post('/chair/123123',
-			{
-				'username' 	: localStorage.username,
-				'status'  	: 'Taken',
-				'battery'	: currentBattery,
-				'chair_ip'		: chair_ip
-
-			},function(data, status){
-				console.log(status);
+		$.ajax({ 
+			url: url +'/chairs/123213',
+			type: 'PUT',
+			data : {
+				'status'    : 'Taken',
+				'user'      : localStorage.username},
+			success: function(){
+			}
 		});
 	}
 }
@@ -210,7 +211,8 @@ function connect(){
 	// var s = new Date();
 	// start = s.getDate()+'/'+(s.getMonth()+1)+'/'+s.getFullYear()+"-"+s.getHours()+":"+s.getMinutes();
 	start = new Date().getTime();
-	$.get("/chairs/123123", function(data) {
+	$.get("/chairs/123123", function(data) 
+	{
 		var jsondata = $.parseJSON(data);
 		if(jsondata.ip != ""){
 			ros_url = jsondata.ip;
@@ -220,49 +222,36 @@ function connect(){
 
 		console.log(jsondata);
 
-		ros = new ROSLIB.Ros({
-			//url : 'ws://' + jsondata.ip + ':9090'
-			url: 'ws://localhost:9090/'
+		ros = new ROSLIB.Ros(
+		{
+			url : 'ws://' + jsondata.ip + ':9090'
+			//url: 'ws://localhost:9090/'
 		});
-		if(ros_url != 1){
+		if(ros_url != 1)
+		{
 			ros.socket.url = "ws://" + ros_url + ":9090";
 		}
-		ros.on('connection', function() {
+		ros.on('connection', function() 
+		{
 			console.log('Connected to websocket server.');
 			chair_connected = 1;
 			showIcons();
-			subscribe_info('/chair_info', 'intelchair/ChairMsg', function(message){
+			subscribe_info('/chair_info', 'intelchair/ChairMsg', function(message)
+			{
 				currentSpeed = message.velocity;
 				currentBattery = message.battery;
 				setSpeedLabel(currentSpeed);
 				setBatteryLabel(currentBattery);
 			});
 
-			publish_info('/chair_info_control', 'intelchair/ChairMsg', new ROSLIB.Message({
+			publish_info('/chair_info_control', 'intelchair/ChairMsg', new ROSLIB.Message(
+			{
 				velocity: currentSpeed,
 				battery: currentBattery,
 				connected: chair_connected
 			}));
 
-		});
-
-		$.post('/chair/123123',
-		{
-			'username' 	: localStorage.username,
-			'status'  	: 'Taken',
-			'battery'	: currentBattery,
-			'chair_ip'	: chair_ip
-		},
-		function(data, status){
-			console.log(status);
-		});
-
-		$.post('/users/chair/' + localStorage.username,
-		{
-			'chair_user' 	: '123123'
-		},
-		function(data, status){
-			console.log(status);
+			setInterval(post_chair_info, 30000);
 		});
 
 		ros.on('error', function(error) {
@@ -282,7 +271,7 @@ function disconnect(){
 	chair_connected = 0;
 	// var s = new Date();
 	// end = s.getDate()+'/'+(s.getMonth()+1)+'/'+s.getFullYear()+"-"+s.getHours()+":"+s.getMinutes();
-	$.post( 'http://localhost:5000/chair/123123',
+	$.post( '/chair/123123',
 	{
 		'username' 	: "None",
 		'status'  	: 'Online',
@@ -293,7 +282,7 @@ function disconnect(){
 		console.log(status);
 	});
 
-	$.post( 'http://localhost:5000/users/chair/' + localStorage.username,
+	$.post( '/users/chair/' + localStorage.username,
 	{
 		'chair_user' 	: null
 	},
@@ -302,7 +291,7 @@ function disconnect(){
 	});
 
 	end = new Date().getTime();
-	$.post( 'http://localhost:5000/history',
+	$.post( '/history',
 	{
 		'startTime'	: start,
 		'endTime' 	: end,
@@ -312,7 +301,7 @@ function disconnect(){
 	function(data, status)
 	{
 		console.log(status)
-		window.location.replace("http://localhost:5000/login");
+		window.location.replace("/login");
 	});
 
 	location.reload();

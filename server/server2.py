@@ -9,7 +9,7 @@ from flask_cors import CORS
 import time
 import threading
 
-chair_connection = 0
+chair_connection = {}
 current_timestamp = 0
 
 def set_interval(func, sec):
@@ -20,12 +20,23 @@ def set_interval(func, sec):
     t.start()
     return t
 
-
 def check_connected():
     current_timestamp = time.time()
 
-    if(float(current_timestamp) > float(chair_connection) + 10):
-        print('Chair disconnected')
+    for key in chair_connection.keys():
+        if(float(current_timestamp) > float(chair_connection[key]) + 10):
+            print('Chair disconnected | ID = ', key)
+
+            conn = sqlite3.connect(DATABASE)
+            c = conn.cursor()
+
+            c.execute("UPDATE chairs SET ip = ?, user = ?, status = ?,battery = ? WHERE id = ?", (None, None, 'Offline', None, str(key)))
+
+            conn.commit()
+            conn.close()
+
+            chair_connection.pop(key)
+
 
 def init_db():
     conn = sqlite3.connect(DATABASE)
@@ -63,7 +74,7 @@ app = Flask(__name__)
 cors = CORS(app)
 DATABASE = "database2.db"
 
-set_interval(check_connected, 5)
+stoper = set_interval(check_connected, 5)
 
 init_db()
 
@@ -93,7 +104,7 @@ def login():
         username = request.form['name']
         password = request.form['password']
         if valid_login(username, password):
-            return log_the_user_in()
+            return log_the_user_in(username)
         else:
             error = "Invalid username or password"
 
@@ -151,6 +162,15 @@ def query_maps():
   
     return get_allmaps()
 
+@app.route("/chair_active", methods=['POST'])
+def publish_chair_active():
+    global chair_connection
+    if request.method == 'POST':
+        ts = request.form['timestamp']
+        id = request.form['id']
+        chair_connection[id] = ts
+        return '', 200
+
 # Log In 
 def valid_login(username, password):
     db = get_db()
@@ -163,7 +183,16 @@ def valid_login(username, password):
 
     return password == rows['password']
 
-def log_the_user_in():
+def log_the_user_in(username):
+
+    conn = sqlite3.connect(DATABASE)
+    c = conn.cursor()
+
+    c.execute("UPDATE users SET status = ? WHERE username = ?", ('Online', username))
+
+    conn.commit()
+    conn.close()
+
     return redirect(url_for('index'))
 
 # Users
@@ -317,6 +346,7 @@ def update_chair(id):
 
     values += [id]
     query = "UPDATE chairs SET " + update[:-1] + " WHERE id = ?;" 
+    print(values)
 
     print(query)
 
