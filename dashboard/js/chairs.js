@@ -1,6 +1,10 @@
 var active_card = null;
 var cdata = null;
 
+ip = 'localhost:5000'
+ip2 = '192.168.43.122:5000'
+url = 'http://' + ip2
+
 function create_chair_card(cinfo){
 	// cinfo.user ="antonio";
 	// cinfo.ip ="192.168.1.1";
@@ -137,7 +141,7 @@ function new_chair(){
 	$('#add_chair_modal').modal('toggle');
 }
 function add_chair(){
-	$.post('http://localhost:5000/chairs',
+	$.post(url + '/chairs',
     {
 		'company'    	: $('#add_c').val(),
 		'model'  	    : $('#add_m').val(),
@@ -146,27 +150,29 @@ function add_chair(){
 		'status' 	    : 'Offline'
     },
     function(data, status){
-        console.log(status);
+		console.log(status);
+		load_chairs();
+
     });
 
 	$('#add_chair_modal').modal('toggle');
-	load_chairs();
 }
 
 
 function remove_chair(){
-	$.post( 'http://localhost:5000/remove/chairs/' + active_card.id,
-    function(data, status)
-    {
-        console.log(status);
-    });
-	active_card = null;
-	load_chairs();
+	$.ajax({
+		url: url + '/chairs/' + active_card.id,
+		type: 'DELETE',
+		success: function(){
+			active_card = null;
+			load_chairs();
+		}
+	});
 }
 
 $('#up_chair').click( function() 
 {
-    $.get( 'http://localhost:5000/chairs/' + active_card.id,
+    $.get( url + '/chairs/' + active_card.id,
     function(data, status)
     {   
         var chair = JSON.parse(data);
@@ -174,7 +180,6 @@ $('#up_chair').click( function()
         $('#up_n').val(chair['name']),
         $('#up_c').val(chair['company']),
         $('#up_m').val(chair['model']),
-        $('#up_i').val(chair['id']),
         
         console.log(status);
     });
@@ -184,27 +189,26 @@ $('#up_chair').click( function()
 })
 
 function update_chair(){
-	$.post('http://localhost:5000/chairs/' + active_card.id,
-    {
-		'company'    	: $('#up_c').val(),
-		'model'  	    : $('#up_m').val(),
-		'name'     		: $('#up_n').val(),
-		'id'			: $('#up_i').val(),
-    },
-    function(data, status){
-        console.log(status);
-    });
-
+	$.ajax({
+		url: url + '/chairs/' + active_card.id,
+		type: 'PUT',
+		data :{
+			'company' : $('#up_c').val(),
+			'model'	  : $('#up_m').val(),
+			'name'	  : $('#up_n').val()
+		},
+		success: function(){
+			location.reload();
+		}
+	})
 	$('#update_modal').modal('toggle');
-	location.reload();
-	load_chairs();
 }
 
 function load_chairs(){
 	
 	$('#wheelchair-content').empty();	
 
-	$.get("http://localhost:5000/chairs", function(data) {
+	$.get(url + "/chairs", function(data) {
 		cdata = JSON.parse(data);
 		if(cdata.length > 0){
 			$("#detail-content").show();

@@ -1,8 +1,12 @@
+ip = 'localhost:5000'
+ip2 = '192.168.43.122:5000'
+url = 'http://' + ip2
+
+
 $(document).ready(function() 
 {
     var table = $('#user_table').DataTable();
-
-    $.get( 'http://localhost:5000/users', function( data ) 
+    $.get( url +'/users', function( data ) 
     {
         var users = JSON.parse(data);
         
@@ -20,85 +24,78 @@ $(document).ready(function()
 
 $('#add_user').click( function() 
 {
-    if ($('#add_rl').prop('checked')){
-
-        $.post( 'http://localhost:5000/users',
-        {
-            'first-name'    : $('#add_fn').val(),
-            'last-name'     : $('#add_ln').val(),
-            'username'      : $('#add_un').val(),
-            'password'      : $('#add_pw').val(),
-            'email'         : $('#add_em').val(),
-            'age'           : $('#add_ag').val(),
-            'gender'        : $('#add_ge').val(),
-            'role'          : $('#add_rl').val()
-        },
-        function(data, status)
-        {
-            console.log(status);
-        });
-    }else{
-        $.post( 'http://localhost:5000/users',
-        {
-            'first-name'    : $('#add_fn').val(),
-            'last-name'     : $('#add_ln').val(),
-            'username'      : $('#add_un').val(),
-            'password'      : $('#add_pw').val(),
-            'email'         : $('#add_em').val(),
-            'age'           : $('#add_ag').val(),
-            'gender'        : $('#add_ge').val(),
-            'role'          : 'null'
-        },
-        function(data, status)
-        {
-            console.log(status);
-        });
+    var role = 'guest';
+    if($('#add_rl').is(':checked')){
+        role = 'admin';
     }
-
-
-    $('#add_modal').modal('toggle');
- 	
- 	location.reload();
-})
-
-$('#update_user').click( function() 
-{
-    $.post( 'http://localhost:5000/users/' + $('#up_un').val(),
+    
+    $.post( url +'/users',
     {
-        'first-name'    : $('#up_fn').val(),
-        'last-name'     : $('#up_ln').val(),
-        'username'      : $('#up_un').val(),
-        'password'      : $('#up_pw').val(),
-        'email'         : $('#up_em').val(),
-        'age'           : $('#up_ag').val(),
-        'gender'        : $('#up_ge').val(),
-        'role'          : $('#up_rl').val()
+        'firstname'    : $('#add_fn').val(),
+        'lastname'     : $('#add_ln').val(),
+        'username'      : $('#add_un').val(),
+        'password'      : $('#add_pw').val(),
+        'email'         : $('#add_em').val(),
+        'age'           : $('#add_ag').val(),
+        'role'          : role
     },
     function(data, status)
     {
         console.log(status);
+        location.reload();
+
+    });
+
+
+    $('#add_modal').modal('toggle');
+
+});
+
+$('#update_user').click( function() 
+{
+    var role = 'guest';
+    if($('#up_rl').is(':checked')){
+        role = 'admin';
+    }
+    
+    $.ajax({ 
+        url: url +'/users/' + $('#up_un').val(),
+        type: 'PUT',
+        data : {
+        'firstname'    : $('#up_fn').val(),
+        'lastname'     : $('#up_ln').val(),
+        'username'      : $('#up_un').val(),
+        'password'      : $('#up_pw').val(),
+        'email'         : $('#up_em').val(),
+        'age'           : $('#up_ag').val(),
+        'role'          : role},
+        success: function(){
+            location.reload();
+        }
     });
     
-    location.reload();
-})
+    $('#update_modal').modal('toggle');
+
+    
+});
 
 $('#rem_user').click( function() 
 {
-    $.post( 'http://localhost:5000/remove/users/' + $('#rem_un').val(),
-    function(data, status)
-    {
-        console.log(status);
+    $.ajax({
+        url: url + '/users/' + $('#rem_un').val(),
+        type: 'DELETE',
+        success: function(){
+            location.reload();
+        }
     });
 
     $('#rem_modal').modal('toggle');
-
-    location.reload();
-})
+});
 
 
 $('#search_user').click( function() 
 {
-    $.get( 'http://localhost:5000/users/' + $('#srch_un').val(),
+    $.get( url +'/users/' + $('#srch_un').val(),
     function(data, status)
     {   
         var user = JSON.parse(data);
@@ -115,12 +112,10 @@ $('#search_user').click( function()
         $('#up_pw').val(user['password']),
         $('#up_em').val(user['email']),
         $('#up_ag').val(user['age']),
-        $('#up_ge').val(user['gender'])
-
         console.log(status);
     });
 
     $('#search_modal').modal('hide');
     $('#update_modal').modal('show');
       
-})
+});

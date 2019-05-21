@@ -1,9 +1,12 @@
 // JS for main dashboard
+ip = 'localhost:5000'
+ip2 = '192.168.43.122:5000'
+url = 'http://' + ip2
 $(document).ready(function() 
 {
     var total_time = 0;
 
-    $.get('http://localhost:5000/history', function( h_data ) 
+    $.get(url+'/history', function( h_data ) 
     {
         var history = JSON.parse(h_data);
         var name, time;
@@ -11,14 +14,13 @@ $(document).ready(function()
         {
             $.ajax( 
             {
-                url : 'http://localhost:5000/users/' + element['username'],
+                url : url + '/users/' + element['username'],
                 type : 'GET',
                 async : false,
                 success : function (data) 
                 {
                     var user = JSON.parse(data);
                     name = user['firstname'] + ' ' + user['lastname'];
-                    console.log(name);
                 },
             });
             time = parseInt(element["endTime"]) - parseInt(element["startTime"]);
@@ -27,18 +29,17 @@ $(document).ready(function()
             var date = new Date(parseInt(element["endTime"]));
 
             var formattedTime = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear()%2000 + ' - ' + date.getHours() + ':' + date.getMinutes();
-
             var to_append = '<p><span class=\'font-weight-bold\'>' + formattedTime + '</span> - O utilizador ' + name + ' usou a cadeira ' + 
-            element['chairId'] + ' durante ' + parseInt((time/1000)/60) + ' minutos</p>'
+            element['chair'] + ' durante ' + parseInt((time)/60) + ' minutos</p>'
 
             $('#history').append(to_append);
         });
 
-        $('#time_nav').text(parseInt(total_time/1000/60) + ' Min');
+        $('#time_nav').text(parseInt(total_time/60) + ' Min');
 
     });
 
-    $.get('http://localhost:5000/chairs' ,function( c_data )
+    $.get(url+'/chairs' ,function( c_data )
     {
         var chairs = JSON.parse(c_data);
         var active_chairs = 0;
@@ -50,13 +51,13 @@ $(document).ready(function()
         $('#active_chairs').text(active_chairs + " / " + chairs.length);
     });
 
-    $.get('http://localhost:5000/users' ,function( u_data )
+    $.get(url+'/users' ,function( u_data )
     {
         var users = JSON.parse(u_data);
         var active_users = 0;
-        console.log(users.length);
+        console.log(users.status);
         for(let user of users){
-            if(user.chair != 'None'){
+            if(user.status != 'Offline'){
                 active_users++;
             }
         }
@@ -65,7 +66,7 @@ $(document).ready(function()
     });
 
 
-    $.get('http://localhost:5000/maps', function(m_data){
+    $.get(url+'/maps', function(m_data){
 
         var maps = JSON.parse(m_data) ;
         $('#active_maps').text(maps.length);
@@ -75,7 +76,7 @@ $(document).ready(function()
 });
 
 function delete_history() {
-    $.post('http://localhost:5000/remove/history',
+    $.post(url+'/remove/history',
     function(data, status)
     {
         console.log(status);
