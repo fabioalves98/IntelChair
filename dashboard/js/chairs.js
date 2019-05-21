@@ -64,10 +64,10 @@ function create_chair_card(cinfo){
 		cinfo.user = 'No user';
 	}
 
-	var chair_card_ip = "<div class='row'><div class='col-md-6'><div class='text-x1s font-weight-bold text-info mt-3 text-uppercase mb-1'>IP</div>\
-	<div class='h7 mb-0 mr-3 font-weight-bold text-gray-800'>" +cinfo.ip +"</div></div>";
-	var chair_card_user = "<div class='col-md-6'><div class='text-x1s font-weight-bold text-info mt-3 text-uppercase mb-1'>USER</div>\
-	<div class='h7 mb-0 mr-3 font-weight-bold text-gray-800'>" +cinfo.user +"</div></div></div>";
+	var chair_card_ip = "<div class='row'><div class='col-md-7'><div class='text-x1s font-weight-bold text-info mt-3 text-uppercase mb-1'>IP</div>\
+	<div class='h9 mb-0 mr-3 font-weight-bold text-gray-800'>" +cinfo.ip +"</div></div>";
+	var chair_card_user = "<div class='col-md-5'><div class='text-x1s font-weight-bold text-info mt-3 text-uppercase mb-1'>USER</div>\
+	<div class='h9 mb-0 mr-3 font-weight-bold text-gray-800'>" +cinfo.user +"</div></div></div>";
 
 	if(cinfo.status != 'Offline'){
 		if(cinfo.battery != undefined) chair_card_body += chair_card_battery;
@@ -93,8 +93,8 @@ function set_info_card(){
 	document.getElementById("ccompany").innerHTML = active_card.company;
 	document.getElementById("cmodel").innerHTML = active_card.model;
 	document.getElementById("cid").innerHTML = active_card.id;
-	
-	if(active_card.user != undefined){
+	console.log(active_card.user);
+	if(active_card.user != null){
 		document.getElementById("no-user").style.display = "none";
 		document.getElementById("disconnect-user").style.display = "block";
 	}else{
