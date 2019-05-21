@@ -72,7 +72,7 @@ function create_chair_card(cinfo){
 	if(cinfo.status != 'Offline'){
 		if(cinfo.battery != undefined) chair_card_body += chair_card_battery;
 		if(cinfo.ip != undefined) chair_card_body += chair_card_ip;
-		if(cinfo.user != undefined) chair_card_body += chair_card_user;
+		if(cinfo.user != undefined && cinfo.user != "") chair_card_body += chair_card_user;
 	}
 	var chair_card_end = "</div> \
 		</div> \
@@ -94,12 +94,13 @@ function set_info_card(){
 	document.getElementById("cmodel").innerHTML = active_card.model;
 	document.getElementById("cid").innerHTML = active_card.id;
 	console.log(active_card.user);
-	if(active_card.user != null){
+	if(active_card.user == null || active_card.user == ""){
+		document.getElementById("no-user").style.display = "block";
+		document.getElementById("disconnect-user").style.display = "none";
+	}else{
 		document.getElementById("no-user").style.display = "none";
 		document.getElementById("disconnect-user").style.display = "block";
-	}else{
-		document.getElementById("no-user").style.display = "block";
-		document.getElementById("disconnect-user").style.display = "none"; 
+
 	}
 	
 	
