@@ -2,6 +2,7 @@ var ros_url = 'localhost';
 var ros;
 var chair_connected = 0;
 var chair_ip;
+var chair_moving = false;
 
 var options = {
     zone: document.getElementById('zone_joystick'),
@@ -59,35 +60,64 @@ function drawLine(position) {
     // context.lineTo(position.x, position.y);
     context.lineTo(maxX, maxY);
     context.stroke();
+    context.beginPath();
+    context.arc(x1, y1, 3, 0, 2 * Math.PI);
+    context.stroke();
 }
 
 function dragStart(event) {
-    dragging = true;
-    dragStartLocation = getCanvasCoordinates(event);
-    x1 = dragStartLocation.x;
-    y1 = dragStartLocation.y;
-    takeSnapshot();
+        dragging = true;
+        dragStartLocation = getCanvasCoordinates(event);
+        x1 = dragStartLocation.x;
+        y1 = dragStartLocation.y;
+        takeSnapshot();
+
 }
 
 function drag(event) {
-    var position;
-    if (dragging === true) {
-        restoreSnapshot();
-        position = getCanvasCoordinates(event);
-        drawLine(position);
-    }
+        var position;
+        if (dragging === true) {
+            restoreSnapshot();
+            position = getCanvasCoordinates(event);
+            drawLine(position);
+        }
+
 }
 
 function dragStop(event) {
-    dragging = false;
-    restoreSnapshot();
-    var position = getCanvasCoordinates(event);
-    x2 = position.x;
-    y2 = position.y;
-    drawLine(position);
-    var pts = { p1 : [x1,y1], p2 : [x2,y2] };
-    console.log(pts);
-    //send coordinates to chair
+    if(!chair_moving){
+        dragging = false;
+        restoreSnapshot();
+        var position = getCanvasCoordinates(event);
+        x2 = position.x;
+        y2 = position.y;
+        drawLine(position);
+        var pts = { p1 : [x1,y1], p2 : [x2,y2] };
+        console.log(pts);
+        //context.clearRect(0, 0, windowWidth, windowHeight);
+        if (window.confirm("Go to location?")) {
+            sendPosition();
+        }
+    }else{
+        if(window.confirm("Change location?")){
+            //chair stop
+            chair_moving = false;
+            dragging = false;
+            position = getCanvasCoordinates(event);
+            context.clearRect(0, 0, windowWidth, windowHeight);
+            x2 = position.x;
+            y2 = position.y;
+            drawLine(position);
+            sendPosition(); // chair start moving
+        }
+    }
+
+}
+
+function sendPosition() {
+    chair_moving = true;
+
+    // Origem  -11.200000, -8.000000, 0.000000
 }
 
 function init() {
@@ -99,6 +129,7 @@ function init() {
     canvas.width = windowWidth;
 
     context = canvas.getContext('2d');
+    context.lineWidth = 2;
 
     canvas.addEventListener('mousedown', dragStart, false);
     canvas.addEventListener('mousemove', drag, false);
