@@ -2,36 +2,15 @@
 
 ## Prerequisites
 
-**SQLite3**<br>
-- sudo apt install sqlite3
-
+- **SQLite3:** sudo apt install sqlite3
+- **Flask:** sudo pip3 install Flask
+- **Flask-Cors:** sudo pip3 install -U flask-cors
 
 
 ## How to run
 
-**In a new terminal run these commands:**<br>
+- **In a new terminal run:** ./run_server.sh
 
-If the docker has been modified:<br>
-
-- $ sudo docker-compose build<br>
-
-Then, to run the application:<br>
-
-- $ sudo docker-compose up
-
-## Usage
-
-
-All responses will have the form
-
-```json
-{
-    "data": "Mixed type holding the content of the response",
-    "message": "Description of what happened"
-}
-```
-
-Subsequent response definitions will only detail the expected value of the `data field`
 # Users
 ### List all users
 
@@ -41,28 +20,33 @@ Subsequent response definitions will only detail the expected value of the `data
 
 **Response**
 
-- `200 OK` on success
+- **`200 OK`** on success
 
-```json
+
 [
     {
-        "first-name": "Manuel",
-        "last-name": "Coelho",
+        "firstname": "Manuel",
+        "lastname": "Coelho",
         "username": "manuelcoelho",
+        "password": "123",
         "email": "manuelcoelho@ua.pt",
         "age": 37,
-        "gender": "M"
+        "role": "admin",
+        "status": "online"
     },
     {
-        "first-name": "Francisco",
-        "last-name": "Alves",
+        "firstname": "Francisco",
+        "lastname": "Alves",
         "username": "fralves",
+        "password": "456",
         "email": "fralves@ua.pt",
         "age": 28,
-        "gender": "M"
+        "role": "user",
+        "status": "offline"
     }
 ]
-```
+
+<br>
 
 ### Registering a new user
 
@@ -72,52 +56,67 @@ Subsequent response definitions will only detail the expected value of the `data
 
 **Arguments**
 
-- `"first-name":string`
-- `"last-name":string`
+- `"firstname":string`
+- `"lastname":string`
 - `"username":string`
+- `"password"':string`
 - `"email":string`
 - `"age":int`
-- `"gender":char`
 
 
-If a user with the given username already exists, the existing user will be overwritten.
+If a user with the given username already exists, the server will not add or overwrite.
 
 **Response**
 
-- `201 Created` on success
+- **`200 OK`** on success
 
-```json
-{
-    "first-name": "Manuel",
-    "last-name": "Coelho",
-    "username": "manuelcoelho",
-    "email": "manuelcoelho@ua.pt",
-    "age": 37,
-    "gender": "M"
-}
-```
+<br>
 
-## Lookup user details
+### Updating an user
+
+**Definition**
+
+`PUT /users/<username>`
+
+**Arguments**
+
+- `"firstname":string`
+- `"lastname":string`
+- `"username":string`
+- `"password"':string`
+- `"email":string`
+- `"age":int`
+
+**Response**
+
+- **`400 Not Found`** if the user does not exist
+- **`200 OK`** on success
+
+<br>
+
+### Lookup user details
 
 `GET /users/<username>`
 
 **Response**
 
-- `404 Not Found` if the user does not exist
-- `200 OK` on success
+- **`404 Not Found`** if the user does not exist
+- **`200 OK`** on success
 
-```json
+
 {
-    "first-name": "Manuel",
-    "last-name": "Coelho",
+    "firstname": "Manuel",
+    "lastname": "Coelho",
     "username": "manuelcoelho",
+    "password": "123",
     "email": "manuelcoelho@ua.pt",
     "age": 37,
-    "gender": "M"
+    "role": "admin",
+    "status": "online"
 }
-```
 
-## Delete a user
+
+### Delete a user
 
 **Definition**
 
@@ -125,9 +124,10 @@ If a user with the given username already exists, the existing user will be over
 
 **Response**
 
-- `404 Not Found` if the user does not exist
-- `204 No Content` on success
+- **`404 Not Found`** if the user does not exist
+- **`200 OK`** on success
 
+<br>
 
 # Chairs
 ### List all chairs
@@ -138,26 +138,33 @@ If a user with the given username already exists, the existing user will be over
 
 **Response**
 
-- `200 OK` on success
+- **`200 OK`** on success
 
-```json
+
 [
     {
         "company": "Karma",
         "model": "RX123",
-        "name": "wheelchair1",
-        "id": "a1bc2",
-        "user": "none"
+        "name": "IntelChair",
+        "id": "123123",
+        "ip": "192.168.43.122",
+        "user": "manuelcoelho",
+        "status": "Online",
+        "battery": "70%"
     },
     {
         "company": "Karma",
         "model": "RX123",
-        "name": "wheelchair2",
-        "id": "u74ao",
-        "user": "manuelcoelho"
+        "name": "IntelChair2",
+        "id": "725272",
+        "ip": "null",
+        "user": "null",
+        "status": "Offline",
+        "battery": "null"
     }
 ]
-```
+
+<br>
 
 ### Registering a new chair
 
@@ -171,52 +178,131 @@ If a user with the given username already exists, the existing user will be over
 - `"model":string`
 - `"name":string`
 - `"id":string`
-- `"user":string`
 
 
-If a chair with the given name already exists, the existing chair will be overwritten.
-
-**Response**
-
-- `201 Created` on success
-
-```json
-{
-    "company": "Karma",
-    "model": "RX123",
-    "name": "wheelchair1",
-    "id": "a1bc2",
-    "user": "none"
-}
-```
-
-## Lookup chair details
-
-`GET /chairs/<name>`
+If a chair with the given name already exists, the server will not add or overwrite.
 
 **Response**
 
-- `404 Not Found` if the chair does not exist
-- `200 OK` on success
+- **`200 OK`** on success
 
-```json
-{
-    "company": "Karma",
-    "model": "RX123",
-    "name": "wheelchair1",
-    "id": "a1bc2",
-    "user": "none"
-}
-```
+<br>
 
-## Delete a chair
+### Updating a chair
 
 **Definition**
 
-`DELETE /chairs/<name>`
+`PUT /chairs/<id>`
+
+**Arguments**
+
+- `"company":string`
+- `"model":string`
+- `"name":string`
+- `"id":string`
 
 **Response**
 
-- `404 Not Found` if the chair does not exist
-- `204 No Content` on success
+- **`400 Not Found`** if the chair does not exist
+- **`200 OK`** on success
 
+<br>
+
+### Lookup chair details
+
+**Definition**
+
+`GET /chairs/<id>`
+
+**Response**
+
+- **`404 Not Found`** if the chair does not exist
+- **`200 OK`** on success
+
+
+{
+    "company": "Karma",
+    "model": "RX123",
+    "name": "IntelChair",
+    "id": "123123",
+    "ip": "192.168.43.122",
+    "user": "manuelcoelho",
+    "status": "Online",
+    "battery": "70%"
+}
+
+<br>
+
+### Delete a chair
+
+**Definition**
+
+`DELETE /chairs/<id>`
+
+**Response**
+
+- **`404 Not Found`** if the chair does not exist
+- **`200 OK`** on success
+
+<br>
+
+# History
+### List history
+
+**Definition**
+
+`GET /history`
+
+**Response**
+
+- **`200 OK`** on success
+
+<br>
+
+### Add history
+
+**Definition**
+
+`POST /history`
+
+**Arguments**
+
+- `startTime:string`
+- `endTime:string`
+- `username:string`
+- `chair:string`
+
+**Response**
+
+- **`200 OK`** on success
+
+<br>
+
+# Maps
+### List maps
+
+**Definition**
+
+`GET /maps`
+
+**Response**
+
+- **`200 OK`** on success
+
+<br>
+
+### Add map
+
+**Definition**
+
+`POST /maps`
+
+**Arguments**
+
+- `name:string`
+- `pgm_path:string`
+- `yaml_path:string`
+
+**Response**
+
+- **`200 OK`** on success
