@@ -196,7 +196,7 @@ setInterval(function(){
 function post_chair_info(){
 	if(chair_connected){
 		$.ajax({ 
-			url: url +'/chairs/123213',
+			url: '/chairs/123213',
 			type: 'PUT',
 			data : {
 				'status'    : 'Taken',
@@ -207,21 +207,20 @@ function post_chair_info(){
 	}
 }
 
-function connect(){
-	// var s = new Date();
-	// start = s.getDate()+'/'+(s.getMonth()+1)+'/'+s.getFullYear()+"-"+s.getHours()+":"+s.getMinutes();
-	start = new Date().getTime();
+function connect()
+{
+	start = Math.floor(Date.now() / 1000)
+	console.log(start);
+
 	$.get("/chairs/123123", function(data) 
 	{
 		var jsondata = $.parseJSON(data);
-		if(jsondata.ip != ""){
+		if(jsondata.ip != "")
+		{
 			ros_url = jsondata.ip;
 			chair_ip = jsondata.ip;
 
 		}
-
-		console.log(jsondata);
-
 		ros = new ROSLIB.Ros(
 		{
 			url : 'ws://' + jsondata.ip + ':9090'
@@ -277,89 +276,79 @@ function connect(){
 
 		ros.on('disconnect', function(){
 			console.log('Disconnected');
-			//disconnect();
 		})
 	});
-
 }
 
-function disconnect(){
+function disconnect()
+{
 	chair_connected = 0;
-	// var s = new Date();
-	// end = s.getDate()+'/'+(s.getMonth()+1)+'/'+s.getFullYear()+"-"+s.getHours()+":"+s.getMinutes();
 	
 	$.ajax(
+	{
+		url 	: 	'/chairs/123123',
+		type 	: 	'PUT',
+		data	:	
 		{
-			url 	: 	'/chairs/123123',
-			type 	: 	'PUT',
-			data	:	
-			{
-				"user"		: null,
-				"status"	: "Online"
-			},
-			success : function(data)
-			{
-				console.log(data)
-			}
-		});
+			"user"		: null,
+			"status"	: "Online"
+		},
+		success : function(data)
+		{
+			console.log(data)
+		}
+	});
 
+	end = Math.floor(Date.now() / 1000)
 
-	end = new Date().getTime();
-	$.post( '/history',
+	$.post('/history',
 	{
 		'startTime'	: start,
 		'endTime' 	: end,
 		'username'	: localStorage.username,
-		'chairID'	: '123123'
+		'chair'		: '123123'
 	},
 	function(data, status)
 	{
 		console.log(status)
 		window.location.replace("/login");
 	});
-
-	//location.reload();
 }
 
-function velocityUp(){
-	// if(currentSpeed < 5){
-		// ros_call_service("/velocity_service", "intelchair/ChairVelocity", {velocity: "+"}, function(result){
-		// 	currentSpeed++;
-		// 	setSpeedLabel(currentSpeed);
-		// });
-		publish_info("/chair_info_control", "intelchair/ChairMsg", new ROSLIB.Message({
-			velocity: currentSpeed + 1,
-			battery: currentBattery,
-			connected: chair_connected
-		}));
-
-	// }
+function velocityUp()
+{
+	publish_info("/chair_info_control", "intelchair/ChairMsg", new ROSLIB.Message(
+	{
+		velocity: currentSpeed + 1,
+		battery: currentBattery,
+		connected: chair_connected
+	}));
 }
 
-function velocityDown(){
-	// if(currentSpeed > 1){
-		// ros_call_service("/velocity_service", "intelchair/ChairVelocity", {velocity: "-"}, function(result){
-		// 	currentSpeed--;
-		// 	setSpeedLabel(currentSpeed);
-		// });
-		publish_info("/chair_info_control", "intelchair/ChairMsg", new ROSLIB.Message({
-			velocity: currentSpeed - 1,
-			battery: currentBattery,
-			connected: 1
-		}));
-	// }
+function velocityDown()
+{
+	publish_info("/chair_info_control", "intelchair/ChairMsg", new ROSLIB.Message(
+	{
+		velocity: currentSpeed - 1,
+		battery: currentBattery,
+		connected: 1
+	}));
 }
 
-function setSpeedLabel(currentSpeed){
+function setSpeedLabel(currentSpeed)
+{
 	document.getElementById("speed-label").innerHTML = currentSpeed;
 }
 
-function setBatteryLabel(currentBattery){
+function setBatteryLabel(currentBattery)
+{
 	document.getElementById("battery-label").innerHTML = currentBattery;
 }
 
-function showIcons(){
-	if(chair_connected){
+function showIcons()
+{
+	if(chair_connected)
+	{
 		$('.icon').show();
 		$('.spd-btn').show();
 		$('#btn-disconnect').show();
@@ -367,7 +356,9 @@ function showIcons(){
 		$('#zone_joystick').show();
 		$('#zone_joystick_message').hide();
 
-	}else{
+	}
+	else
+	{
 		$('.icon').hide();
 		$('.spd-btn').hide();
 		$('#btn-disconnect').hide();
@@ -400,16 +391,3 @@ function subscribe_info(topic, msg_type, callback){
 
 	listener.subscribe(callback);
 }
-
-function ros_call_service(service, service_type, data, callback){
-	var _service = new ROSLIB.Service({
-		ros: ros,
-		name: service,
-		serviceType: service_type
-	});
-
-	var request = new ROSLIB.ServiceRequest(data);
-
-	_service.callService(request, callback);
-}
-

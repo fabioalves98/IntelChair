@@ -1,7 +1,7 @@
 // JS for main dashboard
 ip = 'localhost:5000'
 ip2 = '192.168.43.122:5000'
-url = 'http://' + ip2
+url = 'http://' + ip
 $(document).ready(function() 
 {
     var total_time = 0;
@@ -23,7 +23,7 @@ $(document).ready(function()
                     name = user['firstname'] + ' ' + user['lastname'];
                 },
             });
-            time = parseInt(element["endTime"]) - parseInt(element["startTime"]);
+            time = parseInt(element["endTime"]) - parseInt(element["startTime"]) + 60;
             total_time += time;
 
             var date = new Date(parseInt(element["endTime"]));
@@ -36,15 +36,17 @@ $(document).ready(function()
         });
 
         $('#time_nav').text(parseInt(total_time/60) + ' Min');
-
+        
     });
 
     $.get(url+'/chairs' ,function( c_data )
     {
         var chairs = JSON.parse(c_data);
         var active_chairs = 0;
-        for(let chair of chairs){
-            if(chair.status != "Offline" && chair.status != null){
+        for(let chair of chairs)
+        {
+            if(chair.status != "Offline" && chair.status != null)
+            {
                 active_chairs++;
             }
         }
@@ -55,32 +57,33 @@ $(document).ready(function()
     {
         var users = JSON.parse(u_data);
         var active_users = 0;
-        console.log(users.status);
-        for(let user of users){
-            if(user.status != 'Offline'){
+        for(let user of users)
+        {
+            if(user.status != 'Offline')
+            {
                 active_users++;
             }
         }
-
         $('#active_users').text(active_users + " / " + users.length);
     });
 
 
-    $.get(url+'/maps', function(m_data){
-
+    $.get(url+'/maps', function(m_data)
+    {
         var maps = JSON.parse(m_data) ;
         $('#active_maps').text(maps.length);
-
     });
-
 });
 
-function delete_history() {
-    $.post(url+'/remove/history',
-    function(data, status)
+$('#clear_history').click(function () 
+{
+    $.ajax(
     {
-        console.log(status);
+        url 	: 	url + '/history',
+        type 	: 	'DELETE',
+        success : function(data)
+        {
+            location.reload();
+        }
     });
-
-    location.reload();
-}
+});

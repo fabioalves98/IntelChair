@@ -3,7 +3,7 @@ var cdata = null;
 
 ip = 'localhost:5000'
 ip2 = '192.168.43.122:5000'
-url = 'http://' + ip2
+url = 'http://' + ip
 
 function create_chair_card(cinfo){
 	// cinfo.user ="antonio";

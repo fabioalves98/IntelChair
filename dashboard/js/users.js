@@ -1,6 +1,6 @@
 ip = 'localhost:5000'
 ip2 = '192.168.43.122:5000'
-url = 'http://' + ip2
+url = 'http://' + ip
 
 $(document).ready(function() 
 {
@@ -10,7 +10,7 @@ $(document).ready(function()
         var users = JSON.parse(data);
         
         users.forEach(element => 
-            {
+        {
             table.row.add ( [
                 element['firstname'] + " " + element['lastname'],
                 element['username'],
@@ -24,7 +24,8 @@ $(document).ready(function()
 $('#add_user').click( function() 
 {
     var role = 'guest';
-    if($('#add_rl').is(':checked')){
+    if($('#add_rl').is(':checked'))
+    {
         role = 'admin';
     }
     
@@ -42,48 +43,50 @@ $('#add_user').click( function()
     {
         console.log(status);
         location.reload();
-
     });
 
-
     $('#add_modal').modal('toggle');
-
 });
 
 $('#update_user').click( function() 
 {
     var role = 'guest';
-    if($('#up_rl').is(':checked')){
+    if($('#up_rl').is(':checked'))
+    {
         role = 'admin';
     }
     
-    $.ajax({ 
+    $.ajax(
+    { 
         url: url +'/users/' + $('#up_un').val(),
         type: 'PUT',
-        data : {
-        'firstname'    : $('#up_fn').val(),
-        'lastname'     : $('#up_ln').val(),
-        'username'      : $('#up_un').val(),
-        'password'      : $('#up_pw').val(),
-        'email'         : $('#up_em').val(),
-        'age'           : $('#up_ag').val(),
-        'role'          : role},
-        success: function(){
+        data : 
+        {
+            'firstname'    : $('#up_fn').val(),
+            'lastname'     : $('#up_ln').val(),
+            'username'      : $('#up_un').val(),
+            'password'      : $('#up_pw').val(),
+            'email'         : $('#up_em').val(),
+            'age'           : $('#up_ag').val(),
+            'role'          : role
+        },
+        success: function()
+        {
             location.reload();
         }
     });
     
     $('#update_modal').modal('toggle');
-
-    
 });
 
 $('#rem_user').click( function() 
 {
-    $.ajax({
+    $.ajax(
+        {
         url: url + '/users/' + $('#rem_un').val(),
         type: 'DELETE',
-        success: function(){
+        success: function()
+        {
             location.reload();
         }
     });
@@ -104,17 +107,14 @@ $('#search_user').click( function()
             location.reload();
         }
 
-        $('#up_fn').val(user['firstname']),
-        $('#up_ln').val(user['lastname']),
-        $('#up_un').val(user['username']),
-        console.log(user['password']);
-        $('#up_pw').val(user['password']),
-        $('#up_em').val(user['email']),
-        $('#up_ag').val(user['age']),
-        console.log(status);
+        $('#up_fn').val(user['firstname']);
+        $('#up_ln').val(user['lastname']);
+        $('#up_un').val(user['username']);
+        $('#up_pw').val(user['password']);
+        $('#up_em').val(user['email']);
+        $('#up_ag').val(user['age']);
     });
 
     $('#search_modal').modal('hide');
     $('#update_modal').modal('show');
-      
 });
