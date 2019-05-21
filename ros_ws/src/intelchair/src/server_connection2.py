@@ -7,8 +7,15 @@ import rospy
 from intelchair.msg import ChairMsg
 import time
 
+def engine(event):
+    global sub, canSub
+    if canSub:
+        sub = rospy.Subscriber("chair_info", ChairMsg, chair_info_callback)
+        print ("Listening to Chair Info...")
+        canSub = False
+
 def chair_info_callback(data):
-    global connected_sent
+    global connected, canSub
     chair_battery = data.battery
     url = 'http://' + server_address + api_call
     values = {'battery' : chair_battery, 'status':'Online', 'ip' : ip}
@@ -19,14 +26,18 @@ def chair_info_callback(data):
     
     try:
         html = urllib2.urlopen(req)
-        sub.unregister()
-        connected_sent = 1
+        print('Server up! - ' + str(time.time()))
+        connected = 1
     except Exception:
         print('Server not up! - ' + str(time.time()))
+        connected = 0
+    
+    sub.unregister()
+    canSub = True
 
 def ping_server(event):
     global connected_sent, sub
-    if(connected_sent == 1):
+    if(connected == 1):
         print ('Timer called at ' + str(event.current_real))
         url = 'http://' + server_address + '/chair_active'
         values = {'timestamp' : time.time(), 'id': '123123'}
@@ -37,12 +48,11 @@ def ping_server(event):
             html = urllib2.urlopen(req)
         except Exception:
             print('Connection to server was closed! Make sure the server is running!')
-            connected_sent = 0
-            sub = rospy.Subscriber("chair_info", ChairMsg, chair_info_callback)
 
 rospy.init_node("server_connection", anonymous=True)
 
-sub = rospy.Subscriber("chair_info", ChairMsg, chair_info_callback)
+canSub = True
+sub = None
 
 ip = ni.ifaddresses('wlp3s0')[ni.AF_INET][0]['addr']
 
@@ -51,8 +61,9 @@ api_call = "/chairs/123123"
 server_address = 'localhost:5000'
 
 chair_battery = -1
-connected_sent = 0
+connected = 0
 
 rospy.Timer(rospy.Duration(5), ping_server)
+rospy.Timer(rospy.Duration(5), engine)
 
 rospy.spin()
