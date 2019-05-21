@@ -2,11 +2,10 @@
 
 ## Prerequisites
 
-- **Docker**:
-sudo apt-get install docker.io
+**SQLite3**<br>
+- sudo apt install sqlite3
 
-- **Docker-compose**:
-sudo apt-get install docker-compose
+
 
 ## How to run
 
