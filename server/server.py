@@ -36,7 +36,6 @@ def check_connected():
 
             chair_connection.pop(key)
 
-
 def init_db():
     conn = sqlite3.connect(DATABASE)
     c = conn.cursor()
