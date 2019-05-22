@@ -6,6 +6,9 @@ var currentBattery;
 var start;
 var username;
 var end;
+var manual_control = true;
+
+showIcons();
 
 $('#usershow').html(localStorage.username);
 
@@ -115,40 +118,48 @@ function connect()
 
 		ros.on('disconnect', function(){
 			console.log('Disconnected');
+			alert('disconnect');
+		});
+
+		ros.on("close", function(){
+			disconnect();
+			alert("closed");	
 		})
 	});
 }
 
-function disconnect()
-{	
-	$.ajax(
-	{
-		url 	: 	'/chairs/123123',
-		type 	: 	'PUT',
-		data	:	
+function disconnect(){	
+
+	if(chair_connected == 1){
+		$.ajax(
 		{
-			"user"		: null,
-			"status"	: "Online"
+			url 	: 	'/chairs/123123',
+			type 	: 	'PUT',
+			data	:	
+			{
+				"user"		: null,
+				"status"	: "Online"
+			},
+			success : function(data)
+			{
+				console.log(data)
+			}
+		});
+
+		end = Math.floor(Date.now() / 1000)
+
+		$.post('/history',
+		{
+			'startTime'	: start,
+			'endTime' 	: end,
+			'username'	: localStorage.username,
+			'chair'		: '123123'
 		},
-		success : function(data)
+		function(data, status)
 		{
-			console.log(data)
-		}
-	});
-
-	end = Math.floor(Date.now() / 1000)
-
-	$.post('/history',
-	{
-		'startTime'	: start,
-		'endTime' 	: end,
-		'username'	: localStorage.username,
-		'chair'		: '123123'
-	},
-	function(data, status)
-	{
-		console.log(status)
-	});
+			console.log(status)
+		});
+	}
 
 	$.post('/logout',
 	{
@@ -158,9 +169,9 @@ function disconnect()
 	{
 		console.log(status);
     });
-    
-    localStorage.clear();
 	
+	chair_connected = 0;
+    localStorage.clear();
 	window.location.replace("/login");
 }
 
@@ -194,20 +205,16 @@ function setBatteryLabel(currentBattery)
 	document.getElementById("battery-label").innerHTML = currentBattery;
 }
 
-function showIcons()
-{
-	if(chair_connected)
-	{
+function showIcons(){
+	if(chair_connected){
+
 		$('.icon').show();
 		$('.spd-btn').show();
 		$('#btn-disconnect').show();
 		$('#btn-connect').hide();
 		$('#zone_joystick').show();
 		$('#zone_joystick_message').hide();
-
-	}
-	else
-	{
+	}else{
 		$('.icon').hide();
 		$('.spd-btn').hide();
 		$('#btn-disconnect').hide();

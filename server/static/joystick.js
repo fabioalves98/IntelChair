@@ -8,6 +8,7 @@ var options = {
 var manager = nipplejs.create(options);
 var joystick = {x : 0, y : 0};
 
+
 manager.on("move", function(event, nipple)
 {
     joystick.x = (nipple.position.x - window.innerWidth/2) * 2;
