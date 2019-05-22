@@ -1,36 +1,17 @@
 <launch>
-    
-    <!--<node pkg="intelchair" type="subscriber" name="controller" output="screen">
-    </node>-->
 
-    <!--<node pkg="intelchair" type="cmdparser" name="cmdvel_parser" output="screen">        
-    </node>-->
-
-    <node pkg="intelchair" type="tf_broadcaster" name="static_tf" output="screen">        
-    </node>
-
-    <node pkg="laser_filters" type="scan_to_scan_filter_chain" output="screen" name="laser_filter">
-      <remap from="base_scan" to="scan" />
-      <rosparam command="load" file="$(find laser_filters)/examples/angular_filter.yaml" />
-    </node>
+    <include file="/opt/ros/melodic/share/rosbridge_server/launch/rosbridge_websocket.launch" />
     
-    <arg name="host" default="192.168.2.100" />
-    <arg name="publish_min_range_as_inf" default="false" />
-    <node pkg="lms1xx" name="lms1xx" type="LMS1xx_node">
-        <param name="host" value="$(arg host)" />
-        <param name="frame_id" value="base_laser"/>
-        <param name="publish_min_range_as_inf" value="$(arg publish_min_range_as_inf)" />
-    </node>
+    <node pkg="intelchair" type="subscriber" name="controller" output="screen" />
     
-    <node pkg="rf2o_laser_odometry" type="rf2o_laser_odometry_node" name="rf2o_laser_odometry" output="screen">
-        <param name="laser_scan_topic" value="/scan_filtered"/>              # topic where the lidar scans are being published
-        <param name="odom_topic" value="/odom" />              # topic where tu publish the odometry estimations
-        <param name="publish_tf" value="true" />                   # wheter or not to publish the tf::transform (base->odom)
-        <param name="base_frame_id" value="/base_link"/>            # frame_id (tf) of the mobile robot base. A tf transform from the laser_frame to the base_frame is mandatory
-        <param name="odom_frame_id" value="/odom" />                # frame_id (tf) to publish the odometry estimations    
-        <param name="init_pose_from_topic" value="" /> # (Odom topic) Leave empty to start at point (0,0)
-        <param name="freq" value="20.0"/>                            # Execution frequency.
-        <param name="verbose" value="true" />                       # verbose
-    </node>
+    <node pkg="intelchair" type="tf_broadcaster" name="static_tf" output="screen" /> 
+
+    <node pkg="intelchair" type="server_connection2.py" name="server" output="screen" />       
+    
+    <include file="$(find lms1xx)/launch/LMS1xx.launch" />
+
+    <include file="$(find laser_filters)/examples/angular_filter.launch" />
+
+    <include file="$(find rf2o_laser_odometry)/launch/rf2o_laser_odometry.launch" />
 
 </launch> 

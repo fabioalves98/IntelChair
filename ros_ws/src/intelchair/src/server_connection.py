@@ -27,7 +27,7 @@ def chair_info_callback(data):
 def ping_server(event):
     global connected_sent, sub
     if(connected_sent == 1):
-        print ('Timer called at ' + str(event.current_real))
+        print ('Conecting to server at ' + str(event.current_real))
         url = 'http://' + server_address + '/chair_active'
         values = {'timestamp' : time.time(), 'id': '123123'}
         data = urllib.urlencode(values)
@@ -48,7 +48,7 @@ ip = ni.ifaddresses('wlp3s0')[ni.AF_INET][0]['addr']
 
 localhost = '127.0.0.1:5000'
 api_call = "/chairs/123123"
-server_address = 'localhost:5000'
+server_address = '192.168.1.213:5000'
 
 chair_battery = -1
 connected_sent = 0
