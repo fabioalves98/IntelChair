@@ -29,7 +29,7 @@ class CommHandler
 
 	public:		
 		CommHandler();
-		void sendFrame(Coordinate joystick, int buttonPressed);
+		bool sendFrame(Coordinate joystick, int buttonPressed);
         ChairInfo receiveFrame();
         ChairInfo parseFrame(char* response);
 

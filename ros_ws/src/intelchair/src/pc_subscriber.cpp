@@ -18,6 +18,7 @@ ros::Publisher pc_publisher;
 
 char aux[1024 * 4];
 int buttonPressed = 0x00;
+bool connected = false;
 
 void resetButtons()
 {
@@ -47,18 +48,21 @@ void chairInfoCallback(const intelchair::ChairMsg::ConstPtr& msg)
 
 void sendFrame(const ros::TimerEvent& event)
 {
-	commHandler.sendFrame(joystick, buttonPressed);
+    connected = commHandler.sendFrame(joystick, buttonPressed);
 	resetButtons();
 }
 
 void receiveFrame(const ros::TimerEvent& event)
 {
-	chair = commHandler.receiveFrame();
-    intelchair::ChairMsg msg;
-    msg.velocity = chair.velocity;
-    msg.battery = chair.battery;
-    msg.connected = chair.connected;
-    pc_publisher.publish(msg);
+    if (connected)
+    {
+        chair = commHandler.receiveFrame();
+        intelchair::ChairMsg msg;
+        msg.velocity = chair.velocity;
+        msg.battery = chair.battery;
+        msg.connected = chair.connected;
+        pc_publisher.publish(msg);
+    }
 }
 
 int main(int argc, char **argv)
@@ -69,7 +73,7 @@ int main(int argc, char **argv)
 
     pc_publisher = n.advertise<intelchair::ChairMsg>("/chair_info", 1000);
 
-    ros::Timer response_timer = n.createTimer(ros::Duration(RESPONSE_DELAY), receiveFrame);
+    //ros::Timer response_timer = n.createTimer(ros::Duration(RESPONSE_DELAY), receiveFrame);
     ros::Timer send_timer = n.createTimer(ros::Duration(SEND_DELAY), sendFrame);
     //ros::Timer debug_timer = n.createTimer(ros::Duration(2), sendFrame);
 

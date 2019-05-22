@@ -33,14 +33,18 @@ void CommHandler::buildFrame(Coordinate joystick, int buttonPressed)
     // printf("FRAME: %s\n", aux);
 }
 
-void CommHandler::sendFrame(Coordinate joystick, int buttonPressed)
+bool CommHandler::sendFrame(Coordinate joystick, int buttonPressed)
 {
     CommHandler::buildFrame(joystick, buttonPressed);
 
     if(comm.serialTx(aux, strlen(aux)) != 0)
     {
-        fprintf(stderr, "ERRO ENVIO %s %d\n", aux, (int)strlen(aux));
+        //fprintf(stderr, "ERRO ENVIO %s %d\n", aux, (int)strlen(aux));
+        printf("ERROR - Wheelchair not connected\n");
+        return false;
     }
+
+    return true;
 }
 
 ChairInfo CommHandler::receiveFrame()

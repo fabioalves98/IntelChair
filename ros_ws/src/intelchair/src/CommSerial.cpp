@@ -282,7 +282,7 @@ int CommSerial::serialTx( char *data, int size )
 {
 	if( write( fd, data, size ) != size )
 	{	// Error
-		fprintf(stderr, "serialTx Error\n");
+		// fprintf(stderr, "serialTx Error\n");
 		return 1;
 	}
 	return 0;
