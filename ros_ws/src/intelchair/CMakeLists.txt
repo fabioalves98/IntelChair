@@ -22,12 +22,12 @@ catkin_package(
 ## Build talker and listener
 include_directories(include ${catkin_INCLUDE_DIRS})
 
-## PC_Subscriber
-add_executable(subscriber src/pc_subscriber.cpp src/CommSerial.cpp src/CommHandler.cpp)
-target_link_libraries(subscriber ${catkin_LIBRARIES})
+## Base_Controller
+add_executable(base_controller src/base_controller.cpp src/CommSerial.cpp src/CommHandler.cpp)
+target_link_libraries(base_controller ${catkin_LIBRARIES})
 
-add_executable(cmdparser src/cmdvel_parser.cpp)
-target_link_libraries(cmdparser ${catkin_LIBRARIES})
+add_executable(cmdvel_parser src/cmdvel_parser.cpp)
+target_link_libraries(cmdvel_parser ${catkin_LIBRARIES})
 
 add_executable(tf_broadcaster src/tf_broadcaster.cpp)
 target_link_libraries(tf_broadcaster ${catkin_LIBRARIES})

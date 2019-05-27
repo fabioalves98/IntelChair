@@ -54,15 +54,13 @@ void sendFrame(const ros::TimerEvent& event)
 
 void receiveFrame(const ros::TimerEvent& event)
 {
-    if (connected)
-    {
-        chair = commHandler.receiveFrame();
-        intelchair::ChairMsg msg;
-        msg.velocity = chair.velocity;
-        msg.battery = chair.battery;
-        msg.connected = chair.connected;
-        pc_publisher.publish(msg);
-    }
+
+    chair = commHandler.receiveFrame();
+    intelchair::ChairMsg msg;
+    msg.velocity = chair.velocity;
+    msg.battery = chair.battery;
+    msg.connected = chair.connected;
+    pc_publisher.publish(msg);
 }
 
 int main(int argc, char **argv)
@@ -73,7 +71,7 @@ int main(int argc, char **argv)
 
     pc_publisher = n.advertise<intelchair::ChairMsg>("/chair_info", 1000);
 
-    //ros::Timer response_timer = n.createTimer(ros::Duration(RESPONSE_DELAY), receiveFrame);
+    ros::Timer response_timer = n.createTimer(ros::Duration(RESPONSE_DELAY), receiveFrame);
     ros::Timer send_timer = n.createTimer(ros::Duration(SEND_DELAY), sendFrame);
     //ros::Timer debug_timer = n.createTimer(ros::Duration(2), sendFrame);
 

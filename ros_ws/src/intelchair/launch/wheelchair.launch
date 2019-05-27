@@ -2,7 +2,7 @@
 
     <include file="/opt/ros/melodic/share/rosbridge_server/launch/rosbridge_websocket.launch" />
     
-    <node pkg="intelchair" type="subscriber" name="controller" output="screen" />
+    <node pkg="intelchair" type="base_controller" name="controller" output="screen" />
     
     <node pkg="intelchair" type="tf_broadcaster" name="static_tf" output="screen" /> 
 
