@@ -77,7 +77,7 @@ int main(int argc, char **argv)
 
     ROS_INFO("Subscribing to joystick topic... ");
     ros::Subscriber joystick_sub = n.subscribe("/joystick", 1000, joystickTopicCallback);
-    ros::Subscriber chair_info = n.subscribe("/chair_info_control", 1000, chairInfoCallback);
+    ros::Subscriber chair_info = n.subscribe("/chair_control", 1000, chairInfoCallback);
 
 	ros::spin();
 }

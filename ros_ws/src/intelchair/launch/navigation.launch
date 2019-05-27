@@ -1,11 +1,13 @@
 <launch>
     <master auto="start"/>
     
-    <node name="map_server" pkg="map_server" type="map_server" args="$(find intelchair)/iris.yaml"/>
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find intelchair)/../../maps/iris.yaml"/>
 
     <node pkg="iris_rtk_ros" type="loc2d_ros" name="local" output="screen">
         <param name="scan" value="/scan_filtered"/>
     </node>
+
+    <node pkg="intelchair" type="cmdvel_parser" name="parser" output="screen" />
 
     <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
         <rosparam file="$(find intelchair)/common_costmap.yaml" command="load" ns="global_costmap" /> 

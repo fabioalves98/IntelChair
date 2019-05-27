@@ -87,7 +87,7 @@ function connect()
 				setBatteryLabel(currentBattery);
 			});
 
-			publish_info('/chair_info_control', 'intelchair/ChairMsg', new ROSLIB.Message(
+			publish_info('/chair_control', 'intelchair/ChairMsg', new ROSLIB.Message(
 			{
 				velocity: currentSpeed,
 				battery: currentBattery,
@@ -177,7 +177,7 @@ function disconnect(){
 
 function velocityUp()
 {
-	publish_info("/chair_info_control", "intelchair/ChairMsg", new ROSLIB.Message(
+	publish_info("/chair_control", "intelchair/ChairMsg", new ROSLIB.Message(
 	{
 		velocity: currentSpeed + 1,
 		battery: currentBattery,
@@ -187,7 +187,7 @@ function velocityUp()
 
 function velocityDown()
 {
-	publish_info("/chair_info_control", "intelchair/ChairMsg", new ROSLIB.Message(
+	publish_info("/chair_control", "intelchair/ChairMsg", new ROSLIB.Message(
 	{
 		velocity: currentSpeed - 1,
 		battery: currentBattery,

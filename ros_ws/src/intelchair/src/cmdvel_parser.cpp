@@ -11,16 +11,16 @@ ros::Publisher pub;
 void parseCmdvel(const geometry_msgs::Twist::ConstPtr& msg)
 {
     geometry_msgs::Point j;
-    j.x = msg->linear.x * 30;
+    j.x = msg->linear.x * 50;
     
     // Martelado
-    if (j.x < 20 && j.x > 0)
+    if (j.x < 30 && j.x > 0)
     {
-        j.x = 20;
+        j.x = 30;
     }
     else if (j.x < 0)
     {
-        j.x = -20;
+        j.x = -50;
     }
     
     j.y = -1 * msg->angular.z * 100;

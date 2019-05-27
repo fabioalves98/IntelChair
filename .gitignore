@@ -1,6 +1,7 @@
 *.fa
 *.o
 *.pyc
+*.db
 
 docs/site
 ros_ws/build
