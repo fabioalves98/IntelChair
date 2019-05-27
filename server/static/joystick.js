@@ -24,6 +24,8 @@ manager.on("end", function(event, nipple)
 
 setInterval(function()
 {
+	console.log('widht: ' + window.innerWidth);
+	console.log('heigth: ' + window.innerHeight);
 	if(ros)
 	{
 		var point = new ROSLIB.Message(

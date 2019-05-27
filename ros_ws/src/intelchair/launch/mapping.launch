@@ -1,6 +1,6 @@
 <launch>
 
-    <node pkg="iris_rtk_ros" type="pf_slam2d_ros" name="local" output="screen">
+    <node pkg="iris_rtk_ros" type="pf_slam2d_ros" name="mapping" output="screen">
         <param name="scan" value="/scan_filtered"/>
     </node>
 
