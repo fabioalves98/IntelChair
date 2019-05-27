@@ -2,4 +2,7 @@ global_costmap:
   global_frame: map
   robot_base_frame: base_link
   update_frequency: 5.0
+  publish_frequency: 2.0
+  footprint_padding: 0.02
+  inflation_radius: 1.25
   static_map: true
