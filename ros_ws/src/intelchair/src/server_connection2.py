@@ -58,7 +58,7 @@ ip = ni.ifaddresses('wlp3s0')[ni.AF_INET][0]['addr']
 
 localhost = '127.0.0.1:5000'
 api_call = "/chairs/123123"
-server_address = '192.168.1.213:5000'
+server_address = '192.168.43.231:5000'
 
 chair_battery = -1
 connected = 0

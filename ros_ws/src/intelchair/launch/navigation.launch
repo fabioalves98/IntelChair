@@ -1,7 +1,7 @@
 <launch>
     <master auto="start"/>
     
-    <node name="map_server" pkg="map_server" type="map_server" args="$(find intelchair)/../../maps/iris.yaml"/>
+    <node name="map_server" pkg="map_server" type="map_server" args="$(find intelchair)/../../maps/118.yaml"/>
 
     <node pkg="iris_rtk_ros" type="loc2d_ros" name="local" output="screen">
         <param name="scan" value="/scan_filtered"/>
