@@ -38,7 +38,7 @@
                 <ion-tabs id="tabs">
                     <ion-tab tab="home"><ion-grid >
                         <ion-grid>
-                            <ion-row align-items-center>
+                            <ion-row justify-content-center>
                                 <ion-item id="zone_joystick_message">
                                     <ion-label>
                                         Please connect the device first!
@@ -49,11 +49,11 @@
                                 <div id="zone_joystick"></div>
                             </ion-row>
                             <ion-row justify-content-center align-items-center>
-                                    <div class="spd-btn" style="position:fixed; bottom:10px">
-                                        <ion-button onclick="velocityDown()" color="primary">Speed down</ion-button>
-                                        <ion-button onclick="velocityUp()" color="primary">Speed up</ion-button>
-                                    </div>
-                                </ion-row>
+                                <div class="spd-btn" style="position:fixed; bottom:10px">
+                                    <ion-button onclick="velocityDown()" color="primary">Speed down</ion-button>
+                                    <ion-button onclick="velocityUp()" color="primary">Speed up</ion-button>
+                                </div>
+                            </ion-row>
                         </ion-grid>
                     </ion-tab>
                     <ion-tab tab="mapping">
@@ -71,7 +71,7 @@
                     <ion-tab tab="settings">
                         <ion-grid>
                             <ion-row justify-content-center align-items-center>
-                                <canvas style="background-image: url('static/lol.png'); background-repeat:no-repeat;"  id="canvas"></canvas>
+                                <canvas  id="canvas"></canvas>
                             </ion-row>
                             <!-- <ion-row justify-content-center align-items-center>
                                 <ion-img src="static/room.png"></ion-img>
@@ -96,6 +96,7 @@
                     </ion-tab>
 
                     <ion-tab-bar slot="bottom">
+                        
                         <ion-tab-button tab="home">
                         <ion-label>Manual</ion-label>
                         <ion-icon name="move"></ion-icon>

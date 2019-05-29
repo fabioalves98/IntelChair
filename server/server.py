@@ -5,6 +5,7 @@ from flask import Flask, g
 from flask import render_template
 from flask import redirect, url_for, request
 from flask_cors import CORS
+from PIL import Image
 import time
 import threading
 
@@ -63,11 +64,24 @@ def init_db():
                 (?, ?, ?, ?);", ("1558380289", "1558383169", "fmcalves", "123123"))
     except sqlite3.IntegrityError:
         print ("History Already Inserted")
+
+    c.execute("CREATE TABLE IF NOT EXISTS maps \
+             (name text, pgm_path text, yaml_path text, UNIQUE(name));")
+    try:
+        pgm_path = prev_dir + "/ros_ws/maps/iris.pgm"
+        yaml_path = prev_dir + "/ros_ws/maps/iris.yaml"
+        c.execute("INSERT INTO maps VALUES \
+                (?, ?, ?);", ("iris", pgm_path, yaml_path))
+    except sqlite3.IntegrityError:
+        print ("Map Already Inserted")
+    except FileNotFoundError:
+        print("iris.pgm or iris.yaml not found!") 
     
     conn.commit()
     conn.close()
 
 cwd = os.getcwd()
+prev_dir = os.path.abspath(os.path.join(cwd, os.pardir))
 app = Flask(__name__)
 cors = CORS(app)
 DATABASE = "database.db"
@@ -168,8 +182,18 @@ def query_history():
 def query_maps():
     if request.method == 'POST':
         add_map()
-  
+    
     return get_allmaps()
+
+@app.route("/maps/<name>", methods=['POST', 'GET', 'delete'])
+def map_update(name):
+    if request.method == 'POST':
+        update_map(name)
+
+    if request.method == 'DELETE':
+        delete_map(name)
+    
+    return get_map(name)
 
 @app.route("/chair_active", methods=['POST'])
 def publish_chair_active():
@@ -426,15 +450,9 @@ def delete_history():
 def get_allmaps():
     db = get_db()
     c = db.cursor()
-    maps = []
 
-    c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='maps'") # checking if the table exists
-    if c.fetchone()[0]==1:
-        maps = c.execute("SELECT * FROM maps")
-        db.commit()
-    else:
-        c.execute("CREATE TABLE IF NOT EXISTS maps (name text, pgm_path text, yaml_path text);")
-        db.commit()
+    maps = c.execute("SELECT * FROM maps")
+    db.commit()
 
     return json.dumps([dict(x) for x in maps])
 
@@ -442,24 +460,50 @@ def add_map():
     db = get_db()
     c = db.cursor()
     name = request.form['name']
+
     try:
-        pgm_file = cwd + "/static/" + name + ".pgm"
-        yaml_file = cwd + "/static/" + name + ".yaml"
+        pgm_file = prev_dir + "/ros_ws/maps/" + name + ".pgm"
+        yaml_file = prev_dir + "/ros_ws/maps/" + name + ".yaml"
     except FileNotFoundError:
         print(name + ".pgm or " + name + ".yaml not found!")
 
-    c.execute("SELECT count(name) FROM sqlite_master WHERE type='table' AND name='maps'") # checking if the table exists
-    if c.fetchone()[0]==1:
-        maps = c.execute("SELECT * FROM maps WHERE name = ?", [name,])
-        rows = maps.fetchone()
+    query = "INSERT INTO maps(name, pgm_path, yaml_path) VALUES(?, ?, ?)"
+    values = [name, pgm_file, yaml_file]
+    
+    print(query)
 
-        if rows == None:
-            c.execute("INSERT INTO maps(name, pgm_path, yaml_path) \
-                            VALUES(?, ?, ?)", (name, pgm_file, yaml_file))
-            db.commit()
+    c.execute(query, values)
+    db.commit()
 
-    else:
-        c.execute("CREATE TABLE IF NOT EXISTS maps (name text, pgm_path text, yaml_path text);")
-        db.commit()
+def delete_map(name):
+    db = get_db()
+    c = db.cursor()
 
-    return json.dumps([dict(x) for x in maps])
+    c.execute("DELETE FROM maps WHERE name = ?", [name])
+    db.commit()
+
+def get_map(name):
+    db = get_db()
+    c = db.cursor()
+    pgm_path = ""
+    
+    map = c.execute("SELECT * FROM maps WHERE name = ?", [name])
+    db.commit()
+
+    rtMap = [dict(x) for x in map]
+
+    if(len(rtMap) != 0):
+        pgm_path = rtMap[0]["pgm_path"]
+
+    if pgm_path == None:
+        return "Image not found"
+
+    im = Image.open(pgm_path)
+    png_path = pgm_path.replace("pgm", "png")
+    im.save(png_path)
+
+    return png_path
+    # if(len(rtMap) != 0):
+    #     return json.dumps(rtMap[0])
+
+    #return json.dumps(None)

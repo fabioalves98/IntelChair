@@ -67,8 +67,8 @@ function connect()
 		}
 		ros = new ROSLIB.Ros(
 		{
-			url : 'ws://' + jsondata.ip + ':9090'
-			//url: 'ws://localhost:9090/'
+			//url : 'ws://' + jsondata.ip + ':9090'
+			url: 'ws://localhost:9090/'
 		});
 		if(ros_url != 1)
 		{
