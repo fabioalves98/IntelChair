@@ -9,6 +9,8 @@ var canvas,
     windowHeight,
     windowWidth,
     constSize,
+    originX=0,
+    originY=0,
 	snapshot;
 
 var background = new Image();
@@ -16,9 +18,84 @@ var background = new Image();
 
 // -------------------MAP TAB--------------------
 
+function zoomIn(){
+    constSize = constSize*0.8;
+    console.log(constSize);
+    background.src = "static/lol.png";
+    background.onload = function(){
+        context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        context.drawImage(background,originX,originY,windowWidth/constSize,windowHeight/constSize);
+    }
+    canvas.addEventListener('mousedown', dragStart, false);
+    canvas.addEventListener('mousemove', drag, false);
+    canvas.addEventListener('mouseup', dragStop, false);
+}
+
+function moveR(){
+    originX = originX + 20;
+    background.src = "static/lol.png";
+    background.onload = function(){
+        context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        context.drawImage(background,originX,originY,windowWidth/constSize,windowHeight/constSize);
+    }
+    canvas.addEventListener('mousedown', dragStart, false);
+    canvas.addEventListener('mousemove', drag, false);
+    canvas.addEventListener('mouseup', dragStop, false);
+}
+
+function moveL(){
+    originX = originX - 20;
+    background.src = "static/lol.png";
+    background.onload = function(){
+        context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        context.drawImage(background,originX,originY,windowWidth/constSize,windowHeight/constSize);
+    }
+    canvas.addEventListener('mousedown', dragStart, false);
+    canvas.addEventListener('mousemove', drag, false);
+    canvas.addEventListener('mouseup', dragStop, false);
+}
+
+function moveU(){
+    originY = originY - 20;
+    background.src = "static/lol.png";
+    background.onload = function(){
+        context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        context.drawImage(background,originX,originY,windowWidth/constSize,windowHeight/constSize);
+    }
+    canvas.addEventListener('mousedown', dragStart, false);
+    canvas.addEventListener('mousemove', drag, false);
+    canvas.addEventListener('mouseup', dragStop, false);
+}
+
+function moveD(){
+    originY = originY + 20;
+    background.src = "static/lol.png";
+    background.onload = function(){
+        context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+        context.drawImage(background,originX,originY,windowWidth/constSize,windowHeight/constSize);
+    }
+    canvas.addEventListener('mousedown', dragStart, false);
+    canvas.addEventListener('mousemove', drag, false);
+    canvas.addEventListener('mouseup', dragStop, false);
+}
+
+function zoomOut(){
+    constSize = constSize*1.2;
+    console.log(constSize);
+    background.src = "static/lol.png";
+    background.onload = function(){
+        context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+        context.drawImage(background,originX,originY,windowWidth/constSize,windowHeight/constSize);
+    }
+    canvas.addEventListener('mousedown', dragStart, false);
+    canvas.addEventListener('mousemove', drag, false);
+    canvas.addEventListener('mouseup', dragStop, false);
+}
+
 function getCanvasCoordinates(event) {
-    var x = event.clientX - canvas.getBoundingClientRect().left,
-        y = event.clientY - canvas.getBoundingClientRect().top;
+    var x = event.clientX - canvas.getBoundingClientRect().left + originX,
+        y = event.clientY - canvas.getBoundingClientRect().top + originY;
 
     return {x: x, y: y};
 }
@@ -85,8 +162,8 @@ function dragStop(event) {
             chair_moving = false;
             dragging = false;
             position = getCanvasCoordinates(event);
-            context.clearRect(0, 0, windowWidth, windowHeight);
-            context.drawImage(background,0,0,windowWidth/constSize,windowHeight/constSize);
+            context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+            context.drawImage(background,originX,originY,windowWidth/constSize,windowHeight/constSize);
             x2 = position.x;
             y2 = position.y;
             drawLine(position);
@@ -130,7 +207,7 @@ function init() {
     context.lineWidth = 2;
 
     background.onload = function(){
-        context.drawImage(background,0,0,windowWidth/constSize,windowHeight/constSize);
+        context.drawImage(background,originX,originY,windowWidth/constSize,windowHeight/constSize);
     }
     // context.background-image = url('static/lol.png');
     // context.background-repeat = no-repeat;

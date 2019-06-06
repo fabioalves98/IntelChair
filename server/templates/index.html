@@ -73,6 +73,14 @@
                             <ion-row justify-content-center align-items-center>
                                 <canvas  id="canvas"></canvas>
                             </ion-row>
+                            <ion-row>
+                                <ion-button onclick="zoomIn()" color="primary">+</ion-button>
+                                <ion-button onclick="zoomOut()" color="primary">-</ion-button>
+                                <ion-button onclick="moveU()" color="primary">up</ion-button>
+                                <ion-button onclick="moveD()" color="primary">down</ion-button>
+                                <ion-button onclick="moveL()" color="primary">left</ion-button>
+                                <ion-button onclick="moveR()" color="primary">right</ion-button>
+                            </ion-row>
                             <!-- <ion-row justify-content-center align-items-center>
                                 <ion-img src="static/room.png"></ion-img>
                             </ion-row> -->
@@ -96,7 +104,7 @@
                     </ion-tab>
 
                     <ion-tab-bar slot="bottom">
-                        
+
                         <ion-tab-button tab="home">
                         <ion-label>Manual</ion-label>
                         <ion-icon name="move"></ion-icon>
