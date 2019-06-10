@@ -28,7 +28,7 @@
 ## Week 5 - March 17th
 
 * With all the sensors available to us we discussed with the mentors the best way they could be positioned in the chair. Although the rangefinder was already in it's final place, it still needed power from the chair's batteries. Although the kinect suffered from the same problem, we could just connect it to a power socket and run some tests. Regarding the IMU we had no problem since it was powered over USB. 
-* In the weekly meeting, with the help of investigator Eurico Farinha, we were introduced to the proper methods of map generation and navigation with the chair and where to start in those topics.
+* In the weekly meeting, with the help of investigator Eurico Pedrosa, we were introduced to the proper methods of map generation and navigation with the chair and where to start in those topics.
 * After some research we decided which technologies we will use for the application and server, Vue.js and CherryPy respectively. We also found a good library for voice recognition, released some tests but we are still unsure on it's adoption since it's not supported in some browsers.
 
 ## Week 6 - March 24th

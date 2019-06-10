@@ -9,7 +9,7 @@
 
 * Interact with the mobile application through voice commands
 * The wheelchair can follow the user using the camera
-* Managment of multiple wheelchair's by the server
+* Management of multiple wheelchair's by the server
 * Dynamic object detection and avoidance using the camera
 * Secure communication between the various elements of the system
 
