@@ -28,6 +28,24 @@ if (annyang) {
       },
       'navigation': function(){
         $('#tab-button-home').trigger("click");
+      },
+      'zoom in': function(){
+        zoomIn();
+      },
+      'zoom out' : function(){
+        zoomOut();
+      },
+      'right' : function(){
+        moveR();
+      },
+      'left' : function(){
+        moveL();
+      },
+      'up' : function(){
+        moveU();
+      },
+      'down' : function(){
+        moveD();
       }
     };
   
