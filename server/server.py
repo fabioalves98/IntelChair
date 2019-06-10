@@ -66,22 +66,19 @@ def init_db():
         print ("History Already Inserted")
 
     c.execute("CREATE TABLE IF NOT EXISTS maps \
-             (name text, pgm_path text, yaml_path text, UNIQUE(name));")
+             (name text, pgm_path text, UNIQUE(name));")
     try:
-        pgm_path = prev_dir + "/ros_ws/maps/iris.pgm"
-        yaml_path = prev_dir + "/ros_ws/maps/iris.yaml"
+        pgm_path = "/ros_ws/maps/iris.pgm"
         c.execute("INSERT INTO maps VALUES \
-                (?, ?, ?);", ("iris", pgm_path, yaml_path))
+                (?, ?);", ("iris", pgm_path))
     except sqlite3.IntegrityError:
         print ("Map Already Inserted")
-    except FileNotFoundError:
-        print("iris.pgm or iris.yaml not found!") 
     
     conn.commit()
     conn.close()
 
 cwd = os.getcwd()
-prev_dir = os.path.abspath(os.path.join(cwd, os.pardir))
+parent_dir = os.path.abspath(os.path.join(cwd, os.pardir))
 app = Flask(__name__)
 cors = CORS(app)
 DATABASE = "database.db"
@@ -461,14 +458,10 @@ def add_map():
     c = db.cursor()
     name = request.form['name']
 
-    try:
-        pgm_file = prev_dir + "/ros_ws/maps/" + name + ".pgm"
-        yaml_file = prev_dir + "/ros_ws/maps/" + name + ".yaml"
-    except FileNotFoundError:
-        print(name + ".pgm or " + name + ".yaml not found!")
+    pgm_path = "/ros_ws/maps/" + name + ".pgm"
 
-    query = "INSERT INTO maps(name, pgm_path, yaml_path) VALUES(?, ?, ?)"
-    values = [name, pgm_file, yaml_file]
+    query = "INSERT INTO maps(name, pgm_path) VALUES(?, ?)"
+    values = [name, pgm_path]
     
     print(query)
 
@@ -498,12 +491,9 @@ def get_map(name):
     if pgm_path == None:
         return "Image not found"
 
+    pgm_path = parent_dir + pgm_path
     im = Image.open(pgm_path)
     png_path = pgm_path.replace("pgm", "png")
     im.save(png_path)
 
     return png_path
-    # if(len(rtMap) != 0):
-    #     return json.dumps(rtMap[0])
-
-    #return json.dumps(None)
