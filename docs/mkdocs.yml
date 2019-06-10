@@ -28,6 +28,8 @@ nav:
         - Requirements: specification/requirements.md
     - Architecture: 
         - Architecture: architecture.md
+    - Results:
+        - Results: results.md
     - Developer:
         - Developer: developer.md
     - Team: 

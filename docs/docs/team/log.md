@@ -66,5 +66,22 @@
 ## Week 13 - May 12th
 
 * With the map generated and all the other components up and running, we connected everything to the navigation algorithm and were able to achieve our main goal. We can make the wheelchair go from point A to point B by simply giving it a coordinate goal in the map. Despite this big development, we still have a lot of parameterization to perfect and testing to perform.
-* At the weekly meeting, we discussed the developments of the project and, since there is not much time left, and the main features are complete, we decided that we will try to implement the extra features we mentioned that were worth doing but did not include in the MVP
+* At the weekly meeting, we discussed the developments of the project and, since there is not much time left, and the main features are complete, we decided that we will try to implement the extra features we mentioned that were worth doing but did not include in the MVP.
 * In this sense, we add some voice commands to the mobile application, we started testing a human recognition module for the kinect and, also using the kinect, started planing how we could include it in the navigation algorithm.
+
+## Week 14 - May 19th
+
+* Since we achieved our goal of navigation in the previous week, this week we gave more focus to the development of the server and mobile application. We concluded our API structure and covered some security flaws. We also developed 2 new sections in the mobile applciation to give mapping and navigation control to the user. 
+* At the weekly meeting, we discussed with the mentors logistics for M5 presentation and overall satus of the project.
+* For M5 presentation, which will take place next week, we are planning to do a flyer to quickly showcase our project, videos for better visualization of our system and some diagrams to better explain the more technical details.
+
+## Week 15 - May 26th
+
+* At the start of the week, preceding the presentation we took the wheelchair to DETI to do some testing and record some videos. We mapped the DETI hall and one class room, and navigation in those environments was sucessfull. We also recorded videos of all the tests we made. 
+* After the presentation and for the rest of the week, we kept ajusting parameters in the navigation module and created some launch files to make the setup process of the wheelchair more straightforward. All of these technical details can be found in the developer page.
+
+## Week 16, 17 - Jun 2nd to 9th
+
+* In these weeks, we mostly developed documentation for our project (manuals, developer page, architecture details). Now that we had some feedback from our mentors from the previous presentation, we adjusted some details accordingly. 
+* We made all the necessary preparations for students@DETI presentation.
+* Overall, we are happy with our work and the results we achieved.
