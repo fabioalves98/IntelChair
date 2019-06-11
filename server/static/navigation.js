@@ -9,96 +9,54 @@ var canvas,
     windowHeight,
     windowWidth,
     constSize,
-    originX=0,
-    originY=0,
 	snapshot;
 
 var background = new Image();
-
+var pixelData;
 
 // -------------------MAP TAB--------------------
 
-function zoomIn(){
-    constSize = constSize*0.8;
-    console.log(constSize);
-    background.src = "static/lol.png";
-    background.onload = function(){
-        context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        context.drawImage(background,originX,originY,windowWidth/constSize,windowHeight/constSize);
-    }
-    canvas.addEventListener('mousedown', dragStart, false);
-    canvas.addEventListener('mousemove', drag, false);
-    canvas.addEventListener('mouseup', dragStop, false);
+function blinker() {
+  $('.jquery_blink').fadeOut(500);
+  $('.jquery_blink').fadeIn(500);
 }
 
-function moveR(){
-    originX = originX + 20;
-    background.src = "static/lol.png";
-    background.onload = function(){
-        context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        context.drawImage(background,originX,originY,windowWidth/constSize,windowHeight/constSize);
-    }
-    canvas.addEventListener('mousedown', dragStart, false);
-    canvas.addEventListener('mousemove', drag, false);
-    canvas.addEventListener('mouseup', dragStop, false);
+
+
+function goLocation() {
+    $("#nav_btn_go").hide();
+    $("map_msg").show();
+    $("#map_msg").css("font-size", "140%");
+    $("#map_msg").text('Navigating');
+    setInterval(blinker, 1000);
+    //document.getElementById("map_msg").innerHTML = "Navigating";
 }
 
-function moveL(){
-    originX = originX - 20;
-    background.src = "static/lol.png";
-    background.onload = function(){
-        context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        context.drawImage(background,originX,originY,windowWidth/constSize,windowHeight/constSize);
-    }
-    canvas.addEventListener('mousedown', dragStart, false);
-    canvas.addEventListener('mousemove', drag, false);
-    canvas.addEventListener('mouseup', dragStop, false);
-}
-
-function moveU(){
-    originY = originY - 20;
-    background.src = "static/lol.png";
-    background.onload = function(){
-        context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        context.drawImage(background,originX,originY,windowWidth/constSize,windowHeight/constSize);
-    }
-    canvas.addEventListener('mousedown', dragStart, false);
-    canvas.addEventListener('mousemove', drag, false);
-    canvas.addEventListener('mouseup', dragStop, false);
-}
-
-function moveD(){
-    originY = originY + 20;
-    background.src = "static/lol.png";
-    background.onload = function(){
-        context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-        context.drawImage(background,originX,originY,windowWidth/constSize,windowHeight/constSize);
-    }
-    canvas.addEventListener('mousedown', dragStart, false);
-    canvas.addEventListener('mousemove', drag, false);
-    canvas.addEventListener('mouseup', dragStop, false);
-}
-
-function zoomOut(){
-    constSize = constSize*1.2;
-    console.log(constSize);
-    background.src = "static/lol.png";
-    background.onload = function(){
-        context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-
-        context.drawImage(background,originX,originY,windowWidth/constSize,windowHeight/constSize);
-    }
-    canvas.addEventListener('mousedown', dragStart, false);
-    canvas.addEventListener('mousemove', drag, false);
-    canvas.addEventListener('mouseup', dragStop, false);
-}
 
 function getCanvasCoordinates(event) {
-    var x = event.clientX - canvas.getBoundingClientRect().left + originX,
-        y = event.clientY - canvas.getBoundingClientRect().top + originY;
+    // var x = event.clientX - canvas.getBoundingClientRect().left,
+    //     y = event.clientY - canvas.getBoundingClientRect().top;
+
+        var x = event.touches[0].clientX - canvas.getBoundingClientRect().left,
+            y = event.touches[0].clientY - canvas.getBoundingClientRect().top;
+
+
 
     return {x: x, y: y};
 }
+
+function getCanvasCoordinatesEnd(event) {
+    // var x = event.clientX - canvas.getBoundingClientRect().left,
+    //     y = event.clientY - canvas.getBoundingClientRect().top;
+
+    var x = event.changedTouches[event.changedTouches.length-1].clientX - canvas.getBoundingClientRect().left,
+        y = event.changedTouches[event.changedTouches.length-1].clientY - canvas.getBoundingClientRect().top;
+
+
+    return {x: x, y: y};
+}
+
+
 
 function takeSnapshot() {
     snapshot = context.getImageData(0, 0, canvas.width, canvas.height);
@@ -124,54 +82,75 @@ function drawLine(position) {
 }
 
 function dragStart(event) {
-        dragging = true;
+
+        console.log("start drag");
+        context.clearRect(0, 0, windowWidth, windowHeight);
+        context.drawImage(background,0,0,windowWidth/constSize,windowHeight/constSize);
         dragStartLocation = getCanvasCoordinates(event);
-        x1 = dragStartLocation.x;
-        y1 = dragStartLocation.y;
-        takeSnapshot();
+        pixelData = context.getImageData(dragStartLocation.x, dragStartLocation.y, 1, 1).data;
+        if((pixelData[0] == 255) && (pixelData[1] == 255) && (pixelData[2] == 255)){
+            dragging = true;
+            x1 = dragStartLocation.x;
+            y1 = dragStartLocation.y;
+            takeSnapshot();
+        }
 
 }
 
 function drag(event) {
+        console.log("drag...");
+        if((pixelData[0] == 255) && (pixelData[1] == 255) && (pixelData[2] == 255)){
         var position;
         if (dragging === true) {
             restoreSnapshot();
             position = getCanvasCoordinates(event);
             drawLine(position);
         }
+    }
+
 
 }
 
 function dragStop(event) {
-    if(!chair_moving){
-        dragging = false;
-        restoreSnapshot();
-        var position = getCanvasCoordinates(event);
-        x2 = position.x;
-        y2 = position.y;
-        drawLine(position);
-        var pts = { p1 : [x1*constSize,y1*constSize], p2 : [x2*constSize,y2*constSize] };
-        console.log(pts);
-        //context.clearRect(0, 0, windowWidth, windowHeight);
-        if (window.confirm("Go to location?")) {
-            sendPosition();
-        }
-    }else{
-        if(window.confirm("Change location?")){
-            //chair stop
-            chair_moving = false;
+    if((pixelData[0] == 255) && (pixelData[1] == 255) && (pixelData[2] == 255)){
+        console.log("end drag");
+        if(!chair_moving){
             dragging = false;
-            position = getCanvasCoordinates(event);
-            context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-            context.drawImage(background,originX,originY,windowWidth/constSize,windowHeight/constSize);
+            restoreSnapshot();
+            var position = getCanvasCoordinatesEnd(event);
             x2 = position.x;
             y2 = position.y;
             drawLine(position);
             var pts = { p1 : [x1*constSize,y1*constSize], p2 : [x2*constSize,y2*constSize] };
             console.log(pts);
-            sendPosition(); // chair start moving
+            // if (window.confirm("Go to location?")) {
+            //     sendPosition();
+            // }else{
+            //     context.clearRect(0, 0, windowWidth, windowHeight);
+            //     context.drawImage(background,0,0,windowWidth/constSize,windowHeight/constSize);
+            //
+            // }
+            //$("#map_msg").hide();
+            $("#map_msg").text('');
+            $("#nav_btn_go").show();
+        }else{
+            if(window.confirm("Change location?")){
+                //chair stop
+                chair_moving = false;
+                dragging = false;
+                position = getCanvasCoordinatesEnd(event);
+                context.clearRect(0, 0, windowWidth, windowHeight);
+                context.drawImage(background,0,0,windowWidth/constSize,windowHeight/constSize);
+                x2 = position.x;
+                y2 = position.y;
+                drawLine(position);
+                var pts = { p1 : [x1*constSize,y1*constSize], p2 : [x2*constSize,y2*constSize] };
+                console.log(pts);
+                sendPosition(); // chair start moving
+            }
         }
     }
+
 
 }
 
@@ -185,36 +164,43 @@ function sendPosition() {
 function init() {
     canvas = document.getElementById("canvas");
 
-    background.src = "static/lol.png";
+
+    //background.src = "../ros_ws/maps/iris.png";
+    background.src = "static/iris.png";
 
 
 
-
-    windowHeight = 640;
-    windowWidth = 544;
-    canvas.height = windowHeight;
-    canvas.width = windowWidth;
+    windowHeight = 416;
+    windowWidth = 608;
 
 
-    for (var i = 1; i < 100; i++) {
+
+    for (var i = 1; i < 100; i=i*1.1) {
         if ((windowWidth/i)<$(window).width()) {
             constSize = i;
             break;
         }
     }
 
+    canvas.height = windowHeight/constSize;
+    canvas.width = windowWidth/constSize;
+
     context = canvas.getContext('2d');
     context.lineWidth = 2;
 
     background.onload = function(){
-        context.drawImage(background,originX,originY,windowWidth/constSize,windowHeight/constSize);
+        context.drawImage(background,0,0,windowWidth/constSize,windowHeight/constSize);
     }
     // context.background-image = url('static/lol.png');
     // context.background-repeat = no-repeat;
 
-    canvas.addEventListener('mousedown', dragStart, false);
-    canvas.addEventListener('mousemove', drag, false);
-    canvas.addEventListener('mouseup', dragStop, false);
+    // canvas.addEventListener('mousedown', dragStart, false);
+    // canvas.addEventListener('mousemove', drag, false);
+    // canvas.addEventListener('mouseup', dragStop, false);
+    canvas.addEventListener('touchstart', dragStart, false);
+    canvas.addEventListener('touchmove', drag, false);
+    canvas.addEventListener('touchend', dragStop, false);
+
 }
 
 window.addEventListener('load', init, false);

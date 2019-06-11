@@ -69,37 +69,16 @@
 
                     </ion-tab>
                     <ion-tab tab="settings">
-                        <ion-grid>
+                        <ion-grid >
                             <ion-row justify-content-center align-items-center>
                                 <canvas  id="canvas"></canvas>
                             </ion-row>
-                            <ion-row>
-                                <ion-button onclick="zoomIn()" color="primary">+</ion-button>
-                                <ion-button onclick="zoomOut()" color="primary">-</ion-button>
-                                <ion-button onclick="moveU()" color="primary">up</ion-button>
-                                <ion-button onclick="moveD()" color="primary">down</ion-button>
-                                <ion-button onclick="moveL()" color="primary">left</ion-button>
-                                <ion-button onclick="moveR()" color="primary">right</ion-button>
+                            <ion-row justify-content-center align-items-center>
+                                    <p   align="center" id=map_msg class="jquery_blink">Hold and drag to select the desired location and orientation!</p>
                             </ion-row>
-                            <!-- <ion-row justify-content-center align-items-center>
-                                <ion-img src="static/room.png"></ion-img>
-                            </ion-row> -->
-                            <!-- <ion-row justify-content-center align-items-center>
-                                <ion-col>
-                                        <ion-popover-controller></ion-popover-controller>
-                                        <ion-button onclick="handleButtonClick()" color="warning">Coffee machine</ion-button>
-                                </ion-col>
-                                <ion-col>
-                                        <ion-checkbox value="listed" checked></ion-checkbox>
-                                </ion-col>
-                                <ion-col justify-content-center align-items-center>
-                                        <ion-button size="small">Color</ion-button>
-                                </ion-col>
+                            <ion-row justify-content-center align-items-center>
+                                <ion-button id=nav_btn_go onclick="goLocation()" color="primary"  style="display:none;">Go to location</ion-button>
                             </ion-row>
-                            <ul id="dynamic-list"></ul>
-                            <ion-row justify-content-center align-items-center >
-                                    <ion-button onclick="addLocation()"><ion-icon slot="icon-only" name="add-circle"></ion-icon></ion-button>
-                            </ion-row> -->
                         </ion-grid>
                     </ion-tab>
 
