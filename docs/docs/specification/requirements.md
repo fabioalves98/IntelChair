@@ -1,7 +1,7 @@
 ### Wheelchair
 * Respond efficiently to the application joystick, in manual mode
 * Needs all sensors to be properly calibrated and generate accurate data
-* With that information should generate the map of its suroundings
+* With that information should generate the map of its surroundings
 * Should be able to find its position in the map
 * Should be able to travel autonomously between certain positions avoiding obstacles
 
@@ -9,7 +9,7 @@
 * Accessible at all time, independent of wheelchair status
 * Provide the user with the current map the wheelchair possesses
 * Provide necessary information from the wheelchair like battery level
-* Give the user the hability of saving certain locations for future use
+* Give the user the ability of saving certain locations for future use
 
 ### Server
 * Accessible at all time, independent of wheelchair status

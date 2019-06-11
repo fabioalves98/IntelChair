@@ -62,6 +62,8 @@
 - `"password"':string`
 - `"email":string`
 - `"age":int`
+- `"role":string`
+- `"status":string`
 
 
 If a user with the given username already exists, the server will not add or overwrite.
@@ -82,10 +84,11 @@ If a user with the given username already exists, the server will not add or ove
 
 - `"firstname":string`
 - `"lastname":string`
-- `"username":string`
 - `"password"':string`
 - `"email":string`
 - `"age":int`
+- `"role":string`
+- `"status":string`
 
 **Response**
 
@@ -95,6 +98,8 @@ If a user with the given username already exists, the server will not add or ove
 <br>
 
 ### Lookup user details
+
+**Definition**
 
 `GET /users/<username>`
 
@@ -178,6 +183,10 @@ If a user with the given username already exists, the server will not add or ove
 - `"model":string`
 - `"name":string`
 - `"id":string`
+- `"ip":string`
+- `"user":string`
+- `"status":string`
+- `"battery":integer`
 
 
 If a chair with the given name already exists, the server will not add or overwrite.
@@ -199,7 +208,10 @@ If a chair with the given name already exists, the server will not add or overwr
 - `"company":string`
 - `"model":string`
 - `"name":string`
-- `"id":string`
+- `"ip":string`
+- `"user":string`
+- `"status":string`
+- `"battery":integer`
 
 **Response**
 
@@ -257,6 +269,13 @@ If a chair with the given name already exists, the server will not add or overwr
 
 - **`200 OK`** on success
 
+[{  
+    "startTime": "1558380289", 
+    "endTime": "1558383169", 
+    "username": "fmcalves", 
+    "chair": "123123"
+}]
+
 <br>
 
 ### Add history
@@ -274,12 +293,25 @@ If a chair with the given name already exists, the server will not add or overwr
 
 **Response**
 
+- **`400 OK`** if the history already exists
+- **`200 OK`** on success
+
+<br>
+
+### Delete history
+
+**Definition**
+
+`DELETE /history`
+
+**Response**
+
 - **`200 OK`** on success
 
 <br>
 
 # Maps
-### List maps
+### List all maps
 
 **Definition**
 
@@ -288,6 +320,11 @@ If a chair with the given name already exists, the server will not add or overwr
 **Response**
 
 - **`200 OK`** on success
+
+[{  
+    "name": "iris", 
+    "pgm_path": "/ros_ws/maps/iris.pgm"
+}]
 
 <br>
 
@@ -301,8 +338,54 @@ If a chair with the given name already exists, the server will not add or overwr
 
 - `name:string`
 - `pgm_path:string`
-- `yaml_path:string`
 
 **Response**
 
 - **`200 OK`** on success
+
+<br>
+
+### Update map
+
+**Definition**
+
+`PUT /maps/<name>`
+
+**Arguments**
+
+- `"name":string`
+- `"pgm_path":string`
+
+**Response**
+
+- **`400 Not Found`** if the map does not exist
+- **`200 OK`** on success
+
+<br>
+
+### Lookup specific map
+
+**Definition**
+
+`GET maps/<name>`
+
+**Response**
+
+- **`400 Not Found`** if the map does not exist
+- **`200 OK`** on success
+
+yourpath/ros_ws/maps/[name].png
+
+<br>
+
+### Delete map
+
+**Definition**
+
+`DELETE /maps/<name>`
+
+**Response**
+
+- **`404 Not Found`** if the map does not exist
+- **`200 OK`** on success
+

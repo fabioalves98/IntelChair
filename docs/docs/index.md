@@ -1,5 +1,7 @@
 #IntelChair
 
+  <iframe width="100%" height="425" src="https://www.youtube.com/embed/jOrKNB-G2rE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen onload="this.style.height=this.contentDocument.body.scrollHeight +'px';"></iframe>
+
 <video width="37%" controls muted autoplay loop>
   <source src="rotateFinal.mp4" type="video/mp4" />
   Your browser does not support the video tag.
@@ -12,7 +14,7 @@
 
 ## What is the IntelChair?
 
-Our project consists of a motorized wheelchair that can autonomously move itself in a known enviroment, giving the user the ability of handsfree mobility while sitting in the chair. For more details visit the [client](client/client.md) page.
+Our project consists of a motorized wheelchair that can autonomously move itself in a known environment, giving the user the ability of hands free mobility while sitting in the chair. For more details visit the [client](client/client.md) page.
 
 ## Who will use it?
 
