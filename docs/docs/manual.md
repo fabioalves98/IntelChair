@@ -9,8 +9,8 @@
 # Dashboard Manual
 
 <object data="../DashboardManual[PEI].pdf" type="application/pdf" width="700px" height="600px">
-    <embed src="../DashboardManual.pdf">
-        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="../DashboardManual.pdf">Download PDF</a>.</p>
+    <embed src="../DashboardManual[PEI].pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="../DashboardManual[PEI].pdf">Download PDF</a>.</p>
     </embed>
 </object>
 
