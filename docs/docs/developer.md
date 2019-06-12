@@ -60,9 +60,7 @@ rosrun map_server map_saver -f <filename>
 roslaunch intelchair navigation.launch
 ```
 
-The navigation launch runs not only the ros navigation stack but also the localization algorithm and the velocity command parser. This nodes subscribes to the ```/cmd_vel``` topic outputed by the navigation stack when a trajectory to a specified goal was calculated and publishes to the ```/joystick``` topic to which the base controller listens to and sends to the wheelchair's controller.
-
-
+The navigation launch runs not only the ros navigation stack but also the localization algorithm and the velocity command parser. This node subscribes to the ```/cmd_vel``` topic outputed by the navigation stack when a trajectory to a specified goal is calculated. This information is then parsed and redirected to the base controller node to send to the wheelchair's controller.
 
 
 ------------------------
