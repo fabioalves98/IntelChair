@@ -1,6 +1,6 @@
 # Developer
 
-Looking at the the [architecture](architecture/system.md) page we can clearly split our main system in three distinct parts. In this section we are creating some directives on how to deploy each of these individual system parts, and even though it is not an in depth, detailed guide, it helps taking the right steps in to re-creating this project from scratch.
+Looking at the the [architecture](../architecture/system.md) page we can clearly split our main system in three distinct parts. In this section we are creating some directives on how to deploy each of these individual system parts, and even though it is not an in depth, detailed guide, it helps taking the right steps in to re-creating this project from scratch.
 
 # Wheelchair
 

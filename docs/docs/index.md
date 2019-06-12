@@ -34,7 +34,7 @@ You can check videos and description of our tests in the [results](results.md) p
 
 ## How can I contribute?
 
-If you wish to deploy our system or contribute in any way, see how in the [developer](developer.md) page.
+If you wish to deploy our system or contribute in any way, see how in the [developer](/developer/index.md) page.
 
 ## Who are we?
 
