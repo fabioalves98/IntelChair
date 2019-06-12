@@ -15,3 +15,5 @@ function publish_info(topic, msg_type, data){
 	publisher.publish(data);
 }
 ```
+
+In addition to the roslibjs, we used the [nipplejs](https://github.com/yoannmoinet/nipplejs) library to create the joystick that allows the manual control of the chair. Access to information about the system and information exchange is performed through the flask server, using its functions.
