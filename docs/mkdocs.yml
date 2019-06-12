@@ -27,7 +27,10 @@ nav:
         - Restrictions: specification/restrictions.md
         - Requirements: specification/requirements.md
     - Architecture: 
-        - Architecture: architecture.md
+        - System Architecture: architecture/system.md
+        - Wheelchair: architecture/wheelchair.md
+        - Server: architecture/server.md
+        - Mobile Application: architecture/mobile.md
     - Results:
         - Results: results.md
     - Developer:

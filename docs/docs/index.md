@@ -26,7 +26,7 @@ The IntelChair will be used in conjunction with a mobile application with which 
 
 ## How does it work technically?
 
-All the information about implementation details can be consulted in the [architecture](architecture.md) page.
+All the information about implementation details can be consulted in the [architecture](architecture/system.md) page.
 
 ## What where our achievements?
 
