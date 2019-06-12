@@ -1,9 +1,6 @@
 # Developer
 
-Looking at the the [architecture](architecture.md) page we can clearly split our main system in three distinct parts. In this section ...
-
-
-Before diving deep in to the instructions on the deployment, it's worth explaining some of the core parts of the system itself for a better understanding of the technologies used and the code developed along the lifetime of this project.
+Looking at the the [architecture](architecture.md) page we can clearly split our main system in three distinct parts. In this section we are creating some directives on how to deploy each of these individual system parts, and even though it is not an in depth, detailed guide, it helps taking the right steps in to re-creating this project from scratch.
 
 # Wheelchair
 
@@ -66,6 +63,10 @@ roslaunch intelchair navigation.launch
 The navigation launch runs not only the ros navigation stack but also the localization algorithm and the velocity command parser. This nodes subscribes to the ```/cmd_vel``` topic outputed by the navigation stack when a trajectory to a specified goal was calculated and publishes to the ```/joystick``` topic to which the base controller listens to and sends to the wheelchair's controller.
 
 
+
+
+------------------------
+temporary
 
 
 We are using [ROS](http://www.ros.org), which is a collection of software libraries and frameworks for robot development. This is the core part of the chair system. This allows us to have different nodes communicating between each other, exchanging information such as sensor data, robot control data or velocity commands for the robot wheels.
