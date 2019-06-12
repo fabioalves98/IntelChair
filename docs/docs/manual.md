@@ -10,16 +10,16 @@
 
 The controlling of the chair by the end user is done through an app.It can be used on any device that supports a web browser, like a pc, tablet or smartphone.
 
-![multi](../img/app/multiDevice.png)
+![multi](img/app/multiDevice.png)
 
 
 To be able to access the functionalities of the app, the user must enter his login credentials on the login screen. Note that it's not possible to sign up since that is only made by the administrators using the system dashboard (meter link para doc da dashboard).
 
-![login](../img/app/appLogin.png)
+![login](img/app/appLogin.png)
 
 After a successful log in, the following page is displayed to the user.
 
-![connectPage](../img/app/connect.png)
+![connectPage](img/app/connect.png)
 
 1. Username of the current active user.
 2. Menu tab divided in three sections (Manual, Mapping, Navigation),note that the current active tab is blue colored.
@@ -28,7 +28,7 @@ After a successful log in, the following page is displayed to the user.
 
 After the connection with the IntelChair is made (by clicking in **3**) the user is now on "Manual" mode and a (360º) virtual joystick is shown up on the center of the screen. The user can control the chair by dragging the joystick into the desirable orientation.
 
-![manual](../img/app/manual.png)
+![manual](img/app/manual.png)
 
 1. Virtual Joystick 
 2. "EXIT SESSION" button, when clicked the current user disconnects from the IntelChair and the login page is loaded.
@@ -40,7 +40,7 @@ After the connection with the IntelChair is made (by clicking in **3**) the user
 
 #Voice Commands
 
-![voice](../img/app/voice.png)
+![voice](img/app/voice.png)
 
 After activate the voice control the user can perfom the following voice commands:
 

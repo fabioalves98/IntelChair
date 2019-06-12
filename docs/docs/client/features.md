@@ -5,6 +5,7 @@
 * Set and label predefined locations in the map
 * Have the wheelchair travel autonomously between those locations
 
+---
 ## Extra Features
 
 * Interact with the mobile application through voice commands
