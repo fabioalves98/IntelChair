@@ -85,10 +85,8 @@ The server is the centerpiece of our system, as ensures all the communications b
 
 ## Prerequisites
 
-- **SQLite3:** sudo apt install sqlite3
-- **Flask:** sudo pip3 install Flask
-- **Flask-Cors:** sudo pip3 install -U flask-cors
-
+* SQLite 3
+* Flask with flask-cors
 
 ## How to run
 
