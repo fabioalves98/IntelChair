@@ -1,2 +1,2 @@
-The core part of the wheelchair, linking every node in the system, there is a laptop. It communicates with the wheelchair's control unit through a gateway microcontroller and processes information about every sensor in the chair.
+The core part of the wheelchair, linking every node in the system, is a laptop. It communicates with the wheelchair's control unit through a gateway microcontroller and processes information about every sensor in the chair.
 The chair holds a camera for object recognition and collision detection, as well as a Rangefinder sensor and IMU for room mapping and navigation.

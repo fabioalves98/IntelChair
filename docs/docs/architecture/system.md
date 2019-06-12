@@ -12,7 +12,7 @@ The first action an user makes when interacting with the wheelchair, is connecti
 
 ![nav](../img/navigation.png)
 
-Once the mobile application obtains the wheelchair's IP address, it will talk to it directly sending joystick information, in manual control, or a goal in the navigation mode. The wheelchair then updates the mobile application wiht it's position, battery and velocity and the server with other iformation like history of actions.
+Once the mobile application obtains the wheelchair's IP address, it will talk to it directly sending joystick information, in manual control, or a goal in the navigation mode. The wheelchair then updates the mobile application wiht it's position, battery and velocity and the server with other information like history of actions.
 
 ---
 
@@ -20,4 +20,4 @@ Once the mobile application obtains the wheelchair's IP address, it will talk to
 
 ![manage](../img/managment.png)
 
-An administrator is capable of managing the system through a dashboard in which he can add or remove users and wheelchairs. This is needed beacause, as said in the requirements, the control of a wheelchair is exclusive to a single user simultaneously. In the wheelchair section of said dashborad, he can also change it's loaded map and disconnect the current user. He can also access all the existing maps, since each time a new one is generated, it is also stored in the server.
+An administrator is capable of managing the system through a dashboard in which he can add or remove users and wheelchairs. This is needed beacause, as said in the requirements, the control of a wheelchair is exclusive to a single user simultaneously. In the wheelchair section of said dashboard, he can also change it's loaded map and disconnect the current user. He can also access all the existing maps, since each time a new one is generated, it is also stored in the server.
