@@ -34,7 +34,10 @@ nav:
     - Results:
         - Results: results.md
     - Developer:
-        - Developer: developer.md
+        - System Deployment: developer/system.md
+        - Wheelchair: developer/wheelchair.md
+        - Server: developer/server.md
+        - Mobile Application: developer/mobile.md
     - Team: 
         - Team: team/team.md
         - Logook: team/log.md
