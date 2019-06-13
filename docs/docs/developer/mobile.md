@@ -16,4 +16,4 @@ function publish_info(topic, msg_type, data){
 }
 ```
 
-In addition to roslibjs, we used a library called [nipplejs](https://github.com/yoannmoinet/nipplejs)  create the virtual joystick that allows the manual control of the chair. Finally all access to information about the system and information exchange is performed through the flask server, using its functions.
+In addition to roslibjs, we used a library called [nipplejs](https://github.com/yoannmoinet/nipplejs) to create the virtual joystick that allows the manual control of the chair. Finally all access to information about the system and information exchange is performed through the flask server, using its functions.
