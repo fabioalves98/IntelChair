@@ -4,9 +4,12 @@ Our project consists of a motorized wheelchair that can autonomously move itself
 
 ## Team
 
-|_. André Neves |_. Diogo Marques |_. Fábio Alves |_. Marcelo Fraga |_. Marco Silva |_. Miguel Dinis |
-|_. !http://xcoa.av.it.pt/~pei2018-2019_g07/img/team/rsz_neves.jpg! | !http://xcoa.av.it.pt/~pei2018-2019_g07/img/team/rsz_diogo.jpg!| !http://xcoa.av.it.pt/~pei2018-2019_g07/img/team/rsz_fabio.jpg!|!http://xcoa.av.it.pt/~pei2018-2019_g07/img/team/rsz_fraga.jpg!|!http://xcoa.av.it.pt/~pei2018-2019_g07/img/team/rsz_marco.jpg!|!http://xcoa.av.it.pt/~pei2018-2019_g07/img/team/rsz_dinis.jpg!|
-|_.andre.neves98@ua.pt|_.d.marques@ua.pt|_.fabioalves98@ua.pt|_.fraga16@ua.pt|_.masilva@ua.pt|_.miguelfodinis@ua.pt|
+ * André Neves - andre.neves98@ua.pt
+ * Diogo Marques - d.marques@ua.pt
+ * Fábio Alves - fabioalves98@ua.pt
+ * Marcelo Fraga - fraga16@ua.pt
+ * Marco Silva - masilva@ua.pt
+ * Miguel Dinis - miguelfodinis@ua.pt
 
 ## Mentors
 
