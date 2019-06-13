@@ -1,16 +1,16 @@
-# App Manual
+## Mobile Application Manual
 
-<object data="../AppManual[PEI].pdf" type="application/pdf" width="700px" height="600px">
-    <embed src="../AppManual[PEI].pdf">
-        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="../AppManual[PEI].pdf.pdf">Download PDF</a>.</p>
+<object data="../pdf/Application Manual.pdf" type="application/pdf" width="700px" height="600px">
+    <embed src="../pdf/Application Manual.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="../pdf/Application Manual.pdf.pdf">Download PDF</a>.</p>
     </embed>
 </object>
 
-# Dashboard Manual
+## Dashboard Manual
 
-<object data="../DashboardManual[PEI].pdf" type="application/pdf" width="700px" height="600px">
-    <embed src="../DashboardManual[PEI].pdf">
-        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="../DashboardManual[PEI].pdf">Download PDF</a>.</p>
+<object data="../pdf/Dashboard Manual.pdf" type="application/pdf" width="700px" height="600px">
+    <embed src="../pdf/Dashboard Manual.pdf">
+        <p>This browser does not support PDFs. Please download the PDF to view it: <a href="../pdf/Dashboard Manual.pdf">Download PDF</a>.</p>
     </embed>
 </object>
 

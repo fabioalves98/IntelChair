@@ -57,3 +57,48 @@ roslaunch intelchair navigation.launch
 ```
 
 The navigation launch runs not only the ros navigation stack but also the localization algorithm and the velocity command parser. This node subscribes to the ```/cmd_vel``` topic outputed by the navigation stack when a trajectory to a specified goal is calculated. This information is then parsed and redirected to the base controller node to send to the wheelchair's controller.
+
+
+## Follow User
+
+This feature has some pre-requisites that need to be fulfilled before launching it.
+Those are:
+
+ * libopenni-sensor-pointclouds-dev & libopenni-sensor-pointclouds0
+* ROS OpenNI Launch node
+* ROS OpenNI Camera node
+* PrimeSense Sensor Module for [OpenNI](https://github.com/avin2/SensorKinect)
+ * [NITE v1.5.2.23](https://github.com/arnaud-ramey/NITE-Bin-Dev-Linux-v1.5.2.23)
+	
+After completing this pre-requisites it is now possible to launch the system.
+First, is mandatory to recompile the ROS workspace, and after a successful compilation it is finally possible to launch the following nodes.
+
+```
+roslaunch openni_launch openni.launch camera:=openni
+```
+
+This will publish some topics associated to the kinect's rgb and depth cameras.
+After that it's necessary to launch the tracker that uses the pointcloud published from the kinect.
+
+```
+roslaunch openni_tracker openni_tracker.launch
+```
+
+With this node running rviz is necessary to output the track of the human joints that will be detected.
+
+```
+rosrun rviz rviz
+```
+
+To see the kinect output in rviz, change Global Options > Fixed Frame to openni_depth_optical_frame.
+Add the visualization of PointCloud2 and change PointCloud2 > Topic to /openni/depth_registered/points
+Finally, add the visualization of TF and make the "Psi Pose" in front of the kinect.
+
+!!! success ""
+	The kinect can only detect a human figure when in its normal position (Horizontal). In the wheelchair it is mounted vertically so this tracker won't detect the human figure since the pointcloud is rotated 90 deegres. 
+
+	```
+	rosrun pointcloud_rotate tf_pointcloud
+	``` 
+	
+	By running this a new topic is published where the pointcloud is rotated to the original position as if the kinect was horizontally oriented. However with this topic no human figure is detected too, even though the pointcloud is in its original position.
