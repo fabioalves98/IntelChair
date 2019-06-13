@@ -19,7 +19,8 @@
 
 ## Testing Environment
 
-![field](../img/wheelchair/field.jpg){ width="90%"}
+![field](../img/wheelchair/field.jpg){ width="44%"}
+![field](../img/wheelchair/field2.jpg){ width="52%"}
 
 All these tests will be done in the Cambada Football field at IRIS Lab
 

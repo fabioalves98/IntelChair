@@ -32,7 +32,7 @@ nav:
         - Server: architecture/server.md
         - Mobile Application: architecture/mobile.md
     - Outcome:
-        - Results: outcome/results.md
+        - Tests and Results: outcome/results.md
         - Future Work: outcome/future.md
     - Developer:
         - System Deployment: developer/system.md

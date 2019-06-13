@@ -1,6 +1,6 @@
 #IntelChair
 
-  <iframe width="100%" height="425" src="https://www.youtube.com/embed/jOrKNB-G2rE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen onload="this.style.height=this.contentDocument.body.scrollHeight +'px';"></iframe>
+  <iframe width="100%" height="425" src="https://www.youtube.com/embed/OzXEjvss2D0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen onload="this.style.height=this.contentDocument.body.scrollHeight +'px';"></iframe>
 
 <video width="37%" controls muted autoplay loop>
   <source src="rotateFinal.mp4" type="video/mp4" />
