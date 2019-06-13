@@ -31,8 +31,9 @@ nav:
         - Wheelchair: architecture/wheelchair.md
         - Server: architecture/server.md
         - Mobile Application: architecture/mobile.md
-    - Results:
-        - Results: results.md
+    - Outcome:
+        - Results: outcome/results.md
+        - Future Work: outcome/future.md
     - Developer:
         - System Deployment: developer/system.md
         - Wheelchair: developer/wheelchair.md

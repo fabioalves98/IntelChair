@@ -30,7 +30,7 @@ All the information about implementation details can be consulted in the [archit
 
 ## What where our achievements?
 
-You can check videos and description of our tests in the [results](results.md) page.
+You can check videos and description of our tests in the [outcome](outcome/results.md) page.
 
 ## How can I contribute?
 
