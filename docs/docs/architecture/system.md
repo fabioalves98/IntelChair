@@ -1,4 +1,4 @@
-As depicted in the [client](../client/client.md) area, our system is easly divided in three main parts and although each part has their own architecture described in this section, they all interact with each other. 
+As depicted in the [client](../client/client.md) area, our system is easily divided in three main parts and although each part has their own architecture described in this section, they all interact with each other. 
 
 ## Connection
 
