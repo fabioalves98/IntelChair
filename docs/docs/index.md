@@ -28,7 +28,7 @@ The IntelChair will be used in conjunction with a mobile application with which 
 
 All the information about implementation details can be consulted in the [architecture](architecture/system.md) page.
 
-## What where our achievements?
+## What were our achievements?
 
 You can check videos and description of our tests in the [outcome](outcome/results.md) page.
 
