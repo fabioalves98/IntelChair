@@ -2,7 +2,7 @@ Even though the main and core functionality that was initially proposed for the 
 
 #### Travel to user's current location
 
- * One of these ideas, and probably one of the first ones to arise, was the feature of having the chair travel to the user's current location. This consisted on replicating the idea of an uber or a taxi, but it was lately discarded, not because of it's complexity but because our main goal was to first have the chair move to an arbitrary location chosen by the user. Another good reason to discard this feature was the fact that it didn't have an easy fix on how to locate the user on the current existing map.
+ * One of these ideas, and probably one of the first ones to arise, was the feature of having the chair travel to the user's current location. This consisted on replicating the idea of an uber or a taxi, but it was lately discarded, not because of its complexity but because our main goal was to first have the chair move to an arbitrary location chosen by the user. Another good reason to discard this feature was the fact that it didn't have an easy fix on how to locate the user on the current existing map.
 
 #### Self-Docking
 

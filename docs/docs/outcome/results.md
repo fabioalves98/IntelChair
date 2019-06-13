@@ -1,4 +1,4 @@
-Altough the main features are demonstrated well enough in our introductory video, this page serves to showcase all the tests we made in different environments thourghout the development of our project.
+Although the main features are demonstrated well enough in our introductory video, this page serves to showcase all the tests we made in different environments throughout the development of our project.
 
 ## DETI's Room 118
 
@@ -23,4 +23,4 @@ Altough the main features are demonstrated well enough in our introductory video
 <iframe width="49%" height="250" src="https://www.youtube.com/embed/6ZubsxkYugs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
-As seen, the wheelchair is capabale of mapping complex environments, even with people and other moving subjects in it. As for navigation, even though we didn't implemment the dynamic object avoidance, the wheelchair is capable of navigating in obstacle free trajectories in all scenarios.
+As seen, the wheelchair is capable of mapping complex environments, even with people and other moving subjects in it. As for navigation, even though we didn't implement the dynamic object avoidance, the wheelchair is capable of navigating in obstacle free trajectories in all scenarios.
