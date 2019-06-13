@@ -6,6 +6,8 @@
     </embed>
 </object>
 
+---
+
 ## Dashboard Manual
 
 <object data="../pdf/Dashboard Manual.pdf" type="application/pdf" width="700px" height="600px">

@@ -29,8 +29,7 @@ nav:
     - Architecture: 
         - System Architecture: architecture/system.md
         - Wheelchair: architecture/wheelchair.md
-        - Server: architecture/server.md
-        - Mobile Application: architecture/mobile.md
+
     - Outcome:
         - Tests and Results: outcome/results.md
         - Future Work: outcome/future.md
@@ -39,6 +38,7 @@ nav:
         - Wheelchair: developer/wheelchair.md
         - Server: developer/server.md
         - Mobile Application: developer/mobile.md
+        - Tecnologies and Resources: developer/tech.md
     - Team: 
         - Team: team/team.md
         - Logook: team/log.md

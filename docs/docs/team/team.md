@@ -1,4 +1,4 @@
-# Team
+
 We are a group of Computers and Telematics Engineering students at Universidade de Aveiro.
 
 | | | |
@@ -14,7 +14,17 @@ We are a group of Computers and Telematics Engineering students at Universidade 
 
 ---
 
-# Timeline
+## Mentors
+
+* Nuno Lau - nunolau@ua.pt
+* José Luis Azevedo - jla@ua.pt
+* Artur Pereira - artur@ua.pt
+* Bernardo Cunha - f552@ua.pt
+* Eurico Pedrosa - efp@ua.pt
+
+---
+
+## Timeline
 
 <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vT0iav4tlPus3D-tpo2saHtSogIDbF25aZ12TKd37tQIlFm1MOytTkqAVkci_s6U1tpZd2NkQHGLGDW/pubhtml?gid=0&single=true" width="100%" height="350"></iframe>
 

@@ -2,17 +2,23 @@ The core part of the wheelchair, linking every node in the system, is a laptop. 
 The wheelchair holds a camera for object recognition and collision detection, as well as a laser rangefinder and IMU for room mapping and navigation.  
 In the software department, we are using [ROS](http://www.ros.org), which is a collection of software libraries for robot development. This allows us to have different nodes communicating with each other, exchanging information such as sensor data, wheelchair control data or velocity commands for the wheelchair's wheels.
 
+---
+
 ## Manual Control
 
 ![manual](../img/manual.png)
 
 First, and probably the most important node of the system is the base controller node. This is the closest node to the gateway microcontroller of the wheelchair. It is responsible, not only, for reading the latest angular and linear velocity comands sent by the user / navigation stack, sending them to said gateway and making the chair move, but also for publishing all the control information that the chair responds with.
 
+---
+
 ## Mapping
 
 ![manual](../img/mapping.png)
 
 As stated previously, the mapping process is manually controlled by the user with the virtual joystick. To sucessfully generate a map, the wheelchair needs odometry values (change in position over time) and the scan values from the rangefinder. The scan values are provided by the laser driver node which already was present in the ROS libraries. The odometry is generated through a process which involves 2 nodes. The first filters the laser values to a specific angle because the default readings are too wide, and include the back of the wheelchair, which is not supposed to happen. Then we use another node that converts the sucession of laser values to proper odometry values that we can use to feed the mapping algorithm. This mapping algorithm was provided to us by investigator Eurico Pedrosa. Finally, we save the map to a file using another ROS node called map_saver, and transfer it to our server.
+
+---
 
 ## Navigation
 

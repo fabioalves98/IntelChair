@@ -18,6 +18,8 @@ catkin_make
 
 After the workspace compiled the wheelchair system is ready to run. In that sense, some ros launch files are provided to create some abstraction on the current existing nodes.
 
+---
+
 ## Basic wheelchair functionality
 
 ```
@@ -30,6 +32,7 @@ It's also worth mentioning that a range finder to odometry node is launched to g
 
 Finally, a server connection node is also launched creating the first connection between the chair itself and the already running server. Since what this node does essentially is take the wheelchair's laptop ip and send it to the server for it to store, we have to specify the laptop's interface and the correct server ip before running the node.
 
+---
 
 ## Mapping
 
@@ -49,6 +52,7 @@ and end the current mapping process by stopping the pf_slam2d node and saving th
 rosrun map_server map_saver -f <filename>
 ```
 
+---
 
 ## Navigation
 
@@ -58,6 +62,7 @@ roslaunch intelchair navigation.launch
 
 The navigation launch runs not only the ros navigation stack but also the localization algorithm and the velocity command parser. This node subscribes to the ```/cmd_vel``` topic outputed by the navigation stack when a trajectory to a specified goal is calculated. This information is then parsed and redirected to the base controller node to send to the wheelchair's controller.
 
+---
 
 ## Follow User
 

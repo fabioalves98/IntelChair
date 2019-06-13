@@ -6,11 +6,15 @@ Altough the main features are demonstrated well enough in our introductory video
 
 <iframe width="49%" height="250" src="https://www.youtube.com/embed/5vDdR6S1piU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
+---
+
 ## DETI's Hallway
 
 <iframe width="49%" height="250" src="https://www.youtube.com/embed/LQTU8Fd02Do" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 <iframe width="49%" height="250" src="https://www.youtube.com/embed/dr8DjPcUtcI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+---
 
 ## Students@DETI
 
