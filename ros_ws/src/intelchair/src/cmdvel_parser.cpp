@@ -13,7 +13,7 @@ void parseCmdvel(const geometry_msgs::Twist::ConstPtr& msg)
     geometry_msgs::Point j;
     j.x = msg->linear.x * 50;
     
-    // Martelado
+    // Assuring minimun speed
     if (j.x < 30 && j.x > 0)
     {
         j.x = 30;

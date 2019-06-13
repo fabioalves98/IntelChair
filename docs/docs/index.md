@@ -14,11 +14,11 @@
 
 ## What is the IntelChair?
 
-IntelChair consists of a motorized wheelchair that can autonomously move itself in a known environment, giving the user the ability of hands free mobility while sitting in the chair. For more details visit the [client](client/client.md) page.
+IntelChair consists of a motorized wheelchair that can autonomously move itself in a known environment, giving the user the ability of hands free mobility while sitting in the wheelchair. For more details visit the [client](client/client.md) page.
 
 ## Who will use it?
 
-With this project we don't have a particular target audience. Anyone can use our chair, but it is possible to find more information on use cases and scenarios in the [vision](vision/personas.md) page.
+With this project we don't have a particular target audience. Anyone can use our wheelchair, but it is possible to find more information on use cases and scenarios in the [vision](vision/personas.md) page.
 
 ## How will it be used?
 
