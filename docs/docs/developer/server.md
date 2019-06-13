@@ -1,6 +1,6 @@
 # Server
 
-The server is the centerpiece of our system, as ensures all the communications between the web application, the wheelchair, the dashboard and the database. It is what connects everything in order to have a functional product. We decided to use [Flask](http://flask.pocoo.org/docs/1.0/) to build our application and [SQLite](https://www.sqlite.org/index.html) to manage our database. Before you test anything, make sure you install the packages at the Prerequisites section below.
+The server is the centerpiece of our system, as ensures all the communications between the web application, the wheelchair, the dashboard and the database. It is what connects everything in order to have a functional product. We decided to use [Flask](http://flask.pocoo.org/docs/1.0/) to build our server and [SQLite](https://www.sqlite.org/index.html) to manage our database. Before you test anything, make sure you install the packages at the Prerequisites section below.
 
 ## Prerequisites
 
@@ -80,7 +80,7 @@ If a user with the given username already exists, the server will not add or ove
 
 <br>
 
-# Chairs
+## Chairs
 ### List all chairs
 
 **Definition**
@@ -140,7 +140,7 @@ If a chair with the given name already exists, the server will not add or overwr
 
 <br>
 
-# History
+## History
 ### List history
 
 **Definition**
@@ -169,7 +169,7 @@ If a chair with the given name already exists, the server will not add or overwr
 
 <br>
 
-# Maps
+## Maps
 ### List all maps
 
 **Definition**
